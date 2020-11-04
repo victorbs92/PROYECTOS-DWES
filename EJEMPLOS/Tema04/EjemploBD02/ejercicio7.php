@@ -14,7 +14,7 @@
     if(isset($_POST['producto'])) $producto=$_POST['producto'];
     
     try{
-        $dwes=new PDO ("mysql:host=localhost;dbname=dwes","root","admin");
+        $dwes=new PDO ('mysql:host=localhost;dbname=dwes','dwes2','abc123');
         $dwes->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
     }
     catch (PDOException $e){

@@ -13,7 +13,7 @@
 <?php
     if(isset($_POST['producto'])) $producto=$_POST['producto'];
     
-    @ $dwes=new PDO ("mysql:host=localhost;dbname=dwes","root","admin");
+    @ $dwes=new PDO ('mysql:host=localhost;dbname=dwes','dwes2','abc123');
     
         // Comprobamos si tenemos que actualizar los valores
         if(isset($_POST['actualiz']))

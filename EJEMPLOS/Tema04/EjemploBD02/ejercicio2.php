@@ -13,7 +13,7 @@
 <?php
     if(isset($_POST['producto'])) $producto=$_POST['producto'];
     
-    @ $dwes=new mysqli("localhost","root","admin","dwes");
+    @ $dwes=new mysqli('localhost', 'dwes2', 'abc123', 'dwes');
     $error=$dwes->connect_errno;
     
     if($error==null){

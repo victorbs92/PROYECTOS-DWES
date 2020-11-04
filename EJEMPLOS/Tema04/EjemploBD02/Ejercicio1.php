@@ -13,14 +13,14 @@
     <body>
         <div id="encabezado">
         <h1>Ejercicio: Conjuntos de resultados en MySQLi</h1>
-        <form id="form_seleccion" action="index.php" method="post">
+        <form id="form_seleccion" action="" method="post">
             <span>Producto: </span>
             <select name="producto">
 <?php
 
     if (isset($_POST['producto'])) $producto=$_POST['producto'];
     // Rellenamos el desplegable con los datos de todos los productos
-    @ $dwes=new mysqli("localhost","root","admin","dwes");
+    @ $dwes=new mysqli('localhost', 'dwes', 'abc123', 'dwes');
     $error=$dwes->connect_errno;
     if($error==null){
         $sql="SELECT cod, nombre_corto FROM producto";
