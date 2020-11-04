@@ -1,6 +1,6 @@
 <?php
 //Conectamos a la base de datos
-$conexion=mysqli_connect('localhost', 'dwes2', 'abc123', 'dwes');
+$conexion=mysqli_connect('localhost', 'dwes', 'abc123', 'dwes');
 
 //Evitamos que salgan errores por variables vac’as
 error_reporting(E_ALL ^ E_NOTICE);

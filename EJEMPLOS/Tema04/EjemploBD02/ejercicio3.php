@@ -10,7 +10,7 @@
     </head>
     <body>
 <?php
-    @ $dwes=new mysqli('localhost', 'dwes2', 'abc123', 'dwes');
+    @ $dwes=new mysqli('localhost', 'dwes', 'abc123', 'dwes');
     $error = $dwes->connect_errno;
     if ($error!=null){
         print"<p>Se ha producido el error: $dwes->connect_error.</p>";

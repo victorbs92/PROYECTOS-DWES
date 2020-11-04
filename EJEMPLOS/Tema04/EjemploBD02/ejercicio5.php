@@ -18,7 +18,7 @@
 
     if (isset($_POST['producto'])) $producto=$_POST['producto'];
     // Rellenamos el desplegable con los datos de todos los productos
-    @ $dwes=new PDO ('mysql:host=localhost;dbname=dwes','dwes2','abc123');
+    @ $dwes=new PDO ('mysql:host=localhost;dbname=dwes','dwes','abc123');
     
         $sql="SELECT cod, nombre_corto FROM producto";
         $resultado=$dwes->query($sql);

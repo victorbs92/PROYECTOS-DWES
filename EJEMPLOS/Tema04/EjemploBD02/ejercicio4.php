@@ -10,7 +10,7 @@
 
     <body>
 <?php
-    $dwes=new PDO('mysql:host=localhost;dbname=dwes','dwes2','abc123');
+    $dwes=new PDO('mysql:host=localhost;dbname=dwes','dwes','abc123');
 
     // Definimos una variable para comprobar la ejecucio?n de las consultas
     $todo_bien=true;
