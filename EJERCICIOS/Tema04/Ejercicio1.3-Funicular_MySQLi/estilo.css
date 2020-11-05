@@ -3,11 +3,6 @@
     Author     : ivan
 */
 
-ody {
-    background-color: red;
-}
-
-
 :-moz-placeholder {
     color: blue;
 }
@@ -97,17 +92,17 @@ form input:focus, form textarea:focus {
 
 /* Estilos de validación HTML5 */
 form input:required, form textarea:required {
-    background: #fff url(../icons/Víctor Bartolomé Sivelo - asteriscoRojo.png) no-repeat 98% center;
+    background: #fff url(icons/Víctor Bartolomé Sivelo - asteriscoRojo.png) no-repeat 98% center;
 }
 
 form input:required:valid, form textarea:required:valid {
-    background: #fff url(../icons/Víctor Bartolomé Sivelo - valid.png) no-repeat 98% center;
+    background: #fff url(icons/Víctor Bartolomé Sivelo - valid.png) no-repeat 98% center;
     box-shadow: 0 0 5px #5cd053;
     border-color: #28921f;
 }
 
 form input:focus:invalid, form textarea:focus:invalid {
-    background: #fff url(../icons/Víctor Bartolomé Sivelo - invalid.png) no-repeat 98% center;
+    background: #fff url(icons/Víctor Bartolomé Sivelo - invalid.png) no-repeat 98% center;
     box-shadow: 0 0 5px #d45252;
     border-color: #b03535;
 }
@@ -138,7 +133,7 @@ form input:focus + .consejo {
     display: inline;
 }
 
-.formulario input:required:valid + .consejo {
+form input:required:valid + .consejo {
     background: #28921f;
 }
 
