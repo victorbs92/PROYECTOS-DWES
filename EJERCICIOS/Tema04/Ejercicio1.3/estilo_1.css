@@ -1,0 +1,11 @@
+/* General */
+   BODY {font-family: verdana,arial, sans-serif; font-size: 10pt;}
+
+/* Contenido */
+   H1 {font-size: 16pt; font-weight: bold; color: #0066CC;}
+   H2 {font-size: 12pt; font-weight: bold; font-style: italic; color: black;}
+   H3 {font-size: 10pt; font-weight: bold; color: black;}
+
+/* Tablas */
+   TH {font-size: 10pt; font-weight: bold; color: white; background: #0066CC; text-align: left;}
+   TD {font-size: 10pt; background: #CCCCCC;}
