@@ -3,10 +3,15 @@
     Author     : ivan
 */
 
+ody {
+    background-color: red;
+}
+
+
 :-moz-placeholder {
     color: blue;
 }
- 
+
 ::-webkit-input-placeholder {
     color: green;
 }
@@ -18,28 +23,26 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 .contact_form h2, .contact_form label {font-family:Georgia, Times, "Times New Roman", serif;}
 .form_hint, .required_notification {font-size: 11px;}
 
-
-
-.formulario ul {
+form ul{
     width:750px;
     list-style-type:none;
     list-style-position:outside;
     margin:0px;
     padding:0px;
 }
-.formulario li{
+form li{
     padding:12px; 
     border-bottom:1px solid #eee;
     position:relative;
 }
 
 
-.formulario li:first-child, .formulario li:last-child {
+form li:first-child, .formulario li:last-child {
     border-bottom:1px solid #777;
 }
 
 
-.formulario h2 {
+form h2{
     margin:0;
     display: inline;
 }
@@ -53,24 +56,24 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 
 
 
-.formulario label {
+form label {
     width:150px;
     margin-top: 3px;
     display:inline-block;
     float:left;
     padding:3px;
 }
-.formulario input {
+form input {
     height:20px; 
     width:220px; 
     padding:5px 8px;
 }
-.formulario select {
+form select {
     height:30px; 
     width:238px; 
     padding:5px 8px;
 }
-.formulario button {margin-left:156px;}
+form button {margin-left:156px;}
 
 
 
@@ -80,12 +83,12 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 
 
 
-.formulario input, .formulario textarea { 
+form input, form textarea { 
     border:1px solid #aaa;
     box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
     border-radius:2px;
 }
-.formulario input:focus, .formulario textarea:focus {
+form input:focus, form textarea:focus {
     background: #fff; 
     border:1px solid #555; 
     box-shadow: 0 0 3px #aaa; 
@@ -93,18 +96,18 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 
 
 /* Estilos de validación HTML5 */
-.formulario input:required, .formulario textarea:required {
-    background: #fff url(../images/asteriscoRojo.png) no-repeat 98% center;
+form input:required, form textarea:required {
+    background: #fff url(../icons/Víctor Bartolomé Sivelo - asteriscoRojo.png) no-repeat 98% center;
 }
 
-.formulario input:required:valid, .formulario textarea:required:valid {
-    background: #fff url(../images/valid.png) no-repeat 98% center;
+form input:required:valid, form textarea:required:valid {
+    background: #fff url(../icons/Víctor Bartolomé Sivelo - valid.png) no-repeat 98% center;
     box-shadow: 0 0 5px #5cd053;
     border-color: #28921f;
 }
 
-.formulario input:focus:invalid, .formulario textarea:focus:invalid {
-    background: #fff url(../images/invalid.png) no-repeat 98% center;
+form input:focus:invalid, form textarea:focus:invalid {
+    background: #fff url(../icons/Víctor Bartolomé Sivelo - invalid.png) no-repeat 98% center;
     box-shadow: 0 0 5px #d45252;
     border-color: #b03535;
 }
@@ -131,7 +134,7 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
     left: -6px;
 }
 
-.formulario input:focus + .consejo {
+form input:focus + .consejo {
     display: inline;
 }
 
@@ -139,7 +142,7 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
     background: #28921f;
 }
 
-.formulario input:required:valid + .consejo::before {
+form input:required:valid + .consejo::before {
     color: #28921f;
 }
 
@@ -185,5 +188,5 @@ button.submit:active {
     -moz-box-shadow: 0 0 10px 5px #356b0b inset;
     -ms-box-shadow: 0 0 10px 5px #356b0b inset;
     -o-box-shadow: 0 0 10px 5px #356b0b inset;
-     
+
 }

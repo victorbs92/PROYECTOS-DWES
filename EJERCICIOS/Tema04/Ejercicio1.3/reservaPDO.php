@@ -42,7 +42,7 @@ and open the template in the editor.
             $error=$dwes->connect_errno;
             if($error==null){
                 //guardamos la instruccion sql en una variable
-                $sql="SELECT * FROM plazas";
+                $sql="SELECT * FROM plazas where reservada != 1";
                 //ejecutamos la consulta con el query podemos meter la linea 32 y funciona igual
                 $resultado=$dwes->query($sql);
                 if($resultado){
