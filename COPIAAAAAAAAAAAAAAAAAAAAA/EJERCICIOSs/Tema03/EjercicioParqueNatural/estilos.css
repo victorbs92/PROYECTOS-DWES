@@ -1,0 +1,18 @@
+table.reservas {
+    font-size: 90%;
+    background-color: #EFD3B3;
+    text-align: center;
+    margin: 10px auto;
+    width: 410px;
+    border: #BF823B 1px solid;
+}
+table.reservas td {
+    background-color: #EFFFEF;
+}
+table.reservas th {
+    background-color: #EFD3B3;
+    color: #5F8F11;
+}
+table.reservas td.titulo {
+    background-color: #D6EFC2;
+}

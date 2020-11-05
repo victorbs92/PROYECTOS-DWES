@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <!--
+        Realizar una página web llamada tabla.html que contenga un formulario 
+        con un cuadro de texto y un botón con el siguiente esquema:
+        Al pulsar sobre el botón “Enviar datos”, cargará la página datos_tabla.php 
+        que recibirá el número entero introducido en el formulario como parámetro 
+        y mostrará la tabla de multiplicar de ese número desde el 1 al 10. Por 
+        ejemplo, si se introdujo en el cuadro de texto del formulario el número 7, 
+        al pulsar el botón Enviar datos, la página php que carga mostrará:
+        Donde “Volver” será un enlace a la página inicial tabla.html. 
+        -->
+
+        <fieldset>
+            <h1>TABLA DE MULTIPLICAR</h1>
+            <form action="datos_tabla.php" method="post">
+
+                <p>
+                    <label for="numero">Introduzca un número entero </label>
+                    <input type="number" name="numero" id="numero">
+                </p>
+                <p>
+                    <input type="submit" value="Enviar datos">
+                </p>
+
+            </form>
+        </fieldset>
+    </body>
+</html>
