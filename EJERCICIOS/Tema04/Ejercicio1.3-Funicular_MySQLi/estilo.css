@@ -18,26 +18,26 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 .contact_form h2, .contact_form label {font-family:Georgia, Times, "Times New Roman", serif;}
 .form_hint, .required_notification {font-size: 11px;}
 
-form ul{
+.formulario ul {
     width:750px;
     list-style-type:none;
     list-style-position:outside;
     margin:0px;
     padding:0px;
 }
-form li{
+.formulario li{
     padding:12px; 
     border-bottom:1px solid #eee;
     position:relative;
 }
 
 
-form li:first-child, .formulario li:last-child {
+.formulario li:first-child, .formulario li:last-child {
     border-bottom:1px solid #777;
 }
 
 
-form h2{
+.formulario h2 {
     margin:0;
     display: inline;
 }
@@ -51,24 +51,24 @@ form h2{
 
 
 
-form label {
+.formulario label {
     width:150px;
     margin-top: 3px;
     display:inline-block;
     float:left;
     padding:3px;
 }
-form input {
+.formulario input {
     height:20px; 
     width:220px; 
     padding:5px 8px;
 }
-form select {
+.formulario select {
     height:30px; 
     width:238px; 
     padding:5px 8px;
 }
-form button {margin-left:156px;}
+.formulario button {margin-left:156px;}
 
 
 
@@ -78,12 +78,12 @@ form button {margin-left:156px;}
 
 
 
-form input, form textarea { 
+.formulario input, .formulario textarea { 
     border:1px solid #aaa;
     box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
     border-radius:2px;
 }
-form input:focus, form textarea:focus {
+.formulario input:focus, .formulario textarea:focus {
     background: #fff; 
     border:1px solid #555; 
     box-shadow: 0 0 3px #aaa; 
@@ -91,17 +91,17 @@ form input:focus, form textarea:focus {
 
 
 /* Estilos de validación HTML5 */
-form input:required, form textarea:required {
+.formulario input:required, form textarea:required {
     background: #fff url(icons/Víctor Bartolomé Sivelo - asteriscoRojo.png) no-repeat 98% center;
 }
 
-form input:required:valid, form textarea:required:valid {
+.formulario input:required:valid, form textarea:required:valid {
     background: #fff url(icons/Víctor Bartolomé Sivelo - valid.png) no-repeat 98% center;
     box-shadow: 0 0 5px #5cd053;
     border-color: #28921f;
 }
 
-form input:focus:invalid, form textarea:focus:invalid {
+.formulario input:focus:invalid, form textarea:focus:invalid {
     background: #fff url(icons/Víctor Bartolomé Sivelo - invalid.png) no-repeat 98% center;
     box-shadow: 0 0 5px #d45252;
     border-color: #b03535;
@@ -129,15 +129,15 @@ form input:focus:invalid, form textarea:focus:invalid {
     left: -6px;
 }
 
-form input:focus + .consejo {
+.formulario input:focus + .consejo {
     display: inline;
 }
 
-form input:required:valid + .consejo {
+.formulario input:required:valid + .consejo {
     background: #28921f;
 }
 
-form input:required:valid + .consejo::before {
+.formulario input:required:valid + .consejo::before {
     color: #28921f;
 }
 
@@ -146,7 +146,7 @@ form input:required:valid + .consejo::before {
 
 
 /* Estilos del botón */
-button.submit {
+.boton {
     background-color: #68b12f;
     background: -webkit-gradient(linear, left top, left bottom, from(#68b12f), to(#50911e));
     background: -webkit-linear-gradient(top, #68b12f, #50911e);
@@ -172,16 +172,16 @@ button.submit {
     text-align: center;
     text-shadow: 0 -1px 0 #396715;
 }
-button.submit:hover {
+.boton:hover {
     opacity:.85;
     cursor: pointer; 
 }
-button.submit:active {
+.boton:active {
     border: 1px solid #20911e;
     box-shadow: 0 0 10px 5px #356b0b inset; 
     -webkit-box-shadow:0 0 10px 5px #356b0b inset ;
     -moz-box-shadow: 0 0 10px 5px #356b0b inset;
     -ms-box-shadow: 0 0 10px 5px #356b0b inset;
     -o-box-shadow: 0 0 10px 5px #356b0b inset;
-
+     
 }

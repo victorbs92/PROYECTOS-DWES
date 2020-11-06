@@ -8,7 +8,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Gestión del funicular</title>
-        <link href="css/estilo.css" rel="stylesheet" type="text/css">
+        <link href="estilo.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <h1>Reserva de asiento</h1>
