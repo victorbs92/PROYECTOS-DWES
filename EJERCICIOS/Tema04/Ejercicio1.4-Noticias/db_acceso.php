@@ -1,8 +1,8 @@
 <?php
 
-$dsn = 'mysql:host=localhost;dbname=lindavista';
-$usuario = 'dwes';
-$contraseña = 'abc123';
+@$dsn = 'mysql:host=localhost;dbname=lindavista';
+@$usuario = 'dwes';
+@$contraseña = 'abc123';
 
 
 try {
