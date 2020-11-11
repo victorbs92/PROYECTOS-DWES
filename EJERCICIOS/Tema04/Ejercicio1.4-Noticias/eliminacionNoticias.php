@@ -13,10 +13,6 @@ and open the template in the editor.
         <h1>Eliminación de noticias</h1>
 
         <?php
-//        @$titulo = $_POST['titulo'];
-//        @$texto = $_POST['texto'];
-//        @$categoria = $_POST['categoria'];
-//        $fecha = date("Y-m-d");
         //incluimos el acceso a la BD
         include './db_acceso.php';
 
