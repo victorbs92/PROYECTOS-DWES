@@ -44,14 +44,7 @@ and open the template in the editor.
                     print ("</tr>");
 
                     //CUERPO DE LA TABLA
-                    print ("<tr>"); //ponemos todo este bloque de codigo porque al haber usado el fetch anteriormente cuando lo volvemos a usar en el while empieza a contar desde la 2ª columna
-                    print ("<td>" . $nombreColumn['titulo'] . "</td>");
-                    print ("<td>" . $nombreColumn['texto'] . "</td>");
-                    print ("<td>" . $nombreColumn['categoria'] . "</td>");
-                    print ("<td>" . $nombreColumn['fecha'] . "</td>");
-                    print ("<td>" . "<input type='checkbox' name=chkBorrar[] value=$nombreColumn[id]>" . "</td>");
-                    print ("</tr>");
-
+                    $resultado->execute();
                     while ($datos = $resultado->fetch()) {
                         print ("<tr>");
                         print ("<td>" . $datos['titulo'] . "</td>");
