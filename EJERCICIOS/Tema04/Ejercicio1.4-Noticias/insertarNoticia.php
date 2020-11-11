@@ -31,6 +31,7 @@ and open the template in the editor.
 
                         //si tenemos conexion...
                         if ($conexion) {
+
                             //guardamos la consulta sql en una variable
                             $sqlConsultaCategorias = "SELECT DISTINCT categoria FROM noticias";
 
@@ -45,6 +46,8 @@ and open the template in the editor.
                                     echo"${datos[0]}</option>";
                                 }
                             }
+
+                            unset($conexion); //Cerramos la conexion
                         }
                         ?>
                     </select>
@@ -56,31 +59,6 @@ and open the template in the editor.
             NOTA: los datos marcados con (*) deben ser rellenados obligatoriamente.
         </p>
         <?php
-        if (isset($_POST['insertarNoticia'])) {
-
-            @$titulo = $_POST['titulo'];
-            @$texto = $_POST['texto'];
-            @$categoria = $_POST['categoria'];
-            $fecha = date("Y-m-d");
-
-            $todo_bien = true; // Definimos una variable para comprobar la ejecución
-            $conexion->beginTransaction(); // Iniciamos la transacción
-
-            $sqlInsertarNoticia = "INSERT INTO noticias VALUES ('$titulo', '$texto', '$categoria', '$fecha')";
-            if ($conexion->exec($sqlInsertarNoticia) == 0) {
-                $todo_bien = false; //Si hay error ponemos false
-            }
-
-            // Si todo fue bien, confirmamos los cambios y en caso contrario los deshacemos
-            if ($todo_bien == true) {
-                $conexion->commit();
-//                print "<p>Se han actualizado los datos.</p>";
-//                print "<p>Se ha reservado el asiento ${'asiento'}";
-            } else {
-                $conexion->rollback();
-//                print "<p>No se han podido realizar los cambios.</p>";
-            }
-        }
         ?>
     </body>
 </html>
