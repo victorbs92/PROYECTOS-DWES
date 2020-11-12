@@ -1,0 +1,4 @@
+AuthName "Este sitio es privado, identificate primero."
+AuthType Basic
+AuthUserFile C:\xampp\htdocs\PROYECTOS-DWES\EJERCICIOS\Tema05\Ejercicio1-htacces\usuarios
+require valid-user
