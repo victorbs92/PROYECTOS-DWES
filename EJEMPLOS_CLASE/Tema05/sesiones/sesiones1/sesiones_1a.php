@@ -1,7 +1,7 @@
 <?php 
 
 
-//ini_set("session.save_handler", "files"); 
+ini_set("session.save_handler", "files"); 
 session_start();
 
 print "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?" . ">\n"; 
@@ -65,7 +65,7 @@ if ($nombreOk) {
 </form>\n";
 }
 
-print "<p><a href=\"sesiones_1.html\">Volver al formulario.</a></p>\n";
+print "<p><a href=\"index.php\">Volver al formulario.</a></p>\n";
 ?>
 
 
