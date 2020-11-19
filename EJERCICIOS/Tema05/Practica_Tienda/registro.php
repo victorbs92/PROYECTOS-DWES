@@ -59,10 +59,6 @@ and open the template in the editor.
             }
         }
 
-
-        // header("Location: ./productos.php"); //redirigimos a la pg productos.php
-
-
         if (isset($_POST['login'])) {
             //incluimos el acceso a la BD
             include './db_acceso.php';
@@ -71,22 +67,26 @@ and open the template in the editor.
             @$user = $_POST['user'];
             @$pass = $_POST['pass'];
 
-            $sqlInsertarUsuario = "INSERT INTO usuarios VALUES ('NULL','$user','$pass')"; //consulta para insertar un nuevo usuario en la BD
+            $sqlComprobarUsuario = "SELECT * FROM `usuarios` WHERE nick = '$user' AND pass = '$pass'"; //consulta para comprobar que el usuario existe en la BD
 
-            if (!$conexion->query($sqlInsertarUsuario)) {//si la consulta devuelve false
-                $errorCode = mysqli_errno($conexion); //guardamos en una variable el codigo del error
+            $resultado = $conexion->query($sqlComprobarUsuario); //ejecutamos la consulta y guardamos el resultado que devuelve (el nº de filas afectadas) en una variable
 
-                if ($errorCode == 1062) { //1062 = codigo de error para intentar insertar un dato duplicado en la tabla en el campo usuario porque esta como UNIQUE
-                    print "<p>El usuario ya existe.</p>";
-                } else {
-                    $conexion->rollback(); //hacemos rollbacak
-                    $conexion->close(); //cerramos la conexion
-                    print "<p>ERROR.</p>";
-                }
-            } else {//si la consulta salió bien
-                $conexion->commit(); //hacemos commit
+            $row = $resultado->fetch_array(); //guardamos las filas afectadas en un array, si no hay filas afectas devuelve null
+
+            if ($row == null) {//si el array es nulo
                 $conexion->close(); //cerramos la conexion
-                print "<p>Usuario creado con éxito.</p>";
+                print "<p>Usuario o contraseña incorrectas.</p>";
+            } else {//si el array es distinto de null
+                $conexion->close(); //cerramos la conexion
+                //SESION
+                if (!isset($_SESSION)) {//comprobamos si no existe la sesion
+                    session_start(); //creamos una sesion
+                } else {//si ya existe la sesion la destruimos y creamos una nueva
+                    session_destroy();
+                    session_start();
+                }
+                $_SESSION['nombreUsuario'] = $user; //guardamos el usuario en la sesion
+                header("Location: ./productos.php"); //redirigimos a la pg productos.php
             }
         }
         ?>
