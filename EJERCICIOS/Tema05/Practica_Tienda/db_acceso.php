@@ -8,8 +8,8 @@ if ($error != null) {
     print"<p>Se ha producido el error: $conexion->connect_error.</p>";
     exit();
 } else {
-    print ("Connected successfully");
-    print $conexion->server_info;
+    //print ("Connected successfully");
+    //print $conexion->server_info;
 }
 ?>
 
