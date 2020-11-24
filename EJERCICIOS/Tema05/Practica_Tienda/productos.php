@@ -14,7 +14,7 @@ and open the template in the editor.
         <?php
         if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
             ?>
-            <input type = "submit" name = "cerrarSesion" value = "Cerrar Sesión">
+            <input type = "submit" name="cerrarSesion" value="Cerrar Sesión" form="productos">
             <form id = "productos" action = "productos.php" method = "post">
                 <fieldset>
                     <legend>
@@ -73,6 +73,7 @@ and open the template in the editor.
                             print "<th><input type='submit' value='Añadir' name='añadir[$idValue]'></th>"; //el name será un array y su indice será el idValue
                             print ("</tr>");
                         }
+                        print "</table>";
 
                         $resultadoConsulta->close(); //cerramos la consulta
                         $conexion->close(); //cerramos la conexion
@@ -96,6 +97,7 @@ and open the template in the editor.
                                 $_SESSION['cesta'] = $cesta; //creamos cestaSession y guardamos en ella el array anterior
                             }
 
+                            $totalEuros = 0;
                             print "<ul>"; //mostramos la cesta en una lista desordenada
                             for ($index1 = 0; $index1 < count($_SESSION['cesta']); $index1++) {
                                 print "<li>";
@@ -103,20 +105,26 @@ and open the template in the editor.
                                 print " --- " . $_SESSION['cesta'][$index1]['nombreProducto'];
                                 print " --- " . $_SESSION['cesta'][$index1]['precio'] . "€";
                                 print "</li>";
+                                $totalEuros += $_SESSION['cesta'][$index1]['precio'];
                             }
-
                             print "</ul>";
+                            print "TOTAL PRODUCTOS EN LA CESTA: " . count($_SESSION['cesta']) . "   IMPORTE: " . $totalEuros . "€";
                         } else {
                             print 'Aún no hay nada por aquí';
                         }
 
                         if (isset($_POST['comprar'])) { //si se ha pulsado el boton comprar
                             if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
+                                header("Location: ./cesta.php"); //redirigimos a la pg cesta.php
                             }
                         }
 
                         if (isset($_POST['vaciar'])) { //si se ha pulsado el boton vaciar carrito
-                            unset($_SESSION['cesta']);
+                            unset($_SESSION['cesta']); //destruimos cestaSession
+                        }
+
+                        if (isset($_POST['cerrarSesion'])) { //si se ha pulsado el boton de cerrar sesion
+                            header("Location: ./logoff.php"); //redirigimos a la pg logoff.php
                         }
                         ?>
                     </p>
