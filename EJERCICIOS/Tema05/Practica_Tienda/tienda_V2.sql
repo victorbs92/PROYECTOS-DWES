@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2020 a las 12:05:04
+-- Tiempo de generación: 24-11-2020 a las 03:03:22
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -31,16 +31,17 @@ CREATE TABLE `productos` (
   `idProducto` int(11) NOT NULL,
   `nombreProducto` varchar(30) NOT NULL,
   `stock` int(11) NOT NULL,
-  `precio` int(11) NOT NULL
+  `precio` int(11) NOT NULL,
+  `imagen` varchar(30) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`idProducto`, `nombreProducto`, `stock`, `precio`) VALUES
-(1, 'Camiseta', 50, 10),
-(2, 'Sudadera', 100, 20);
+INSERT INTO `productos` (`idProducto`, `nombreProducto`, `stock`, `precio`, `imagen`) VALUES
+(1, 'Camiseta', 50, 10, 'camisetaNegra'),
+(2, 'Sudadera', 100, 20, 'sudaderaNegra');
 
 -- --------------------------------------------------------
 
@@ -60,7 +61,13 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`idUsuario`, `nick`, `pass`) VALUES
 (1, 'aaa', 'aaa'),
-(2, 'bbb', 'bbb');
+(2, 'bbb', 'bbb'),
+(5, 'dwes', 'abc123'),
+(11, 'ccc', 'abc123'),
+(16, 'ddd', 'ddd'),
+(24, 'dwess', 'abc123'),
+(35, 'dwesff', 'abc123'),
+(39, 'dwesasd', 'abc123');
 
 --
 -- Índices para tablas volcadas
@@ -78,7 +85,7 @@ ALTER TABLE `productos`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`idUsuario`),
-  ADD UNIQUE KEY `indexNick` (`nick`);
+  ADD UNIQUE KEY `nickUNIQUE` (`nick`) USING BTREE;
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -88,13 +95,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=358;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
