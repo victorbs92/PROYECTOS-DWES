@@ -84,6 +84,7 @@ and open the template in the editor.
                 } else {//si ya existe la sesion la destruimos y creamos una nueva
                     session_destroy();
                     session_start();
+                    
                 }
                 $_SESSION['nombreUsuario'] = $user; //guardamos el usuario en la sesion
                 header("Location: ./productos.php"); //redirigimos a la pg productos.php
