@@ -67,7 +67,7 @@ and open the template in the editor.
             @$user = $_POST['user'];
             @$pass = $_POST['pass'];
 
-            $sqlComprobarUsuario = "SELECT * FROM `usuarios` WHERE nick = '$user' AND pass = '$pass'"; //consulta para comprobar que el usuario existe en la BD
+            $sqlComprobarUsuario = "SELECT * FROM usuarios WHERE nick = '$user' AND pass = '$pass'"; //consulta para comprobar que el usuario existe en la BD
 
             $resultado = $conexion->query($sqlComprobarUsuario); //ejecutamos la consulta y guardamos el resultado que devuelve (el nº de filas afectadas) en una variable
 
