@@ -12,6 +12,7 @@ and open the template in the editor.
     <body>
         <?php
         if (!isset($_SESSION)) {//comprobamos si no existe la sesion
+            
             print "ERROR.";
         } else {//si ya existe la sesion 
             if (isset($_SESSION['nombreUsuario']) && isset($_SESSION['claveUsuario'])) {//comprobamos si las variables de session existen
