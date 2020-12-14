@@ -12,6 +12,13 @@ and open the template in the editor.
     <body>
 
         <?php
+        if (!isset($_SESSION)) {//comprobamos si no existe la sesion
+            session_start(); //creamos una sesion
+        } else {//si ya existe la sesion la destruimos y creamos una nueva
+            session_destroy();
+            session_start();
+        }
+        
         if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
             ?>
             <input type = "submit" name="cerrarSesion" value="Cerrar Sesión" form="productos">

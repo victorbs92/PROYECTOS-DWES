@@ -17,6 +17,13 @@ and open the template in the editor.
                     <h1>CESTA</h1>
                 </legend>
                 <?php
+                if (!isset($_SESSION)) {//comprobamos si no existe la sesion
+                    session_start(); //creamos una sesion
+                } else {//si ya existe la sesion la destruimos y creamos una nueva
+                    session_destroy();
+                    session_start();
+                }
+                
                 if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
                     if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
                         print ("<table border = 1>"); //creamos la tabla
