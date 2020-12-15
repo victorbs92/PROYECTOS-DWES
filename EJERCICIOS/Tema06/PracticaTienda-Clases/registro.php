@@ -32,30 +32,35 @@ and open the template in the editor.
             </fieldset>
         </form>
         <?php
+        //INCLUDES & REQUIRES
+        require_once("./include/UsuarioVO.php");
+        require_once("./include/UsuarioDAO.php");
+
         if (isset($_POST['registrar'])) {
-            //incluimos el acceso a la BD
-            include './db_acceso.php';
 
             //guardamos los valores de los campos del formulario en variables
             @$user = $_POST['user'];
             @$pass = $_POST['pass'];
 
-            $sqlInsertarUsuario = "INSERT INTO usuarios VALUES ('NULL','$user','$pass')"; //consulta para insertar un nuevo usuario en la BD
+            $usuario = new UsuarioVO('NULL', $user, $pass); //creamos un objeto de la clase UsuarioVO
 
-            if (!$conexion->query($sqlInsertarUsuario)) {//si la consulta devuelve false
-                $errorCode = mysqli_errno($conexion); //guardamos en una variable el codigo del error
+            $usuarioDAO = new UsuarioDAO(); //creamos un objeto de la clase UsuarioDAO
 
-                if ($errorCode == 1062) { //1062 = codigo de error para intentar insertar un dato duplicado en la tabla en el campo usuario porque esta como UNIQUE
+            switch ($usuarioDAO->insertarUsuario($usuario)) { //llamamos al metodo de la clase para insertar un usuario y le pasamos los datos como parametros y comprobamos el return en el switch
+                case 1:
                     print "<p>El usuario ya existe.</p>";
-                } else {
-                    $conexion->rollback(); //hacemos rollbacak
-                    $conexion->close(); //cerramos la conexion
+                    break;
+
+                case 2:
                     print "<p>ERROR.</p>";
-                }
-            } else {//si la consulta salió bien
-                $conexion->commit(); //hacemos commit
-                $conexion->close(); //cerramos la conexion
-                print "<p>Usuario creado con éxito.</p>";
+                    break;
+
+                case 3:
+                    print "<p>Usuario creado con éxito.</p>";
+                    break;
+
+                default:
+                    break;
             }
         }
 
