@@ -11,7 +11,6 @@
  * @author victor
  */
 interface InterfaceProductoDAO {
-    
-    public function asd ();
-    
+
+    public function obtenerTodosProductos();
 }
