@@ -27,6 +27,12 @@ class ProductoVO {
         $this->imagen = $imagen;
     }
 
+    public function __get($propiedad) {
+        if (property_exists($this, $propiedad)) {
+            return $this->$propiedad;
+        }
+    }
+
     function getIdProducto() {
         return $this->idProducto;
     }
