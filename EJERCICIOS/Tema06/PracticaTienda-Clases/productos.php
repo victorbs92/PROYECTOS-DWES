@@ -47,7 +47,7 @@ and open the template in the editor.
                     //print_r($arrayProductos);
                     //$result->field_seek(0); //PARA DEVOLVER EL PUNTERO A LA POSICION QUE SE LE PASA COMO ARGUMENTO AL METODO FIELD_SEEK()!!!!!!!!!!!
 
-                    print_r($arrayProductos[0]);
+                    //print_r($arrayProductos[0]->__get("idProducto"));
 
                     print ("<table border = 1>"); //creamos la tabla
                     print ("<tr>");
