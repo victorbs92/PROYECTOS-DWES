@@ -11,7 +11,8 @@
  * @author victor
  */
 interface InterfaceUsuarioDAO {
-    
-   public function insertarUsuario ($usuario); 
-   
+
+    public function insertarUsuario($usuario);
+
+    public function obtenerUsuario($usuario);
 }

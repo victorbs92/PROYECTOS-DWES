@@ -65,24 +65,22 @@ and open the template in the editor.
         }
 
         if (isset($_POST['login'])) {
-            //incluimos el acceso a la BD
-            include './db_acceso.php';
 
             //guardamos los valores de los campos del formulario en variables
             @$user = $_POST['user'];
             @$pass = $_POST['pass'];
 
-            $sqlComprobarUsuario = "SELECT * FROM usuarios WHERE nick = '$user' AND pass = '$pass'"; //consulta para comprobar que el usuario existe en la BD
+            $usuario = new UsuarioVO('NULL', $user, $pass); //creamos un objeto de la clase UsuarioVO
 
-            $resultado = $conexion->query($sqlComprobarUsuario); //ejecutamos la consulta y guardamos el resultado que devuelve (el nº de filas afectadas) en una variable
+            $usuarioDAO = new UsuarioDAO(); //creamos un objeto de la clase UsuarioDAO
+
+            $resultado = $usuarioDAO->obtenerUsuario($usuario); //pasamos a la funcion obtenerUsuario el usuario creado con los datos obtenidos de los campos del formulario para comprobar si existe en la BD y guardamos el resultado en la variable $resultado
 
             $row = $resultado->fetch_array(); //guardamos las filas afectadas en un array, si no hay filas afectas devuelve null
 
             if ($row == null) {//si el array es nulo
-                $conexion->close(); //cerramos la conexion
                 print "<p>Usuario o contraseña incorrectas.</p>";
             } else {//si el array es distinto de null
-                $conexion->close(); //cerramos la conexion
                 //SESION
                 if (!isset($_SESSION)) {//comprobamos si no existe la sesion
                     session_start(); //creamos una sesion
@@ -90,7 +88,7 @@ and open the template in the editor.
                     session_destroy();
                     session_start();
                 }
-                $_SESSION['nombreUsuario'] = $user; //guardamos el usuario en la sesion
+                $_SESSION['nombreUsuario'] = $user; //guardamos el nombreUsuario en la sesion
                 header("Location: ./productos.php"); //redirigimos a la pg productos.php
             }
         }
