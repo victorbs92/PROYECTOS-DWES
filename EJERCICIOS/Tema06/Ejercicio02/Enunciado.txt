@@ -1,0 +1,4 @@
+Crea una clase Prueba que esta fomarda por un atributo estatico llamado contador, un constructor
+que visualice el valor del atributo e incrementa su valor, un metodo que permita clonar objetos 
+en el que se incremente el valor del contador. A continuacion, crea un objeto y muestra su atributo
+contador, posteriormente haz una clonacion de este y visualiza su atributo contador. 
