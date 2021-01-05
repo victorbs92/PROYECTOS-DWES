@@ -11,21 +11,21 @@ print "<B><U>Clonación de objetos </U></B><BR><BR>";
 
 // Definición de la clase Prueba
 class Prueba {
- 	static $contador = 0;
 
-	function __construct() {
-	        print "<BR>entra a construct: " . self::$contador . "<BR>";
-                self::$contador++;
-	}
+    static $contador = 0;
 
-	function __clone() {
-		print "<BR>entra a clone: " . self::$contador ."<BR>";
-                self::$contador++;
-	}
-	  
-}	
+    function __construct() {
+        print "<BR>entra a construct: " . self::$contador . "<BR>";
+        self::$contador++;
+    }
 
- 
+    function __clone() {
+        print "<BR>entra a clone: " . self::$contador . "<BR>";
+        self::$contador++;
+    }
+
+}
+
 $objPrueba = new Prueba();
 
 
@@ -39,5 +39,4 @@ print "<BR>Objeto clonado<BR>";
 
 // el objeto clonado
 print "Contador " . Prueba::$contador . "<BR>";
-
 ?>
