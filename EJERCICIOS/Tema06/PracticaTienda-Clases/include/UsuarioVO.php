@@ -13,6 +13,9 @@
  */
 class UsuarioVO {
 
+    public const HASH = PASSWORD_DEFAULT;
+    public const COST = 15;
+
     private $idUsuario;
     private $nick;
     private $pass;
@@ -20,7 +23,7 @@ class UsuarioVO {
     function __construct($idUsuario, $nick, $pass) {
         $this->idUsuario = $idUsuario;
         $this->nick = $nick;
-        $this->pass = $pass;
+        $this->pass = password_hash($pass, self::HASH, ['cost' => self::COST]); //la pass se "hashea" al crear el usuario
     }
 
     function getIdUsuario() {
@@ -31,7 +34,7 @@ class UsuarioVO {
         return $this->nick;
     }
 
-    function getPass() {
+    function getPass() { //al obtener la pass, se obtiene cifrada
         return $this->pass;
     }
 
@@ -43,8 +46,8 @@ class UsuarioVO {
         $this->nick = $nick;
     }
 
-    function setPass($pass): void {
-        $this->pass = $pass;
+    function setPass($pass): void { //al modificar la pass se vuelve a encriptar
+        $this->pass = password_hash($pass, self::HASH, ['cost' => self::COST]);
     }
 
 }

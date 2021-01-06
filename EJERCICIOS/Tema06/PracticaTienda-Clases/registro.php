@@ -36,8 +36,7 @@ and open the template in the editor.
         require_once("./include/UsuarioVO.php");
         require_once("./include/UsuarioDAO.php");
 
-        if (isset($_POST['registrar'])) {
-
+        if (isset($_POST['registrar'])) { //código que se ejecuta al pulsar el botón registrar
             //guardamos los valores de los campos del formulario en variables
             @$user = $_POST['user'];
             @$pass = $_POST['pass'];
@@ -46,26 +45,19 @@ and open the template in the editor.
 
             $usuarioDAO = new UsuarioDAO(); //creamos un objeto de la clase UsuarioDAO
 
-            switch ($usuarioDAO->insertarUsuario($usuario)) { //llamamos al metodo de la clase para insertar un usuario y le pasamos los datos como parametros y comprobamos el return en el switch
-                case 1:
+            /* llamamos al metodo de la clase para insertar un usuario y le pasamos los datos como parametros y comprobamos el return */
+            if ($usuarioDAO->insertarUsuario($usuario) === true) { //si devuelve true
+                print "<p>Usuario creado con éxito.</p>";
+            } else {//si no devuelve true comprobamos el código de error que ha devuelto
+                if ($usuarioDAO->insertarUsuario($usuario) === 1062) {
                     print "<p>El usuario ya existe.</p>";
-                    break;
-
-                case 2:
+                } else {
                     print "<p>ERROR.</p>";
-                    break;
-
-                case 3:
-                    print "<p>Usuario creado con éxito.</p>";
-                    break;
-
-                default:
-                    break;
+                }
             }
         }
 
-        if (isset($_POST['login'])) {
-
+        if (isset($_POST['login'])) {//código que se ejecuta al pulsar el boton login
             //guardamos los valores de los campos del formulario en variables
             @$user = $_POST['user'];
             @$pass = $_POST['pass'];
@@ -78,9 +70,24 @@ and open the template in the editor.
 
             $row = $resultado->fetch_array(); //guardamos las filas afectadas en un array, si no hay filas afectas devuelve null
 
-            if ($row == null) {//si el array es nulo
-                print "<p>Usuario o contraseña incorrectas.</p>";
+            if ($row == null) {//si el array es nulo significa que el usuario no existe en la bd
+                print "<p>El usuario no existe.</p>";
             } else {//si el array es distinto de null
+                $hash = $row[0]; //guardamos en la variable $hash el resultado de la consulta, que contendrá el hash necesario para verificar la contraseña introducida en el campo Pass y así verificar si el usuario ha introducido la contraseña correcta
+                
+                if (password_verify($pass, $hash)) { //si la contraseña introducida es correcta
+                    if (password_needs_rehash($hash, UsuarioVO::HASH, ['cost' => UsuarioVO::HASH])) {//comprobamos si la contraseña necesita "rehasearse" porque hay un algoritmo nuevo en PASSWORD_DEFAULT
+                        $usuario->setPass($pass); //seteamos la contraseña (que será la misma que antes) para crear un nuevo hash y guardarlo en la bd
+                        $usuarioDAO->passwordRehash($usuario);
+                    }
+
+                    print ("AAAAAAAAAAAA");
+                } else {
+                    print ("La constraseña introducida no es correcta.");
+                }
+
+
+
                 //SESION
                 if (!isset($_SESSION)) {//comprobamos si no existe la sesion
                     session_start(); //creamos una sesion
@@ -89,7 +96,7 @@ and open the template in the editor.
                     session_start();
                 }
                 $_SESSION['nombreUsuario'] = $user; //guardamos el nombreUsuario en la sesion
-                header("Location: ./productos.php"); //redirigimos a la pg productos.php
+                // header("Location: ./productos.php"); //redirigimos a la pg productos.php
             }
         }
         ?>
