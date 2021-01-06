@@ -74,7 +74,7 @@ and open the template in the editor.
                 print "<p>El usuario no existe.</p>";
             } else {//si el array es distinto de null
                 $hash = $row[0]; //guardamos en la variable $hash el resultado de la consulta, que contendrá el hash necesario para verificar la contraseña introducida en el campo Pass y así verificar si el usuario ha introducido la contraseña correcta
-                
+
                 if (password_verify($pass, $hash)) { //si la contraseña introducida es correcta
                     if (password_needs_rehash($hash, UsuarioVO::HASH, ['cost' => UsuarioVO::HASH])) {//comprobamos si la contraseña necesita "rehasearse" porque hay un algoritmo nuevo en PASSWORD_DEFAULT
                         $usuario->setPass($pass); //seteamos la contraseña (que será la misma que antes) para crear un nuevo hash y guardarlo en la bd
@@ -87,15 +87,26 @@ and open the template in the editor.
                 }
 
 
+                //crear sesion
+                session_name($user);
+                session_start();
 
+                //eliminar sesion y cookie de sesion
+                $_SESSION = array();
+                setcookie(session_name(), '', time() - 42000, '/');
+                session_destroy();
+                session_unset();
+
+                header("Location: ./registro.php");
                 //SESION
-                if (!isset($_SESSION)) {//comprobamos si no existe la sesion
-                    session_start(); //creamos una sesion
-                } else {//si ya existe la sesion la destruimos y creamos una nueva
-                    session_destroy();
-                    session_start();
-                }
-                $_SESSION['nombreUsuario'] = $user; //guardamos el nombreUsuario en la sesion
+                //
+//                if (!isset($_SESSION)) {//comprobamos si no existe la sesion
+//                    session_start(); //creamos una sesion
+//                } else {//si ya existe la sesion la destruimos y creamos una nueva
+//                    session_destroy();
+//                    session_start();
+//                }
+//                $_SESSION['nombreUsuario'] = $user; //guardamos el nombreUsuario en la sesion
                 // header("Location: ./productos.php"); //redirigimos a la pg productos.php
             }
         }
