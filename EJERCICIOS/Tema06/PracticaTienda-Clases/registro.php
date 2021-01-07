@@ -67,7 +67,6 @@ and open the template in the editor.
             @$pass = $_POST['pass'];
 
             $usuario = new UsuarioVO('NULL', $user, $pass); //creamos un objeto de la clase UsuarioVO
-
             $usuarioDAO = new UsuarioDAO(); //creamos un objeto de la clase UsuarioDAO
 
             $resultado = $usuarioDAO->obtenerUsuario($usuario); //pasamos a la funcion obtenerUsuario el usuario creado con los datos obtenidos de los campos del formulario para comprobar si existe en la BD y guardamos el resultado en la variable $resultado
