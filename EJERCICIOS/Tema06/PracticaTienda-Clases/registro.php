@@ -81,33 +81,31 @@ and open the template in the editor.
                         $usuarioDAO->passwordRehash($usuario);
                     }
 
-                    print ("AAAAAAAAAAAA");
+                    //SESION
+                    if (!isset($_SESSION)) {//comprobamos si no existe la sesion
+                        //crear sesion
+                        session_name($user);
+                        session_start();
+                        $_SESSION['nombreUsuario'] = $user; //guardamos el nombreUsuario en la sesion
+                    } else {//si ya existe la sesion 
+                        if (session_name() != $user) {//comprobamos si no es la misma para la que queremos loguear y si no lo es, la destruimos y creamos una nueva
+                            //eliminar sesion y cookie de sesion
+                            $_SESSION = array();
+                            setcookie(session_name(), '', time() - 42000, '/');
+                            session_destroy();
+                            session_unset();
+                        } else {
+                            //crear sesion
+                            session_name($user);
+                            session_start();
+                            $_SESSION['nombreUsuario'] = $user; //guardamos el nombreUsuario en la sesion
+                        }
+                    }
+
+                    header("Location: ./productos.php"); //redirigimos a la pg productos.php
                 } else {
                     print ("La constraseña introducida no es correcta.");
                 }
-
-
-                //crear sesion
-                session_name($user);
-                session_start();
-
-                //eliminar sesion y cookie de sesion
-                $_SESSION = array();
-                setcookie(session_name(), '', time() - 42000, '/');
-                session_destroy();
-                session_unset();
-
-                header("Location: ./registro.php");
-                //SESION
-                //
-//                if (!isset($_SESSION)) {//comprobamos si no existe la sesion
-//                    session_start(); //creamos una sesion
-//                } else {//si ya existe la sesion la destruimos y creamos una nueva
-//                    session_destroy();
-//                    session_start();
-//                }
-//                $_SESSION['nombreUsuario'] = $user; //guardamos el nombreUsuario en la sesion
-                // header("Location: ./productos.php"); //redirigimos a la pg productos.php
             }
         }
         ?>

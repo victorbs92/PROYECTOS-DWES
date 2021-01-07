@@ -12,8 +12,8 @@ and open the template in the editor.
     <body>
         <form action="logoff.php" method="post">
             <?php
-            if (!isset($_SESSION)) {//comprobamos si no existe la sesion
-                session_start(); //creamos una sesion
+            if (!isset($_SESSION)) {//comprobamos si no esta iniciada la sesion
+                session_start(); //iniciamos la sesion
             } else {//si ya existe la sesion la destruimos y creamos una nueva
                 session_destroy();
                 session_start();
@@ -23,7 +23,11 @@ and open the template in the editor.
                 print "<input type=submit name='cerrarSesion' value='Cerrar Sesión' >";
 
                 if (isset($_POST['cerrarSesion'])) {//SI EL USUARIO pulsa el boton de cerrar sesion
+                    //eliminar sesion y cookie de sesion
+                    $_SESSION = array();
+                    setcookie(session_name(), '', time() - 42000, '/');
                     session_destroy();
+                    session_unset();
                     header("Location: ./registro.php"); //redirigimos a la pg registro.php
                 }
             } else { //SI EL USUARIO NO SE HA AUTENTIFICADO
