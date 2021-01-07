@@ -32,17 +32,21 @@ and open the template in the editor.
             </fieldset>
         </form>
         <?php
-        //INCLUDES & REQUIRES
+        /* INCLUDES & REQUIRES */
         require_once("./include/UsuarioVO.php");
         require_once("./include/UsuarioDAO.php");
+        require_once("./utils/Session.php");
 
         if (isset($_POST['registrar'])) { //código que se ejecuta al pulsar el botón registrar
-            //guardamos los valores de los campos del formulario en variables
+            /* guardamos los valores de los campos del formulario en variables */
             @$user = $_POST['user'];
             @$pass = $_POST['pass'];
 
-            $usuario = new UsuarioVO('NULL', $user, $pass); //creamos un objeto de la clase UsuarioVO
+            registrarUsuario($user, $pass); //llamamos al metodo registrarUsuario
+        }
 
+        function registrarUsuario($user, $pass) { //metodo para registrar usuarios en la bd
+            $usuario = new UsuarioVO('NULL', $user, $pass); //creamos un objeto de la clase UsuarioVO
             $usuarioDAO = new UsuarioDAO(); //creamos un objeto de la clase UsuarioDAO
 
             /* llamamos al metodo de la clase para insertar un usuario y le pasamos los datos como parametros y comprobamos el return */
@@ -58,7 +62,7 @@ and open the template in the editor.
         }
 
         if (isset($_POST['login'])) {//código que se ejecuta al pulsar el boton login
-            //guardamos los valores de los campos del formulario en variables
+            /* guardamos los valores de los campos del formulario en variables */
             @$user = $_POST['user'];
             @$pass = $_POST['pass'];
 
@@ -81,23 +85,19 @@ and open the template in the editor.
                         $usuarioDAO->passwordRehash($usuario);
                     }
 
-                    //SESION
+                    /* SESION */
                     if (!isset($_SESSION)) {//comprobamos si no existe la sesion
-                        //crear sesion
-                        session_name($user);
-                        session_start();
+                        /* crear sesion */
+                        Session::crearSesion($user); //llamamos al metodo estatico de la clase Session que recibe un argumento para dar nombre a la sesion y luego la crea
                         $_SESSION['nombreUsuario'] = $user; //guardamos el nombreUsuario en la sesion
                     } else {//si ya existe la sesion 
                         if (session_name() != $user) {//comprobamos si no es la misma para la que queremos loguear y si no lo es, la destruimos y creamos una nueva
-                            //eliminar sesion y cookie de sesion
-                            $_SESSION = array();
-                            setcookie(session_name(), '', time() - 42000, '/');
-                            session_destroy();
-                            session_unset();
+                            /* eliminar sesion y cookie de sesion y luego crear la nueva */
+                            Session::eliminarSesion(); //llamamos al metodo estatico de la clase Session que borra todos los datos de la sesion, luego la borra y tmb borra la cookie de sesion del navegador
+                            Session::crearSesion($user); //llamamos al metodo estatico de la clase Session que recibe un argumento para dar nombre a la sesion y luego la crea
                         } else {
-                            //crear sesion
-                            session_name($user);
-                            session_start();
+                            /* crear sesion */
+                            Session::crearSesion($user); //llamamos al metodo estatico de la clase Session que recibe un argumento para dar nombre a la sesion y luego la crea
                             $_SESSION['nombreUsuario'] = $user; //guardamos el nombreUsuario en la sesion
                         }
                     }
