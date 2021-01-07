@@ -16,7 +16,10 @@ and open the template in the editor.
         require_once("./include/ProductoVO.php");
         require_once("./include/ProductoDAO.php");
 
+        //var_dump($_GET['userSession']);
+
         if (!isset($_SESSION)) {//comprobamos si no existe la sesion
+            session_name($_GET['userSession']);
             session_start(); //creamos una sesion
         } else {//si ya existe la sesion la destruimos y creamos una nueva
             session_destroy();
@@ -46,7 +49,6 @@ and open the template in the editor.
 
                     //print_r($arrayProductos);
                     //$result->field_seek(0); //PARA DEVOLVER EL PUNTERO A LA POSICION QUE SE LE PASA COMO ARGUMENTO AL METODO FIELD_SEEK()!!!!!!!!!!!
-
                     //print_r($arrayProductos[0]->__get("idProducto"));
 
                     print ("<table border = 1>"); //creamos la tabla
@@ -144,49 +146,49 @@ and open the template in the editor.
                 <fieldset>
                     <h1>CESTA</h1>
                     <p>
-    <?php
-    if (isset($_POST['añadir'])) { //comprobamos si se ha enviado el formulario habiendo pulsado el boton de añadir
-        $botonAñadirPulsado = array_key_first($_POST['añadir']); //guardamos en una variable la key del array del boton añadir que hemos pulsado
+                        <?php
+                        if (isset($_POST['añadir'])) { //comprobamos si se ha enviado el formulario habiendo pulsado el boton de añadir
+                            $botonAñadirPulsado = array_key_first($_POST['añadir']); //guardamos en una variable la key del array del boton añadir que hemos pulsado
 
-        if (isset($_SESSION['cesta'])) { //si cesta si que existe en la sesion --> hacemos todo esto para que pueda haber mas de un elemento en la cesta.
-            $cesta = $_SESSION['cesta']; //creamos una variable llamada cesta donde guardamos el valor de cestaSession
-            $cesta[] = $arrayProductos[$botonAñadirPulsado]; //añadimos a la variable el nuevo array con los datos del producto que hemos seleccionado al pinchar en el boton añadir
-            $_SESSION['cesta'] = $cesta; //igualamos la cestaSession con la variable cesta a la que se le acaba de añadir un nuevo producto
-        } else { //si cesta no existe en la sesion
-            $cesta[] = $arrayProductos[$botonAñadirPulsado]; //creamos el array cesta y guardamos el producto del boton que hemos pinchado
-            $_SESSION['cesta'] = $cesta; //creamos cestaSession y guardamos en ella el array anterior
-        }
+                            if (isset($_SESSION['cesta'])) { //si cesta si que existe en la sesion --> hacemos todo esto para que pueda haber mas de un elemento en la cesta.
+                                $cesta = $_SESSION['cesta']; //creamos una variable llamada cesta donde guardamos el valor de cestaSession
+                                $cesta[] = $arrayProductos[$botonAñadirPulsado]; //añadimos a la variable el nuevo array con los datos del producto que hemos seleccionado al pinchar en el boton añadir
+                                $_SESSION['cesta'] = $cesta; //igualamos la cestaSession con la variable cesta a la que se le acaba de añadir un nuevo producto
+                            } else { //si cesta no existe en la sesion
+                                $cesta[] = $arrayProductos[$botonAñadirPulsado]; //creamos el array cesta y guardamos el producto del boton que hemos pinchado
+                                $_SESSION['cesta'] = $cesta; //creamos cestaSession y guardamos en ella el array anterior
+                            }
 
-        $totalEuros = 0;
-        print "<ul>"; //mostramos la cesta en una lista desordenada
-        for ($index1 = 0; $index1 < count($_SESSION['cesta']); $index1++) {
-            print "<li>";
-            print "ID = " . $_SESSION['cesta'][$index1]['idProducto'];
-            print " --- " . $_SESSION['cesta'][$index1]['nombreProducto'];
-            print " --- " . $_SESSION['cesta'][$index1]['precio'] . "€";
-            print "</li>";
-            $totalEuros += $_SESSION['cesta'][$index1]['precio'];
-        }
-        print "</ul>";
-        print "TOTAL PRODUCTOS EN LA CESTA: " . count($_SESSION['cesta']) . "   IMPORTE: " . $totalEuros . "€";
-    } else {
-        print 'Aún no hay nada por aquí';
-    }
+                            $totalEuros = 0;
+                            print "<ul>"; //mostramos la cesta en una lista desordenada
+                            for ($index1 = 0; $index1 < count($_SESSION['cesta']); $index1++) {
+                                print "<li>";
+                                print "ID = " . $_SESSION['cesta'][$index1]['idProducto'];
+                                print " --- " . $_SESSION['cesta'][$index1]['nombreProducto'];
+                                print " --- " . $_SESSION['cesta'][$index1]['precio'] . "€";
+                                print "</li>";
+                                $totalEuros += $_SESSION['cesta'][$index1]['precio'];
+                            }
+                            print "</ul>";
+                            print "TOTAL PRODUCTOS EN LA CESTA: " . count($_SESSION['cesta']) . "   IMPORTE: " . $totalEuros . "€";
+                        } else {
+                            print 'Aún no hay nada por aquí';
+                        }
 
-    if (isset($_POST['comprar'])) { //si se ha pulsado el boton comprar
-        if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
-            header("Location: ./cesta.php"); //redirigimos a la pg cesta.php
-        }
-    }
+                        if (isset($_POST['comprar'])) { //si se ha pulsado el boton comprar
+                            if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
+                                header("Location: ./cesta.php"); //redirigimos a la pg cesta.php
+                            }
+                        }
 
-    if (isset($_POST['vaciar'])) { //si se ha pulsado el boton vaciar carrito
-        unset($_SESSION['cesta']); //destruimos cestaSession
-    }
+                        if (isset($_POST['vaciar'])) { //si se ha pulsado el boton vaciar carrito
+                            unset($_SESSION['cesta']); //destruimos cestaSession
+                        }
 
-    if (isset($_POST['cerrarSesion'])) { //si se ha pulsado el boton de cerrar sesion
-        header("Location: ./logoff.php"); //redirigimos a la pg logoff.php
-    }
-    ?>
+                        if (isset($_POST['cerrarSesion'])) { //si se ha pulsado el boton de cerrar sesion
+                            header("Location: ./logoff.php"); //redirigimos a la pg logoff.php
+                        }
+                        ?>
                     </p>
                     <input type = "submit" name = "comprar" value = "Comprar">
                     <input type = "submit" name = "vaciar" value = "Vaciar carrito">
@@ -196,12 +198,12 @@ and open the template in the editor.
 
             </form>
 
-    <?php
-} else { //SI EL USUARIO NO SE HA AUTENTIFICADO
-    print "<h1>ERROR.</h1>";
-    print "<a href=registro.php>Login</a></td>";
-}
-?>
+            <?php
+        } else { //SI EL USUARIO NO SE HA AUTENTIFICADO
+            print "<h1>ERROR.</h1>";
+            print "<a href=registro.php>Login</a></td>";
+        }
+        ?>
 
     </body>
 </html>

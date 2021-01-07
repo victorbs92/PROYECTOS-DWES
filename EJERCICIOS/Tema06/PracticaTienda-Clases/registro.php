@@ -7,7 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Registro</title>
     </head>
     <body>
         <form id="accesoUsuario" action="registro.php" method="post">
@@ -29,6 +29,9 @@ and open the template in the editor.
                     <input type="submit" id="registrar" name="registrar" value="Registrar">
                     <input type="submit" id="login" name="login" value="Login">
                 </div>
+
+
+
             </fieldset>
         </form>
         <?php
@@ -85,23 +88,10 @@ and open the template in the editor.
                     }
 
                     /* SESION */
-                    if (!isset($_SESSION)) {//comprobamos si no existe la sesion
-                        /* crear sesion */
-                        Session::crearSesion($user); //llamamos al metodo estatico de la clase Session que recibe un argumento para dar nombre a la sesion y luego la crea
-                        $_SESSION['nombreUsuario'] = $user; //guardamos el nombreUsuario en la sesion
-                    } else {//si ya existe la sesion 
-                        if (session_name() != $user) {//comprobamos si no es la misma para la que queremos loguear y si no lo es, la destruimos y creamos una nueva
-                            /* eliminar sesion y cookie de sesion y luego crear la nueva */
-                            Session::eliminarSesion(); //llamamos al metodo estatico de la clase Session que borra todos los datos de la sesion, luego la borra y tmb borra la cookie de sesion del navegador
-                            Session::crearSesion($user); //llamamos al metodo estatico de la clase Session que recibe un argumento para dar nombre a la sesion y luego la crea
-                        } else {
-                            /* crear sesion */
-                            Session::crearSesion($user); //llamamos al metodo estatico de la clase Session que recibe un argumento para dar nombre a la sesion y luego la crea
-                            $_SESSION['nombreUsuario'] = $user; //guardamos el nombreUsuario en la sesion
-                        }
-                    }
+                    Session::crearSesion($user); //llamamos al metodo estatico de la clase Session que recibe un argumento para dar nombre a la sesion y luego la crea
+                    $_SESSION['nombreUsuario'] = $user; //guardamos en una variable de sesion el nombre del usuario
 
-                    header("Location: ./productos.php"); //redirigimos a la pg productos.php
+                    header("Location: ./registro.php?userSession=$user"); //redirigimos a la pg productos.php pasando por el metodo GET el nombre de la sesion del usuario en la URL 
                 } else {
                     print ("La constraseña introducida no es correcta.");
                 }
