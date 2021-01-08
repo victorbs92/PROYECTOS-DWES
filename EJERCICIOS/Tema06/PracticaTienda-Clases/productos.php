@@ -33,32 +33,36 @@ and open the template in the editor.
                         <h1>PRODUCTOS</h1>
                     </legend>
                     <?php
+                    $arrayProductos = array(); //creamos un array numérico donde ir guardando todos los productos
+
                     $productoDAO = new ProductoDAO();
 
                     $resultadoConsulta = $productoDAO->obtenerTodosProductos(); //se guarda el resultado de la consulta en una variable
 
-                    $arrayProductos = array(); //creamos un array numérico donde ir guardando todos los productos
-                    //var_dump($resultadoConsulta);
+                    $arrayResultado = $resultadoConsulta->fetch_all(MYSQLI_BOTH); //el resultado es un array que contiene un array por cada fila devuelta (array de arrays)(matriz) y que es numerico y asociativo
 
-                    while ($fila = mysqli_fetch_array($resultadoConsulta)) { //recorremos el resultado de la consulta y por cada fila creamos un objeto de la clase ProductoVO y lo añadimos al array de productos.
-                        $producto = new ProductoVO($fila[0], $fila[1], $fila[2], $fila[3], $fila[4]);
+                    /* Recorremos el array resultado, creamos un objeto ProductoVO por cada iteracion y lo añadimos al array de productos */
+                    for ($i = 0; $i < count($arrayResultado); $i++) {
+                        $producto = new ProductoVO($arrayResultado[$i][0], $arrayResultado[$i][1], $arrayResultado[$i][2], $arrayResultado[$i][3], $arrayResultado[$i][4]);
                         array_push($arrayProductos, $producto);
                     }
 
-                    //print_r($arrayProductos);
-                    //$result->field_seek(0); //PARA DEVOLVER EL PUNTERO A LA POSICION QUE SE LE PASA COMO ARGUMENTO AL METODO FIELD_SEEK()!!!!!!!!!!!
-                    //print_r($arrayProductos[0]->__get("idProducto"));
-
-                    print ("<table border = 1>"); //creamos la tabla
+                    /* CREAMOS LA TABLA */
+                    print ("<table border = 1>");
                     print ("<tr>");
-                    //CABECERA DE LA TABLA
-                    foreach ($arrayProductos[0] as $key => $value) {//recorremos el primer producto del array para obtener sus claves y utilizarlas para dar el nombre a los titulos de la tabla
-                        if ($key != "idProducto") {
-                            print "<th>$key()</th>";
+
+                    /* CABECERA DE LA TABLA */
+                    foreach ($arrayResultado[0] as $key => $value) {//para conocer las claves solo necesitamos una fila devuelta, en este caso usamos la primera.
+                        if (!is_numeric($key) && $key != "idProducto") {
+                            print "<th>$key</th>";
                         }
                     }
                     print "<th>Añadir al carrito</th>";
                     print ("</tr>");
+
+                    var_dump($arrayResultado);
+                    var_dump($arrayProductos);
+
 
                     //CUERPO DE LA TABLA
 //                    for ($index = 0; $index < count($arrayResultado); $index++) {//para recorrer una matriz necesitamos bucles anidados
@@ -178,7 +182,7 @@ and open the template in the editor.
 
                         if (isset($_POST['comprar'])) { //si se ha pulsado el boton comprar
                             //if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
-                                header("Location: ./cesta.php?userSession=$sessionName"); //redirigimos a la pg cesta.php
+                            header("Location: ./cesta.php?userSession=$sessionName"); //redirigimos a la pg cesta.php
                             //}
                         }
 
