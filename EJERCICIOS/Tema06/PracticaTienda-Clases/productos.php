@@ -53,96 +53,38 @@ and open the template in the editor.
 
                     /* CABECERA DE LA TABLA */
                     foreach ($arrayResultado[0] as $key => $value) {//para conocer las claves solo necesitamos una fila devuelta, en este caso usamos la primera.
-                        if (!is_numeric($key) && $key != "idProducto") {
+                        if (!is_numeric($key) && $key != "idProducto") {//como el array a recorrer es asociativo y numerico al mismo tiempo, impedimos que se imprima la key si es numérica, asi evitamos duplicados
                             print "<th>$key</th>";
                         }
                     }
                     print "<th>Añadir al carrito</th>";
                     print ("</tr>");
 
-                    var_dump($arrayResultado);
-                    var_dump($arrayProductos);
+                    /* CUERPO DE LA TABLA */
+                    for ($index = 0; $index < count($arrayProductos); $index++) {//recorremos el array de productos (contiene un productoVO por cada iteracion) para mostrarlos en la tabla
+                        print ("<tr>");
 
+                        /* Para acceder a las propiedades del objeto, al ser private nos dara error, pero con el metodo getAllPropierties implementado en la clase
+                          que recibe un objeto de su misma clase y con la funcion get_object_vars obtenemos un array asociativo con todas las propiedades y sus valores... */
+                        $propiedadesProducto = $arrayProductos[$index]->getAllPropierties($arrayProductos[$index]);
 
-                    //CUERPO DE LA TABLA
-//                    for ($index = 0; $index < count($arrayResultado); $index++) {//para recorrer una matriz necesitamos bucles anidados
-//                        print ("<tr>");
-//
-//                        $producto = array(); //creamos un array por cada fila de la tabla
-//
-//                        foreach ($arrayResultado[$index] as $key => $value) {
-//
-//                            $producto[$key] = $value; //guardamos en el array asociativo las clave/valor de cada producto
-//
-//                            if ($key == 'imagen') {
-//                                print "<th><img border='0' width='100' height='100' src='./img/$value.jpg' ></a></th>";
-//                            } elseif ($key != 'idProducto') {
-//                                print "<th>$value</th>";
-//                            }
-//                        }
-//
-//                        $idValue = $arrayResultado[$index]['idProducto']; //guardamos en una variable el valor del idProducto
-//
-//                        $arrayProductos[$idValue] = $producto; //Añadimos el array producto al array de arrays 
-//
-//                        print "<th><input type='submit' value='Añadir' name='añadir[$idValue]'></th>"; //el name será un array y su indice será el idValue
-//                        print ("</tr>");
-//                    }
+                        foreach ($propiedadesProducto as $key => $value) {
+
+                            if ($key == 'imagen') {
+                                print "<th><img border='0' width='100' height='100' src='./img/$value.jpg' ></a></th>";
+                            } elseif ($key != 'idProducto') {//como el array a recorrer es asociativo y numerico al mismo tiempo, impedimos que se imprima la key si es numérica, asi evitamos duplicados
+                                print "<th>$value</th>";
+                            }
+                        }
+
+                        $idValue = $arrayResultado[$index]['idProducto']; //guardamos en una variable el valor del idProducto
+
+                        print "<th><input type='submit' value='Añadir' name='añadir[$idValue]'></th>"; //el name será un array y su indice será el idValue
+                        print ("</tr>");
+                    }
                     print "</table>";
                     ?>
 
-                    <?php
-//                    $productoDAO = new ProductoDAO();
-//
-//                    $resultadoConsulta = $productoDAO->obtenerTodosProductos();
-//
-////                    var_dump($resultadoConsulta);
-//                    
-//                    $arrayResultado = $resultadoConsulta->fetch_all(MYSQLI_ASSOC); //el resultado es un array que contiene un array por cada fila devuelta (array de arrays)(matriz)
-//                    //$result->field_seek(0); //PARA DEVOLVER EL PUNTERO A LA POSICION QUE SE LE PASA COMO ARGUMENTO AL METODO FIELD_SEEK()!!!!!!!!!!!
-//
-////                    var_dump($arrayResultado);
-//                    
-//                    $arrayProductos = array(); //creamos un array numérico donde ir guardando todos los productos, cada clave será el idProducto y el valor será otro array con los datos del producto
-//
-//                    print ("<table border = 1>"); //creamos la tabla
-//                    print ("<tr>");
-//                    //CABECERA DE LA TABLA
-//                    foreach ($arrayResultado[0] as $key => $value) {//para conocer las claves solo necesitamos una fila devuelta, en este caso usamos la primera.
-//                        if ($key != "idProducto") {
-//                            print "<th>$key</th>";
-//                        }
-//                    }
-//                    print "<th>Añadir al carrito</th>";
-//                    print ("</tr>");
-//
-//                    //CUERPO DE LA TABLA
-//                    for ($index = 0; $index < count($arrayResultado); $index++) {//para recorrer una matriz necesitamos bucles anidados
-//                        print ("<tr>");
-//
-//                        $producto = array(); //creamos un array por cada fila de la tabla
-//
-//                        foreach ($arrayResultado[$index] as $key => $value) {
-//
-//                            $producto[$key] = $value; //guardamos en el array asociativo las clave/valor de cada producto
-//
-//                            if ($key == 'imagen') {
-//                                print "<th><img border='0' width='100' height='100' src='./img/$value.jpg' ></a></th>";
-//                            } elseif ($key != 'idProducto') {
-//                                print "<th>$value</th>";
-//                            }
-//                        }
-//
-//                        $idValue = $arrayResultado[$index]['idProducto']; //guardamos en una variable el valor del idProducto
-//
-//                        $arrayProductos[$idValue] = $producto; //Añadimos el array producto al array de arrays 
-//
-//                        print "<th><input type='submit' value='Añadir' name='añadir[$idValue]'></th>"; //el name será un array y su indice será el idValue
-//                        print ("</tr>");
-//                    }
-//                    print "</table>";
-//                    
-                    ?>
                 </fieldset>
 
                 <fieldset>

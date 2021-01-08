@@ -50,4 +50,8 @@ class UsuarioVO {
         $this->pass = password_hash($pass, self::HASH, ['cost' => self::COST]);
     }
 
+    public function getAllPropierties($objectClass) {
+        return get_object_vars($objectClass);
+    }
+
 }
