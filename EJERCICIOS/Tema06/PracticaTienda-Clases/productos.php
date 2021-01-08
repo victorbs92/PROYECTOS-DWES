@@ -91,6 +91,7 @@ and open the template in the editor.
 
                     <?php
                     $cestaCompra = array(); //creamos un array donde ir guardando los productos añadidos a la cesta
+                    $unidadesProductoCesta = array(); //creamos un array donde los indices serán las claves de los productos y el valor sera la cantidad de ese mismo producto que se ha añadido a la cesta
 
                     if (isset($_POST['añadir'])) { //comprobamos si se ha enviado el formulario habiendo pulsado el boton de añadir
                         $botonAñadirPulsado = array_key_first($_POST['añadir']); //guardamos en una variable la key del array del boton añadir que hemos pulsado
@@ -99,47 +100,56 @@ and open the template in the editor.
                             $cestaCompra = $_SESSION['cesta']; //igualamos el valor del array cestaCompra con el que hay guardado en la sesion
                             array_push($cestaCompra, $arrayProductos[$botonAñadirPulsado]); //guardamos en el array cestaCompra el producto del arrayProductos que tenga el mismo id que el boton de añadir que se haya pulsado, como no interesa el indice en este array, simplemente lo pusheamos
                             $_SESSION['cesta'] = $cestaCompra; //igualamos la cestaSession con el array cestaCompra al que se le acaba de añadir un nuevo producto
+                            $unidadesProductoCesta = $_SESSION['unidades']; //igualamos el valor del array unidades con el que hay guardado en la sesion
+                            @$unidadesProductoCesta[$botonAñadirPulsado]++; //incrementamos el valor del array en la posicion del id del producto, se añade el operador de errores para que no marque error al incrementar cuando todavia no habia valor en ese indice
+                            $_SESSION['unidades'] = $unidadesProductoCesta; //guardamos en la sesion el valor del array
                         } else { //si cesta no existe en la sesion
                             array_push($cestaCompra, $arrayProductos[$botonAñadirPulsado]); //guardamos en el array cestaCompra el producto del arrayProductos que tenga el mismo id que el boton de añadir que se haya pulsado, como no interesa el indice en este array, simplemente lo pusheamos
                             $_SESSION['cesta'] = $cestaCompra; //creamos cestaSession y guardamos en ella el array anterior
+                            @$unidadesProductoCesta[$botonAñadirPulsado]++; //incrementamos el valor del array en la posicion del id del producto, se añade el operador de errores para que no marque error al incrementar cuando todavia no habia valor en ese indice
+                            $_SESSION['unidades'] = $unidadesProductoCesta; //guardamos en la sesion el valor del array
                         }
 
+                        /* RESUMEN CESTA */
                         $totalEuros = 0;
-                        print "<ul>"; //mostramos la cesta en una lista desordenada
-                        for ($index = 0; $index < count($cestaCompra); $index++) {
+
+                        print "<ul>";
+                        foreach ($unidadesProductoCesta as $key => $value) {
+                            $costeTodasUdsMismoProducto = $arrayProductos[$key]->getPrecio() * $value;
                             print "<li>";
-                            print "ID = " . $cestaCompra[$index]->getIdProducto();
-                            print " --- " . $cestaCompra[$index]->getNombreProducto();
-                            print " --- " . $cestaCompra[$index]->getPrecio() . "€";
+                            print $arrayProductos[$key]->getNombreProducto() . "  X  " . $value . "  =  " . $costeTodasUdsMismoProducto . " €";
                             print "</li>";
-                            $totalEuros += $cestaCompra[$index]->getPrecio();
+                            $totalEuros = $totalEuros + $arrayProductos[$key]->getPrecio() * $value;
                         }
                         print "</ul>";
-                        print "TOTAL PRODUCTOS EN LA CESTA: " . count($_SESSION['cesta']) . "   IMPORTE: " . $totalEuros . "€";
+
+                        print "TOTAL PRODUCTOS EN LA CESTA: " . count($_SESSION['cesta']) . "uds";
+                        print "<br>IMPORTE TOTAL: " . $totalEuros . "€";
                     } else {
                         print 'Aún no hay nada por aquí';
                     }
 
                     $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
 
-                    if (isset($_POST['comprar'])) { //si se ha pulsado el boton comprar
-                        if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
+                    if (isset($_POST['cesta'])) { //si se ha pulsado el boton ver cesta
+                        if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia permite redirigir a ver cesta
                             header("Location: ./cesta.php?userSession=$sessionName"); //redirigimos a la pg cesta.php
                         }
                     }
 
-                    if (isset($_POST['vaciar'])) { //si se ha pulsado el boton vaciar carrito
+                    if (isset($_POST['vaciar'])) { //si se ha pulsado el boton vaciar cesta
                         unset($_SESSION['cesta']); //destruimos cestaSession
+                        unset($_SESSION['unidades']); //destruimos unidadesSession
                     }
-                    /* ----------------------------------------------------- */
+
                     if (isset($_POST['cerrarSesion'])) { //si se ha pulsado el boton de cerrar sesion
                         header("Location: ./logoff.php?userSession=$sessionName"); //redirigimos a la pg logoff.php
                     }
                     ?>
 
                     <br><br>
-                    <input type = "submit" name = "comprar" value = "Comprar">
-                    <input type = "submit" name = "vaciar" value = "Vaciar carrito">
+                    <input type = "submit" name = "cesta" value = "Ver cesta">
+                    <input type = "submit" name = "vaciar" value = "Vaciar cesta">
                 </fieldset>
             </form>
 
