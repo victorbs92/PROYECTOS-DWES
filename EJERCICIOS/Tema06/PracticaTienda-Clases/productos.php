@@ -95,40 +95,30 @@ and open the template in the editor.
                     if (isset($_POST['añadir'])) { //comprobamos si se ha enviado el formulario habiendo pulsado el boton de añadir
                         $botonAñadirPulsado = array_key_first($_POST['añadir']); //guardamos en una variable la key del array del boton añadir que hemos pulsado
 
-                        array_push($cestaCompra, $producto);
+                        if (isset($_SESSION['cesta'])) { //si cesta si que existe en la sesion --> hacemos todo esto para que pueda haber mas de un elemento en la cesta.
+                            $cestaCompra = $_SESSION['cesta']; //igualamos el valor del array cestaCompra con el que hay guardado en la sesion
+                            array_push($cestaCompra, $arrayProductos[$botonAñadirPulsado]); //guardamos en el array cestaCompra el producto del arrayProductos que tenga el mismo id que el boton de añadir que se haya pulsado, como no interesa el indice en este array, simplemente lo pusheamos
+                            $_SESSION['cesta'] = $cestaCompra; //igualamos la cestaSession con el array cestaCompra al que se le acaba de añadir un nuevo producto
+                        } else { //si cesta no existe en la sesion
+                            array_push($cestaCompra, $arrayProductos[$botonAñadirPulsado]); //guardamos en el array cestaCompra el producto del arrayProductos que tenga el mismo id que el boton de añadir que se haya pulsado, como no interesa el indice en este array, simplemente lo pusheamos
+                            $_SESSION['cesta'] = $cestaCompra; //creamos cestaSession y guardamos en ella el array anterior
+                        }
+
+                        $totalEuros = 0;
+                        print "<ul>"; //mostramos la cesta en una lista desordenada
+                        for ($index = 0; $index < count($cestaCompra); $index++) {
+                            print "<li>";
+                            print "ID = " . $cestaCompra[$index]->getIdProducto();
+                            print " --- " . $cestaCompra[$index]->getNombreProducto();
+                            print " --- " . $cestaCompra[$index]->getPrecio() . "€";
+                            print "</li>";
+                            $totalEuros += $cestaCompra[$index]->getPrecio();
+                        }
+                        print "</ul>";
+                        print "TOTAL PRODUCTOS EN LA CESTA: " . count($_SESSION['cesta']) . "   IMPORTE: " . $totalEuros . "€";
                     } else {
                         print 'Aún no hay nada por aquí';
                     }
-
-
-
-//                    if (isset($_POST['añadir'])) { //comprobamos si se ha enviado el formulario habiendo pulsado el boton de añadir
-//                        $botonAñadirPulsado = array_key_first($_POST['añadir']); //guardamos en una variable la key del array del boton añadir que hemos pulsado
-//                        
-//                        if (isset($_SESSION['cesta'])) { //si cesta si que existe en la sesion --> hacemos todo esto para que pueda haber mas de un elemento en la cesta.
-//                            $cesta = $_SESSION['cesta']; //creamos una variable llamada cesta donde guardamos el valor de cestaSession
-//                            $cesta[] = $arrayProductos[$botonAñadirPulsado]; //añadimos a la variable el nuevo array con los datos del producto que hemos seleccionado al pinchar en el boton añadir
-//                            $_SESSION['cesta'] = $cesta; //igualamos la cestaSession con la variable cesta a la que se le acaba de añadir un nuevo producto
-//                        } else { //si cesta no existe en la sesion
-//                            $cesta[] = $arrayProductos[$botonAñadirPulsado]; //creamos el array cesta y guardamos el producto del boton que hemos pinchado
-//                            $_SESSION['cesta'] = $cesta; //creamos cestaSession y guardamos en ella el array anterior
-//                        }
-//
-//                        $totalEuros = 0;
-//                        print "<ul>"; //mostramos la cesta en una lista desordenada
-//                        for ($index1 = 0; $index1 < count($_SESSION['cesta']); $index1++) {
-//                            print "<li>";
-//                            print "ID = " . $_SESSION['cesta'][$index1]['idProducto'];
-//                            print " --- " . $_SESSION['cesta'][$index1]['nombreProducto'];
-//                            print " --- " . $_SESSION['cesta'][$index1]['precio'] . "€";
-//                            print "</li>";
-//                            $totalEuros += $_SESSION['cesta'][$index1]['precio'];
-//                        }
-//                        print "</ul>";
-//                        print "TOTAL PRODUCTOS EN LA CESTA: " . count($_SESSION['cesta']) . "   IMPORTE: " . $totalEuros . "€";
-//                    } else {
-//                        print 'Aún no hay nada por aquí';
-//                    }
 
                     $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
 
