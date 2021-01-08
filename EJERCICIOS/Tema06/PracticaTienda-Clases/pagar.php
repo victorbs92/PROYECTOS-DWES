@@ -23,7 +23,7 @@ and open the template in the editor.
         <?php
         if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
             ?>
-            <form action = "pagar.php" method = "post">
+            <form action = "" method = "post">
                 <?php
                 if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
                     //incluimos el acceso a la BD

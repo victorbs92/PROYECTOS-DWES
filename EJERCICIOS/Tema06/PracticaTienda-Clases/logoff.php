@@ -1,5 +1,11 @@
 
+<?php
+//INCLUDES & REQUIRES
+require_once("./utils/Session.php");
 
+/* SESION */
+Session::crearSesion($_GET['userSession']);
+?>
 
 <!DOCTYPE html>
 <!--
@@ -15,12 +21,6 @@ and open the template in the editor.
     <body>
 
         <?php
-        //INCLUDES & REQUIRES
-        require_once("./utils/Session.php");
-
-        /* SESION */
-        Session::crearSesion($_GET['userSession']);
-
         if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
             ?>
 

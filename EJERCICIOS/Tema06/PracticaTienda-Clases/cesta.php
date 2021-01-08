@@ -23,7 +23,7 @@ and open the template in the editor.
         <?php
         if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
             ?>
-            <form id = "cesta" action = "cesta.php" method = "post">
+            <form id = "cesta" action = "" method = "post">
                 <input type = "submit" name="cerrarSesion" value="Cerrar Sesión" form="cesta">
                 <fieldset>
                     <legend>
@@ -80,6 +80,7 @@ and open the template in the editor.
                         header("Location: ./pagar.php"); //redirigimos a la pg pagar.php
                     }
                     ?>
+
                     <input type = "submit" name="pagar" value="Pagar">
                 </fieldset>
             </form>

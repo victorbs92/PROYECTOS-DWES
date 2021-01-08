@@ -27,7 +27,7 @@ and open the template in the editor.
             ?>
 
             <input type = "submit" name="cerrarSesion" value="Cerrar Sesión" form="productos">
-            <form id = "productos" action = "productos.php" method = "post">
+            <form id = "productos" action = "" method = "post">
                 <fieldset>
                     <legend>
                         <h1>PRODUCTOS</h1>
