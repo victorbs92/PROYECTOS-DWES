@@ -123,7 +123,7 @@ and open the template in the editor.
                         }
                         print "</ul>";
 
-                        print "TOTAL PRODUCTOS EN LA CESTA: " . count($_SESSION['cesta']) . "uds";
+                        print "TOTAL PRODUCTOS EN LA CESTA: " . count($_SESSION['cesta']) . " uds";
                         print "<br>IMPORTE TOTAL: " . $totalEuros . "€";
                     } else {
                         print 'Aún no hay nada por aquí';
