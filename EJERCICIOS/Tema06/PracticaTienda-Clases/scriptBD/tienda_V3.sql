@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-11-2020 a las 03:03:22
+-- Tiempo de generación: 08-01-2021 a las 07:25:31
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tienda`
 --
+CREATE DATABASE IF NOT EXISTS `tienda` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `tienda`;
 
 -- --------------------------------------------------------
 
@@ -27,6 +29,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `productos`
 --
 
+DROP TABLE IF EXISTS `productos`;
 CREATE TABLE `productos` (
   `idProducto` int(11) NOT NULL,
   `nombreProducto` varchar(30) NOT NULL,
@@ -36,12 +39,16 @@ CREATE TABLE `productos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELACIONES PARA LA TABLA `productos`:
+--
+
+--
 -- Volcado de datos para la tabla `productos`
 --
 
 INSERT INTO `productos` (`idProducto`, `nombreProducto`, `stock`, `precio`, `imagen`) VALUES
-(1, 'Camiseta', 50, 10, 'camisetaNegra'),
-(2, 'Sudadera', 100, 20, 'sudaderaNegra');
+(1, 'Camiseta', 45, 10, 'camisetaNegra'),
+(2, 'Sudadera', 96, 20, 'sudaderaNegra');
 
 -- --------------------------------------------------------
 
@@ -49,25 +56,24 @@ INSERT INTO `productos` (`idProducto`, `nombreProducto`, `stock`, `precio`, `ima
 -- Estructura de tabla para la tabla `usuarios`
 --
 
+DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `idUsuario` int(11) NOT NULL,
   `nick` varchar(30) NOT NULL,
-  `pass` varchar(30) NOT NULL
+  `pass` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONES PARA LA TABLA `usuarios`:
+--
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`idUsuario`, `nick`, `pass`) VALUES
-(1, 'aaa', 'aaa'),
-(2, 'bbb', 'bbb'),
-(5, 'dwes', 'abc123'),
-(11, 'ccc', 'abc123'),
-(16, 'ddd', 'ddd'),
-(24, 'dwess', 'abc123'),
-(35, 'dwesff', 'abc123'),
-(39, 'dwesasd', 'abc123');
+(78, 'qqq', '$2y$15$Ae67s7Ef8kN77IzQdVEhTuCSucmXAP2G3yBE2O1XfoSSWx/wpTrEm'),
+(125, 'dwes', '$2y$15$hwm9vjGi4qIUwS6FLC.qBOioWxPazazEcJ1JrbzdI0zNO32tPFr8W');
 
 --
 -- Índices para tablas volcadas
@@ -101,7 +107,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
