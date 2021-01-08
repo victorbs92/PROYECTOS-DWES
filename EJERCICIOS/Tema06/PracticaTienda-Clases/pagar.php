@@ -51,8 +51,11 @@ and open the template in the editor.
 
                     unset($_SESSION['cesta']); //destruimos sessionCesta
                 }
+
+                $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
+
                 print "<h1>GRACIAS POR SU COMPRA</h1>";
-                print "<a href=productos.php>Volver a la tienda</a></td>";
+                print "<a href=productos.php?userSession=$sessionName>Volver a la tienda</a></td>";
                 ?>
             </form>
 

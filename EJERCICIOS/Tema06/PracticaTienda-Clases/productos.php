@@ -174,10 +174,12 @@ and open the template in the editor.
                             print 'Aún no hay nada por aquí';
                         }
 
+                        $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
+
                         if (isset($_POST['comprar'])) { //si se ha pulsado el boton comprar
-                            if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
-                                header("Location: ./cesta.php"); //redirigimos a la pg cesta.php
-                            }
+                            //if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
+                                header("Location: ./cesta.php?userSession=$sessionName"); //redirigimos a la pg cesta.php
+                            //}
                         }
 
                         if (isset($_POST['vaciar'])) { //si se ha pulsado el boton vaciar carrito
@@ -185,7 +187,7 @@ and open the template in the editor.
                         }
 
                         if (isset($_POST['cerrarSesion'])) { //si se ha pulsado el boton de cerrar sesion
-                            header("Location: ./logoff.php"); //redirigimos a la pg logoff.php
+                            header("Location: ./logoff.php?userSession=$sessionName"); //redirigimos a la pg logoff.php
                         }
                         ?>
 

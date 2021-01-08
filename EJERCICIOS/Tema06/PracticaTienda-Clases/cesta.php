@@ -31,6 +31,8 @@ and open the template in the editor.
                     </legend>
                     <?php
                     if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
+                        $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
+
                         if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
                             print ("<table border = 1>"); //creamos la tabla
                             print ("<tr>");
@@ -68,16 +70,16 @@ and open the template in the editor.
                             print "<br>";
                         } else {
                             print "<h1>Error en el pedido</h1>";
-                            print "<a href = productos.php>Volver a la tienda</a></td>";
+                            print "<a href = productos.php?userSession=$sessionName>Volver a la tienda</a></td>";
                         }
                     }
 
                     if (isset($_POST['cerrarSesion'])) {
-                        header("Location: ./logoff.php"); //redirigimos a la pg logoff.php
+                        header("Location: ./logoff.php?userSession=$sessionName"); //redirigimos a la pg logoff.php
                     }
 
                     if (isset($_POST['pagar'])) {
-                        header("Location: ./pagar.php"); //redirigimos a la pg pagar.php
+                        header("Location: ./pagar.php?userSession=$sessionName"); //redirigimos a la pg pagar.php
                     }
                     ?>
 
