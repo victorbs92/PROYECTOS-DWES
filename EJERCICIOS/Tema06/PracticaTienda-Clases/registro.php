@@ -29,11 +29,9 @@ and open the template in the editor.
                     <input type="submit" id="registrar" name="registrar" value="Registrar">
                     <input type="submit" id="login" name="login" value="Login">
                 </div>
-
-
-
             </fieldset>
         </form>
+
         <?php
         /* INCLUDES & REQUIRES */
         require_once("./include/UsuarioVO.php");
@@ -91,12 +89,13 @@ and open the template in the editor.
                     Session::crearSesion($user); //llamamos al metodo estatico de la clase Session que recibe un argumento para dar nombre a la sesion y luego la crea
                     $_SESSION['nombreUsuario'] = $user; //guardamos en una variable de sesion el nombre del usuario
 
-                    header("Location: ./productos.php?userSession=$user"); //redirigimos a la pg productos.php pasando por el metodo GET el nombre de la sesion del usuario en la URL 
+                    header("Location: ./logoff.php?userSession=$user"); //redirigimos a la pg productos.php pasando por el metodo GET el nombre de la sesion del usuario en la URL 
                 } else {
                     print ("La constraseña introducida no es correcta.");
                 }
             }
         }
         ?>
+
     </body>
 </html>

@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 
 <?php
 //INCLUDES & REQUIRES
@@ -11,11 +5,16 @@ require_once("./include/ProductoVO.php");
 require_once("./include/ProductoDAO.php");
 require_once("./utils/Session.php");
 
-
 /* SESION */
 Session::crearSesion($_GET['userSession']);
 ?>
 
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -26,6 +25,7 @@ Session::crearSesion($_GET['userSession']);
         <?php
         if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
             ?>
+
             <input type = "submit" name="cerrarSesion" value="Cerrar Sesión" form="productos">
             <form id = "productos" action = "productos.php" method = "post">
                 <fieldset>
@@ -144,6 +144,7 @@ Session::crearSesion($_GET['userSession']);
                 <fieldset>
                     <h1>CESTA</h1>
                     <p>
+
                         <?php
                         if (isset($_POST['añadir'])) { //comprobamos si se ha enviado el formulario habiendo pulsado el boton de añadir
                             $botonAñadirPulsado = array_key_first($_POST['añadir']); //guardamos en una variable la key del array del boton añadir que hemos pulsado
@@ -187,6 +188,7 @@ Session::crearSesion($_GET['userSession']);
                             header("Location: ./logoff.php"); //redirigimos a la pg logoff.php
                         }
                         ?>
+
                     </p>
                     <input type = "submit" name = "comprar" value = "Comprar">
                     <input type = "submit" name = "vaciar" value = "Vaciar carrito">

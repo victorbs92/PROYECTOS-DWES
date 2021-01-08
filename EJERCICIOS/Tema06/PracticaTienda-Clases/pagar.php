@@ -1,3 +1,12 @@
+
+<?php
+//INCLUDES & REQUIRES
+require_once("./utils/Session.php");
+
+/* SESION */
+Session::crearSesion($_GET['userSession']);
+?>
+
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -7,19 +16,15 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Pagar</title>
     </head>
     <body>
-        <form action = "pagar.php" method = "post">
-            <?php
-            if (!isset($_SESSION)) {//comprobamos si no existe la sesion
-                session_start(); //creamos una sesion
-            } else {//si ya existe la sesion la destruimos y creamos una nueva
-                session_destroy();
-                session_start();
-            }
 
-            if (isset($_SESSION['nombreUsuario'])) { //SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
+        <?php
+        if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
+            ?>
+            <form action = "pagar.php" method = "post">
+                <?php
                 if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
                     //incluimos el acceso a la BD
                     include './db_acceso.php';
@@ -48,10 +53,15 @@ and open the template in the editor.
                 }
                 print "<h1>GRACIAS POR SU COMPRA</h1>";
                 print "<a href=productos.php>Volver a la tienda</a></td>";
-            } else { //SI EL USUARIO NO SE HA AUTENTIFICADO
-                print "<h1>ERROR.</h1>";
-                print "<a href=registro.php>Login</a></td>";
-            }
-            ?>
+                ?>
+            </form>
+
+            <?php
+        } else { //SI EL USUARIO NO SE HA AUTENTIFICADO
+            print "<h1>ERROR.</h1>";
+            print "<a href=registro.php>Login</a></td>";
+        }
+        ?>
+
     </body>
 </html>
