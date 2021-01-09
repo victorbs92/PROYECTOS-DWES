@@ -13,4 +13,6 @@
 interface InterfaceProductoDAO {
 
     public function obtenerTodosProductos();
+
+    public function actualizarStockTrasPago($array);
 }
