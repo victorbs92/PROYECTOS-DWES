@@ -90,6 +90,11 @@ and open the template in the editor.
                     <h1>CESTA</h1>
 
                     <?php
+                    if (isset($_POST['vaciar'])) { //si se ha pulsado el boton vaciar cesta
+                        unset($_SESSION['cesta']); //destruimos cestaSession
+                        unset($_SESSION['unidades']); //destruimos unidadesSession
+                    }
+
                     $cestaCompra = array(); //creamos un array donde ir guardando los productos añadidos a la cesta
                     $unidadesProductoCesta = array(); //creamos un array donde los indices serán las claves de los productos y el valor sera la cantidad de ese mismo producto que se ha añadido a la cesta
 
@@ -110,6 +115,17 @@ and open the template in the editor.
                             $_SESSION['unidades'] = $unidadesProductoCesta; //guardamos en la sesion el valor del array
                         }
 
+                        pintarCesta($unidadesProductoCesta, $arrayProductos); //se llama a pintarCesta
+                    } else if (!isset($_POST['añadir']) && isset($_SESSION['cesta'])) { //si se ha cargado la página sin haber pulsado un boton de añadir y la sesionCesta existe pinta la cesta, esto se ha hecho por si se ha vuelto a la pg desde la pg Cesta o desde la de iniciar sesion sin haber borrado la sesion previamente.
+                        $cestaCompra = $_SESSION['cesta']; //igualamos el valor del array cestaCompra con el que hay guardado en la sesion
+                        $unidadesProductoCesta = $_SESSION['unidades']; //igualamos el valor del array unidades con el que hay guardado en la sesion
+
+                        pintarCesta($unidadesProductoCesta, $arrayProductos); //se llama a pintarCesta
+                    } else {
+                        print 'Aún no hay nada por aquí';
+                    }
+
+                    function pintarCesta($unidadesProductoCesta, $arrayProductos) {//funcion al que se le pasan los array de unidades y el de array de productos y pinta la cesta en el html
                         /* RESUMEN CESTA */
                         $totalEuros = 0;
 
@@ -125,8 +141,6 @@ and open the template in the editor.
 
                         print "TOTAL PRODUCTOS EN LA CESTA: " . count($_SESSION['cesta']) . " uds";
                         print "<br>IMPORTE TOTAL: " . $totalEuros . "€";
-                    } else {
-                        print 'Aún no hay nada por aquí';
                     }
 
                     $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
@@ -135,11 +149,6 @@ and open the template in the editor.
                         if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia permite redirigir a ver cesta
                             header("Location: ./cesta.php?userSession=$sessionName"); //redirigimos a la pg cesta.php
                         }
-                    }
-
-                    if (isset($_POST['vaciar'])) { //si se ha pulsado el boton vaciar cesta
-                        unset($_SESSION['cesta']); //destruimos cestaSession
-                        unset($_SESSION['unidades']); //destruimos unidadesSession
                     }
 
                     if (isset($_POST['cerrarSesion'])) { //si se ha pulsado el boton de cerrar sesion
