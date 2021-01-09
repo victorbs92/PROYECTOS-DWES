@@ -125,24 +125,6 @@ and open the template in the editor.
                         print 'Aún no hay nada por aquí';
                     }
 
-                    function pintarCesta($unidadesProductoCesta, $arrayProductos) {//funcion al que se le pasan los array de unidades y el de array de productos y pinta la cesta en el html
-                        /* RESUMEN CESTA */
-                        $totalEuros = 0;
-
-                        print "<ul>";
-                        foreach ($unidadesProductoCesta as $key => $value) {
-                            $costeTodasUdsMismoProducto = $arrayProductos[$key]->getPrecio() * $value;
-                            print "<li>";
-                            print $arrayProductos[$key]->getNombreProducto() . "  X  " . $value . "  =  " . $costeTodasUdsMismoProducto . " €";
-                            print "</li>";
-                            $totalEuros = $totalEuros + $arrayProductos[$key]->getPrecio() * $value;
-                        }
-                        print "</ul>";
-
-                        print "TOTAL PRODUCTOS EN LA CESTA: " . count($_SESSION['cesta']) . " uds";
-                        print "<br>IMPORTE TOTAL: " . $totalEuros . "€";
-                    }
-
                     $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
 
                     if (isset($_POST['cesta'])) { //si se ha pulsado el boton ver cesta
@@ -166,6 +148,27 @@ and open the template in the editor.
         } else { //SI EL USUARIO NO SE HA AUTENTIFICADO
             print "<h1>ERROR.</h1>";
             print "<a href=registro.php>Login</a></td>";
+        }
+        ?>
+        <?php
+
+        function pintarCesta($unidadesProductoCesta, $arrayProductos) {//funcion al que se le pasan los array de unidades y el de array de productos y pinta la cesta en el html
+            /* RESUMEN CESTA */
+            $totalEuros = 0;
+            $totalProductos = 0;
+            print "<ul>";
+            foreach ($unidadesProductoCesta as $key => $value) {
+                $costeTodasUdsMismoProducto = $arrayProductos[$key]->getPrecio() * $value;
+                print "<li>";
+                print $arrayProductos[$key]->getNombreProducto() . "  X  " . $value . "  =  " . $costeTodasUdsMismoProducto . " €";
+                print "</li>";
+                $totalEuros = $totalEuros + $arrayProductos[$key]->getPrecio() * $value;
+                $totalProductos = $totalProductos + $value;
+            }
+            print "</ul>";
+
+            print "TOTAL PRODUCTOS EN LA CESTA: " . $totalProductos . " uds";
+            print "<br>IMPORTE TOTAL: " . $totalEuros . "€";
         }
         ?>
 
