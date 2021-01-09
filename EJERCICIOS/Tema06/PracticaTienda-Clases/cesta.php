@@ -38,8 +38,23 @@ and open the template in the editor.
 
                     <?php
                     $cesta = $_SESSION['cesta']; //se iguala la variable cesta con lo que hay guardado en la cestaSesion
+                    $unidadesProductoCesta = $_SESSION['unidades']; //creamos un array donde los indices serán las claves de los productos y el valor sera la cantidad de ese mismo producto que se ha añadido a la cesta
 
                     pintarCesta($cesta); //se llama a pintarCesta pasandole cesta como parametro
+
+                    if (isset($_POST['eliminar'])) {
+                        $botonEliminarPulsado = array_key_first($_POST['eliminar']); //guardamos en una variable la key del array del boton añadir que hemos pulsado
+                        $idProductoEliminado = $cesta[$botonEliminarPulsado]->getIdProducto(); //guardamos en una variable el id del producto eliminado para poder buscar por ese id en el array de unidadesProductosCesta y restarle 1 al elemento que este en el indice con ese id
+                        @$unidadesProductoCesta[$idProductoEliminado]--; //restamos uno a la cantidad del producto que esta en ese indice del array
+                        
+                        if ($unidadesProductoCesta[$idProductoEliminado] == 0) {//si al eliminar el producto ya no quedan mas iguales, eliminamos su indice del array para que al volver a la pestaña productos no lo muestre en su cesta como un 0
+                            unset($unidadesProductoCesta[$idProductoEliminado]);
+                        }
+                        
+                        $_SESSION['unidades'] = $unidadesProductoCesta; //guardamos el array en la sesion
+                        unset($cesta[$botonEliminarPulsado]); //eliminamos del array cesta el elemento que tenga el mismo indice que el boton de eliminar que se haya pulsado
+                        $_SESSION['cesta'] = $cesta; //guardamos el array en la sesion
+                    }
 
                     $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
 
@@ -68,7 +83,8 @@ and open the template in the editor.
         <?php
 
         function pintarCesta($cesta) {
-            $propiedadesProducto = $cesta[0]->getAllPropierties($cesta[0]); //para acceder a las propiedades del objeto Producto, como son privadas, necesitamos este método implementado en la clase ProductoVO y que devuelve un array asociativo con las propiedades como key y los valores como value
+            $primerElemento = array_key_first($cesta); //reset devuelve el primer elemento del array o false si esta vacio
+            $propiedadesProducto = $cesta[$primerElemento]->getAllPropierties($cesta[$primerElemento]); //para acceder a las propiedades del objeto Producto, como son privadas, necesitamos este método implementado en la clase ProductoVO y que devuelve un array asociativo con las propiedades como key y los valores como value
             $totalEuros = 0;
 
             print ("<table border = 1>"); //creamos la tabla
@@ -95,8 +111,7 @@ and open the template in the editor.
                     }
                 }
 
-                $idValue = $cesta[$key]->getIdProducto(); //guardamos en una variable el valor del idProducto
-                print "<th><input type='submit' value='Eliminar' name='eliminar[$idValue]'></th>"; //el name será un array y su indice será el idValue
+                print "<th><input type='submit' value='Eliminar' name='eliminar[$key]'></th>"; //el name será un array y su indice será la key de esa iteracion del array cesta (numerico ascendente)
                 print ("</tr>");
 
                 $totalEuros += $cesta[$key]->getPrecio();

@@ -24,14 +24,16 @@ and open the template in the editor.
         if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
             ?>
             <form action = "" method = "post">
+                <input type = "submit" name="cerrarSesion" value="Cerrar Sesión">
 
                 <?php
                 $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
                 ?>
 
+                <br><br>
                 <input type = "submit" name = "pagar" value = "Pagar">
                 &nbsp;
-                <input type = "submit" name = "volver" value = "Volver a la Tienda">
+                <input type = "submit" name = "volver" value = "Volver a la Cesta">
 
 
                 <?php
