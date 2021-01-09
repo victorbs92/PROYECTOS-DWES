@@ -9,9 +9,10 @@ Session::crearSesion($_GET['userSession']);
 
 <!DOCTYPE html>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+ESTA PÁGINA HARÍA LAS VECES DE "CONFIRM" YA QUE EN PHP, AL SER UN LENGUAJE DEL LADO DEL SERVIDOR,
+LA INTERACCIÓN CON EL USUARIO ES MÍNIMA Y NO DISPONEMOS DE LA OPCIÓN DE QUE EL USUARIO NOS CONFIRME EN LA PG DE CESTA.
+ESTA PÁGINA SOLO CONTENDRÁ EL BOTÓN DE CERRAR SESIÓN DE MANERA PERMANENTE, PAGAR Y VOLVER QUE SERÁN SUSTITUIDOS POR UN ENLACE A LA PG PRODUCTOS SI YA SE HA PAGADO.
+TAMBIÉN TENDRÁ LA LÓGICA DEL PROCESO DE PAGO Y LA CONSIGUIENTE ACTUALIZACIÓN DE LOS DATOS EN LA BD.
 -->
 <html>
     <head>
@@ -28,26 +29,36 @@ and open the template in the editor.
 
                 <?php
                 $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
+
+                if (isset($_SESSION['cesta']) && isset($_SESSION['unidades'])) {//si las variables de sesion existen es que el usuario todavia no ha pagado, entonces muestra los botones de pagar y volver y todo el codigo correspondiente
+                    ?>
+
+                    <br><br>
+                    <input type = "submit" name = "pagar" value = "Pagar">
+                    &nbsp;
+                    <input type = "submit" name = "volver" value = "Volver">
+
+                    <?php
+                } else {
+                    print "<h1>GRACIAS POR SU COMPRA</h1>";
+                    print "<a href=productos.php?userSession=$sessionName>Volver a la tienda</a></td>";
+                }
                 ?>
-
-                <br><br>
-                <input type = "submit" name = "pagar" value = "Pagar">
-                &nbsp;
-                <input type = "submit" name = "volver" value = "Volver a la Cesta">
-
 
                 <?php
                 if (isset($_POST['cerrarSesion'])) {
                     header("Location: ./logoff.php?userSession=$sessionName"); //redirigimos a la pg logoff.php
                 }
 
-                if (isset($_POST['pagar'])) {
-                    header("Location: ./pagar.php?userSession=$sessionName"); //redirigimos a la pg pagar.php
-                }
-
                 if (isset($_POST['volver'])) {
                     header("Location: ./cesta.php?userSession=$sessionName"); //redirigimos a la pg pagar.php
                 }
+
+                if (isset($_POST['pagar'])) {
+                    // header("Location: ./pagar.php?userSession=$sessionName"); //redirigimos a la pg pagar.php
+                }
+
+
 
                 //                if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
                 //                    //incluimos el acceso a la BD
