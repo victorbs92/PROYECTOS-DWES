@@ -33,10 +33,20 @@ and open the template in the editor.
                     </legend>
                     <input type = "submit" name="pagar" value="Pagar">
                     &nbsp;
+                    <input type = "submit" name = "vaciar" value = "Vaciar cesta">
+                    &nbsp;
                     <input type = "submit" name="volver" value="Volver a la Tienda">
                     <br><br>
 
                     <?php
+                    $cesta = array();
+                    $unidades = array();
+
+                    if (isset($_POST['vaciar'])) { //si se ha pulsado el boton vaciar cesta
+                        unset($_SESSION['cesta']); //destruimos cestaSession
+                        unset($_SESSION['unidades']); //destruimos unidadesSession
+                    }
+
                     if (isset($_POST['eliminar'])) {
                         $cesta = $_SESSION['cesta']; //se iguala la variable cesta con lo que hay guardado en la cestaSesion
                         $unidadesProductoCesta = $_SESSION['unidades']; //creamos un array donde los indices serán las claves de los productos y el valor sera la cantidad de ese mismo producto que se ha añadido a la cesta
@@ -54,8 +64,10 @@ and open the template in the editor.
                         $_SESSION['cesta'] = $cesta; //guardamos el array en la sesion
                     }
 
-                    $cesta = $_SESSION['cesta']; //se iguala la variable cesta con lo que hay guardado en la cestaSesion
-                    $unidadesProductoCesta = $_SESSION['unidades']; //creamos un array donde los indices serán las claves de los productos y el valor sera la cantidad de ese mismo producto que se ha añadido a la cesta
+                    if (isset($_SESSION['cesta']) && isset($_SESSION['unidades'])) {//si las variables de sesion existen iguala los array con sus valores
+                        $cesta = $_SESSION['cesta']; //se iguala la variable cesta con lo que hay guardado en la cestaSesion
+                        $unidadesProductoCesta = $_SESSION['unidades']; //creamos un array donde los indices serán las claves de los productos y el valor sera la cantidad de ese mismo producto que se ha añadido a la cesta
+                    }
 
                     $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
 
