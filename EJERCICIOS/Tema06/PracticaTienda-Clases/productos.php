@@ -52,8 +52,10 @@ and open the template in the editor.
                         $arrayResultado = $resultadoConsulta->fetch_all(MYSQLI_BOTH); //el resultado es un array que contiene un array por cada fila devuelta (array de arrays)(matriz) y que es numerico y asociativo
 
                         for ($i = 0; $i < count($arrayResultado); $i++) { //Recorremos el array resultado, creamos un objeto ProductoVO por cada iteracion y lo añadimos al array de productos
-                            $producto = new ProductoVO($arrayResultado[$i][0], $arrayResultado[$i][1], $arrayResultado[$i][2], $arrayResultado[$i][3], $arrayResultado[$i][4]);
-                            $arrayProductos[$producto->getIdProducto()] = $producto; //guardamos en el arrayProductos el producto siendo el id del producto la posicion del array
+                            if ($arrayResultado[$i]['stock'] > 0) {//si el producto tiene stock, crea el productoVO y lo añade al array, asi no se muestran en la tabla los productos sin stock
+                                $producto = new ProductoVO($arrayResultado[$i][0], $arrayResultado[$i][1], $arrayResultado[$i][2], $arrayResultado[$i][3], $arrayResultado[$i][4]);
+                                $arrayProductos[$producto->getIdProducto()] = $producto; //guardamos en el arrayProductos el producto siendo el id del producto la posicion del array
+                            }
                         }
 
                         $_SESSION['productos'] = $arrayProductos; //guardamos el array de productos en la sesion
@@ -67,7 +69,7 @@ and open the template in the editor.
                         if (isset($_SESSION['cesta'])) { //si cesta si que existe en la sesion --> hacemos todo esto para que pueda haber mas de un elemento en la cesta.
                             $unidadesProductoCesta = $_SESSION['unidades']; //igualamos el valor del array unidades con el que hay guardado en la sesion
                             $cestaCompra = $_SESSION['cesta']; //igualamos el valor del array cestaCompra con el que hay guardado en la sesion
-                            
+
                             if ($arrayProductos[$botonAñadirPulsado]->getStock() > 0) { //si el stock del producto es superior a 0 antes de restarle 1 y añadirle a la cesta
                                 $arrayProductos[$botonAñadirPulsado]->setStock($arrayProductos[$botonAñadirPulsado]->getStock() - 1); //reducimos en 1 el stock
                                 $_SESSION['productos'] = $arrayProductos; //guardamos el array de productos en la sesion
