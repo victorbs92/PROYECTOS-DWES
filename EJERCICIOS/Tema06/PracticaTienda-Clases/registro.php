@@ -34,9 +34,9 @@ and open the template in the editor.
 
         <?php
         /* INCLUDES & REQUIRES */
+        require_once("./utils/Session.php");
         require_once("./include/UsuarioVO.php");
         require_once("./include/UsuarioDAO.php");
-        require_once("./utils/Session.php");
 
         if (isset($_POST['registrar'])) { //código que se ejecuta al pulsar el botón registrar
             /* guardamos los valores de los campos del formulario en variables */

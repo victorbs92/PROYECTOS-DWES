@@ -2,6 +2,7 @@
 <?php
 //INCLUDES & REQUIRES
 require_once("./utils/Session.php");
+require_once("./include/ProductoVO.php");
 
 /* SESION */
 Session::crearSesion($_GET['userSession']);
@@ -23,56 +24,24 @@ and open the template in the editor.
         <?php
         if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
             ?>
+
             <form id = "cesta" action = "" method = "post">
                 <input type = "submit" name="cerrarSesion" value="Cerrar Sesión" form="cesta">
                 <fieldset>
                     <legend>
                         <h1>CESTA</h1>
                     </legend>
-                    <?php
-                    if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
-                        $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
+                    <input type = "submit" name="pagar" value="Pagar">
+                    &nbsp;
+                    <input type = "submit" name="volver" value="Volver a la Tienda">
+                    <br><br>
 
-//                        if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia
-//                            print ("<table border = 1>"); //creamos la tabla
-//                            print ("<tr>");
-//
-//                            //CABECERA DE LA TABLA
-//                            foreach ($_SESSION['cesta'][0] as $key => $value) {//para conocer las claves solo necesitamos una fila devuelta, en este caso usamos la primera.
-//                                if ($key != "stock" && $key != "imagen") {
-//                                    print "<th>$key</th>";
-//                                }
-//                            }
-//
-//                            print ("</tr>");
-//
-//                            $totalEuros = 0;
-//                            //CUERPO DE LA TABLA
-//                            for ($index = 0; $index < count($_SESSION['cesta']); $index++) {//para recorrer una matriz necesitamos bucles anidados
-//                                print ("<tr>");
-//                                foreach ($_SESSION['cesta'][$index] as $key => $value) {//para conocer las claves solo necesitamos una fila devuelta, en este caso usamos la primera.
-//                                    if ($key != "stock" && $key != "imagen") {
-//                                        print "<td>$value</td>";
-//                                    }
-//                                }
-//                                $totalEuros += $_SESSION['cesta'][$index]['precio'];
-//                                print ("</tr>");
-//                            }
-//
-//                            //PIE DE LA TABLA
-//                            print ("<tfoot>");
-//                            print ("<tr>");
-//                            print ("<td>TOTAL PRODUCTOS: " . count($_SESSION['cesta']) . "</tf>");
-//                            print ("<td> IMPORTE: " . $totalEuros . "€</tf>");
-//                            print ("</tr>");
-//                            print ("</tfoot>");
-//                            print "</table>";
-//                            print "<br>";
-//                        } else {
-//                            print "<h1>Error en el pedido</h1>";
-//                            print "<a href = productos.php?userSession=$sessionName>Volver a la tienda</a></td>";
-//                        }
-                    }
+                    <?php
+                    $cesta = $_SESSION['cesta']; //se iguala la variable cesta con lo que hay guardado en la cestaSesion
+
+                    pintarCesta($cesta); //se llama a pintarCesta pasandole cesta como parametro
+
+                    $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
 
                     if (isset($_POST['cerrarSesion'])) {
                         header("Location: ./logoff.php?userSession=$sessionName"); //redirigimos a la pg logoff.php
@@ -81,14 +50,12 @@ and open the template in the editor.
                     if (isset($_POST['pagar'])) {
                         header("Location: ./pagar.php?userSession=$sessionName"); //redirigimos a la pg pagar.php
                     }
-                    
+
                     if (isset($_POST['volver'])) {
                         header("Location: ./productos.php?userSession=$sessionName"); //redirigimos a la pg pagar.php
                     }
                     ?>
 
-                    <input type = "submit" name="pagar" value="Pagar">
-                    <input type = "submit" name="volver" value="Volver a la Tienda">
                 </fieldset>
             </form>
 
@@ -96,6 +63,54 @@ and open the template in the editor.
         } else { //SI EL USUARIO NO SE HA AUTENTIFICADO
             print "<h1>ERROR.</h1>";
             print "<a href = registro.php>Login</a></td>";
+        }
+        ?>
+        <?php
+
+        function pintarCesta($cesta) {
+            $propiedadesProducto = $cesta[0]->getAllPropierties($cesta[0]); //para acceder a las propiedades del objeto Producto, como son privadas, necesitamos este método implementado en la clase ProductoVO y que devuelve un array asociativo con las propiedades como key y los valores como value
+            $totalEuros = 0;
+
+            print ("<table border = 1>"); //creamos la tabla
+            print ("<tr>");
+
+            /* CABECERA DE LA TABLA */
+            foreach ($propiedadesProducto as $key => $value) {//para conocer las claves solo necesitamos una fila devuelta, en este caso usamos la primera.
+                if ($key != "stock" && $key != "imagen") {
+                    print "<th>$key</th>";
+                }
+            }
+            print "<th>Eliminar producto</th>";
+            print ("</tr>");
+
+            /* CUERPO DE LA TABLA */
+            foreach ($cesta as $key => $value) {
+                print ("<tr>");
+
+                $propiedadesProducto = $cesta[$key]->getAllPropierties($cesta[$key]);
+
+                foreach ($propiedadesProducto as $key2 => $value2) {//recorremos las propiedades del objeto para imprimirlas en la tabla
+                    if ($key2 != 'stock' && $key2 != 'imagen') {
+                        print "<th>$value2</th>";
+                    }
+                }
+
+                $idValue = $cesta[$key]->getIdProducto(); //guardamos en una variable el valor del idProducto
+                print "<th><input type='submit' value='Eliminar' name='eliminar[$idValue]'></th>"; //el name será un array y su indice será el idValue
+                print ("</tr>");
+
+                $totalEuros += $cesta[$key]->getPrecio();
+            }
+
+            /* PIE DE LA TABLA */
+            print ("<tfoot>");
+            print ("<tr>");
+            print ("<td>TOTAL PRODUCTOS: " . count($cesta) . "uds</tf>");
+            print ("<td> IMPORTE TOTAL: " . $totalEuros . "€</tf>");
+            print ("</tr>");
+            print ("</tfoot>");
+            print "</table>";
+            print "<br>";
         }
         ?>
 

@@ -1,9 +1,9 @@
 
 <?php
 //INCLUDES & REQUIRES
+require_once("./utils/Session.php");
 require_once("./include/ProductoVO.php");
 require_once("./include/ProductoDAO.php");
-require_once("./utils/Session.php");
 
 /* SESION */
 Session::crearSesion($_GET['userSession']);
@@ -71,7 +71,7 @@ and open the template in the editor.
                         foreach ($propiedadesProducto as $key2 => $value2) {//recorremos las propiedades del objeto para imprimirlas en la tabla
                             if ($key2 == 'imagen') {
                                 print "<th><img border='0' width='100' height='100' src='./img/$value2.jpg' ></a></th>";
-                            } elseif ($key2 != 'idProducto') {
+                            } else if ($key2 != 'idProducto') {
                                 print "<th>$value2</th>";
                             }
                         }
