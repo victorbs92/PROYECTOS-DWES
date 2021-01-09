@@ -39,12 +39,16 @@ and open the template in the editor.
                     <br><br>
 
                     <?php
+                    /* VARIABLES */
                     $cesta = array();
                     $unidades = array();
+                    $arrayProductos = array();
 
+                    /* ISSETS */
                     if (isset($_POST['vaciar'])) { //si se ha pulsado el boton vaciar cesta
                         unset($_SESSION['cesta']); //destruimos cestaSession
                         unset($_SESSION['unidades']); //destruimos unidadesSession
+                        unset($_SESSION['productos']); //destruimos productosSession
                     }
 
                     if (isset($_POST['eliminar'])) {
@@ -78,8 +82,6 @@ and open the template in the editor.
                     } else {
                         $_SESSION['factura'] = $factura; //se guarda el total de la cesta en la sesion
                     }
-
-
 
                     if (isset($_POST['cerrarSesion'])) {
                         header("Location: ./confirms/logoff.php?userSession=$sessionName"); //redirigimos a la pg logoff.php

@@ -65,21 +65,26 @@ and open the template in the editor.
                         $botonAñadirPulsado = array_key_first($_POST['añadir']); //guardamos en una variable la key del array del boton añadir que hemos pulsado
 
                         if (isset($_SESSION['cesta'])) { //si cesta si que existe en la sesion --> hacemos todo esto para que pueda haber mas de un elemento en la cesta.
-                            $cestaCompra = $_SESSION['cesta']; //igualamos el valor del array cestaCompra con el que hay guardado en la sesion
-                            array_push($cestaCompra, $arrayProductos[$botonAñadirPulsado]); //guardamos en el array cestaCompra el producto del arrayProductos que tenga el mismo id que el boton de añadir que se haya pulsado, como no interesa el indice en este array, simplemente lo pusheamos
-                            $_SESSION['cesta'] = $cestaCompra; //igualamos la cestaSession con el array cestaCompra al que se le acaba de añadir un nuevo producto
                             $unidadesProductoCesta = $_SESSION['unidades']; //igualamos el valor del array unidades con el que hay guardado en la sesion
-                            @$unidadesProductoCesta[$botonAñadirPulsado]++; //incrementamos el valor del array en la posicion del id del producto, se añade el operador de errores para que no marque error al incrementar cuando todavia no habia valor en ese indice
-                            $_SESSION['unidades'] = $unidadesProductoCesta; //guardamos en la sesion el valor del array
-                        } else { //si cesta no existe en la sesion
-                            if ($arrayProductos[$botonAñadirPulsado]->getStock() > 0) {//comprobamos que el stock del producto sea superior a 0 antes de restarle 1 y añadirle a la cesta
+                            $cestaCompra = $_SESSION['cesta']; //igualamos el valor del array cestaCompra con el que hay guardado en la sesion
+
+                            if ($arrayProductos[$botonAñadirPulsado]->getStock() > 0) { //si el stock del producto es superior a 0 antes de restarle 1 y añadirle a la cesta
+                                $arrayProductos[$botonAñadirPulsado]->setStock($arrayProductos[$botonAñadirPulsado]->getStock() - 1); //reducimos en 1 el stock
+                                $_SESSION['productos'] = $arrayProductos; //guardamos el array de productos en la sesion
+                                @$unidadesProductoCesta[$botonAñadirPulsado]++; //incrementamos el valor del array en la posicion del id del producto, se añade el operador de errores para que no marque error al incrementar cuando todavia no habia valor en ese indice
+                                $_SESSION['unidades'] = $unidadesProductoCesta; //guardamos en la sesion el valor del array
+                                array_push($cestaCompra, $arrayProductos[$botonAñadirPulsado]); //guardamos en el array cestaCompra el producto del arrayProductos que tenga el mismo id que el boton de añadir que se haya pulsado, como no interesa el indice en este array, simplemente lo pusheamos
+                                $_SESSION['cesta'] = $cestaCompra; //igualamos la cestaSession con el array cestaCompra al que se le acaba de añadir un nuevo producto
+                            }
+                        } else { //si cesta no existe en la sesion 
+                            if ($arrayProductos[$botonAñadirPulsado]->getStock() > 0) { //si el stock del producto es superior a 0 antes de restarle 1 y añadirle a la cesta
                                 $arrayProductos[$botonAñadirPulsado]->setStock($arrayProductos[$botonAñadirPulsado]->getStock() - 1); //reducimos en 1 el stock
                                 $_SESSION['productos'] = $arrayProductos; //guardamos el array de productos en la sesion
                                 array_push($cestaCompra, $arrayProductos[$botonAñadirPulsado]); //guardamos en el array cestaCompra el producto del arrayProductos que tenga el mismo id que el boton de añadir que se haya pulsado, como no interesa el indice en este array, simplemente lo pusheamos
-                                $_SESSION['cesta'] = $cestaCompra; //creamos cestaSession y guardamos en ella el array anterior
                                 @$unidadesProductoCesta[$botonAñadirPulsado]++; //incrementamos el valor del array en la posicion del id del producto, se añade el operador de errores para que no marque error al incrementar cuando todavia no habia valor en ese indice
-                                $_SESSION['unidades'] = $unidadesProductoCesta; //guardamos en la sesion el valor del array
                             }
+                            $_SESSION['cesta'] = $cestaCompra; //creamos cestaSession y guardamos en ella el array anterior
+                            $_SESSION['unidades'] = $unidadesProductoCesta; //guardamos en la sesion el valor del array
                         }
                     } else if (!isset($_POST['añadir']) && isset($_SESSION['cesta'])) { //si se ha cargado la página sin haber pulsado un boton de añadir y la sesionCesta existe pinta la cesta, esto se ha hecho por si se ha vuelto a la pg desde la pg Cesta o desde la de iniciar sesion sin haber borrado la sesion previamente.
                         $cestaCompra = $_SESSION['cesta']; //igualamos el valor del array cestaCompra con el que hay guardado en la sesion
@@ -96,7 +101,7 @@ and open the template in the editor.
                         header("Location: ./confirms/logoff.php?userSession=$sessionName"); //redirigimos a la pg logoff.php
                     }
 
-                    /* CREAMOS LA TABLA */
+                    /* CREACIÓN DE LA TABLA */
                     print ("<table border = 1>");
                     print ("<tr>");
 
