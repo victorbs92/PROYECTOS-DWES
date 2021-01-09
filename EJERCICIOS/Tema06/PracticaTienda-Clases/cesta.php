@@ -37,26 +37,31 @@ and open the template in the editor.
                     <br><br>
 
                     <?php
-                    $cesta = $_SESSION['cesta']; //se iguala la variable cesta con lo que hay guardado en la cestaSesion
-                    $unidadesProductoCesta = $_SESSION['unidades']; //creamos un array donde los indices serán las claves de los productos y el valor sera la cantidad de ese mismo producto que se ha añadido a la cesta
-
-                    pintarCesta($cesta); //se llama a pintarCesta pasandole cesta como parametro
-
                     if (isset($_POST['eliminar'])) {
+                        $cesta = $_SESSION['cesta']; //se iguala la variable cesta con lo que hay guardado en la cestaSesion
+                        $unidadesProductoCesta = $_SESSION['unidades']; //creamos un array donde los indices serán las claves de los productos y el valor sera la cantidad de ese mismo producto que se ha añadido a la cesta
+
                         $botonEliminarPulsado = array_key_first($_POST['eliminar']); //guardamos en una variable la key del array del boton añadir que hemos pulsado
                         $idProductoEliminado = $cesta[$botonEliminarPulsado]->getIdProducto(); //guardamos en una variable el id del producto eliminado para poder buscar por ese id en el array de unidadesProductosCesta y restarle 1 al elemento que este en el indice con ese id
                         @$unidadesProductoCesta[$idProductoEliminado]--; //restamos uno a la cantidad del producto que esta en ese indice del array
-                        
+
                         if ($unidadesProductoCesta[$idProductoEliminado] == 0) {//si al eliminar el producto ya no quedan mas iguales, eliminamos su indice del array para que al volver a la pestaña productos no lo muestre en su cesta como un 0
                             unset($unidadesProductoCesta[$idProductoEliminado]);
                         }
-                        
+
                         $_SESSION['unidades'] = $unidadesProductoCesta; //guardamos el array en la sesion
                         unset($cesta[$botonEliminarPulsado]); //eliminamos del array cesta el elemento que tenga el mismo indice que el boton de eliminar que se haya pulsado
                         $_SESSION['cesta'] = $cesta; //guardamos el array en la sesion
                     }
 
+                    $cesta = $_SESSION['cesta']; //se iguala la variable cesta con lo que hay guardado en la cestaSesion
+                    $unidadesProductoCesta = $_SESSION['unidades']; //creamos un array donde los indices serán las claves de los productos y el valor sera la cantidad de ese mismo producto que se ha añadido a la cesta
+
                     $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
+
+                    if (is_null(pintarCesta($cesta))) { //se llama a pintarCesta pasandole cesta como parametro y si devuelve null porque la cesta esta vacia (por haber eliminado todos los productos) redirige directamente a la pestaña productos
+                        header("Location: ./productos.php?userSession=$sessionName"); //redirigimos a la pg productos.php
+                    }
 
                     if (isset($_POST['cerrarSesion'])) {
                         header("Location: ./logoff.php?userSession=$sessionName"); //redirigimos a la pg logoff.php
@@ -83,7 +88,11 @@ and open the template in the editor.
         <?php
 
         function pintarCesta($cesta) {
-            $primerElemento = array_key_first($cesta); //reset devuelve el primer elemento del array o false si esta vacio
+            $primerElemento = array_key_first($cesta); //obtiene la key del primer indice del array o devuelve null si esta vacio
+
+            if (is_null($primerElemento)) { //si primer elemento es nulo no pinta nada y devuelve null
+                return null;
+            }
             $propiedadesProducto = $cesta[$primerElemento]->getAllPropierties($cesta[$primerElemento]); //para acceder a las propiedades del objeto Producto, como son privadas, necesitamos este método implementado en la clase ProductoVO y que devuelve un array asociativo con las propiedades como key y los valores como value
             $totalEuros = 0;
 
@@ -126,6 +135,8 @@ and open the template in the editor.
             print ("</tfoot>");
             print "</table>";
             print "<br>";
+
+            return true;
         }
         ?>
 

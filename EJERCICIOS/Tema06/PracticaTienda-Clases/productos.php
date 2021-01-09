@@ -168,8 +168,12 @@ and open the template in the editor.
             }
             print "</ul>";
 
-            print "TOTAL PRODUCTOS EN LA CESTA: " . $totalProductos . " uds";
-            print "<br>IMPORTE TOTAL: " . $totalEuros . "€";
+            if ($totalProductos == 0) {
+                print 'Aún no hay nada por aquí';
+            } else {
+                print "TOTAL PRODUCTOS EN LA CESTA: " . $totalProductos . " uds";
+                print "<br>IMPORTE TOTAL: " . $totalEuros . "€";
+            }
         }
         ?>
 
