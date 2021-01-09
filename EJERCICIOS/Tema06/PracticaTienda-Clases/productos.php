@@ -67,7 +67,7 @@ and open the template in the editor.
                         if (isset($_SESSION['cesta'])) { //si cesta si que existe en la sesion --> hacemos todo esto para que pueda haber mas de un elemento en la cesta.
                             $unidadesProductoCesta = $_SESSION['unidades']; //igualamos el valor del array unidades con el que hay guardado en la sesion
                             $cestaCompra = $_SESSION['cesta']; //igualamos el valor del array cestaCompra con el que hay guardado en la sesion
-
+                            
                             if ($arrayProductos[$botonAñadirPulsado]->getStock() > 0) { //si el stock del producto es superior a 0 antes de restarle 1 y añadirle a la cesta
                                 $arrayProductos[$botonAñadirPulsado]->setStock($arrayProductos[$botonAñadirPulsado]->getStock() - 1); //reducimos en 1 el stock
                                 $_SESSION['productos'] = $arrayProductos; //guardamos el array de productos en la sesion

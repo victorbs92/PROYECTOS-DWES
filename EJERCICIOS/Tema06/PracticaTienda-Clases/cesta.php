@@ -41,7 +41,7 @@ and open the template in the editor.
                     <?php
                     /* VARIABLES */
                     $cesta = array();
-                    $unidades = array();
+                    $unidadesProductoCesta = array();
                     $arrayProductos = array();
 
                     /* ISSETS */
@@ -53,11 +53,12 @@ and open the template in the editor.
 
                     if (isset($_POST['eliminar'])) {
                         $cesta = $_SESSION['cesta']; //se iguala la variable cesta con lo que hay guardado en la cestaSesion
-                        $unidadesProductoCesta = $_SESSION['unidades']; //creamos un array donde los indices serán las claves de los productos y el valor sera la cantidad de ese mismo producto que se ha añadido a la cesta
-
+                        $unidadesProductoCesta = $_SESSION['unidades']; //se iguala el array a lo que hay en la unidadesSesion
+                        $arrayProductos = $_SESSION['productos']; //se iguala el array con lo que hay guardado en productosSesion
                         $botonEliminarPulsado = array_key_first($_POST['eliminar']); //guardamos en una variable la key del array del boton añadir que hemos pulsado
                         $idProductoEliminado = $cesta[$botonEliminarPulsado]->getIdProducto(); //guardamos en una variable el id del producto eliminado para poder buscar por ese id en el array de unidadesProductosCesta y restarle 1 al elemento que este en el indice con ese id
                         @$unidadesProductoCesta[$idProductoEliminado]--; //restamos uno a la cantidad del producto que esta en ese indice del array
+                        $arrayProductos[$idProductoEliminado]->setStock($arrayProductos[$idProductoEliminado]->getStock() + 1); //aumentamos en 1 el stock
 
                         if ($unidadesProductoCesta[$idProductoEliminado] == 0) {//si al eliminar el producto ya no quedan mas iguales, eliminamos su indice del array para que al volver a la pestaña productos no lo muestre en su cesta como un 0
                             unset($unidadesProductoCesta[$idProductoEliminado]);
