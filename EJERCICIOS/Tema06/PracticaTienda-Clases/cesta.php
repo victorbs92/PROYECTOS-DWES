@@ -71,16 +71,22 @@ and open the template in the editor.
 
                     $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
 
-                    if (is_null(pintarCesta($cesta))) { //se llama a pintarCesta pasandole cesta como parametro y si devuelve null porque la cesta esta vacia (por haber eliminado todos los productos) redirige directamente a la pestaña productos
+                    $factura = pintarCesta($cesta); //llama al metodo pintarCesta y guarda el resultado en una variable
+                    if (is_null($factura)) { //se llama a pintarCesta pasandole cesta como parametro y si devuelve null porque la cesta esta vacia (por haber eliminado todos los productos) redirige directamente a la pestaña productos
+                        unset($_SESSION['factura']); //se borra de la sesion el total de la cesta
                         header("Location: ./productos.php?userSession=$sessionName"); //redirigimos a la pg productos.php
+                    } else {
+                        $_SESSION['factura'] = $factura; //se guarda el total de la cesta en la sesion
                     }
 
+
+
                     if (isset($_POST['cerrarSesion'])) {
-                        header("Location: ./logoff.php?userSession=$sessionName"); //redirigimos a la pg logoff.php
+                        header("Location: ./confirms/logoff.php?userSession=$sessionName"); //redirigimos a la pg logoff.php
                     }
 
                     if (isset($_POST['pagar'])) {
-                        header("Location: ./pagar.php?userSession=$sessionName"); //redirigimos a la pg pagar.php
+                        header("Location: ./confirms/pagar.php?userSession=$sessionName"); //redirigimos a la pg pagar.php
                     }
 
                     if (isset($_POST['volver'])) {
@@ -99,7 +105,7 @@ and open the template in the editor.
         ?>
         <?php
 
-        function pintarCesta($cesta) {
+        function pintarCesta($cesta) {//devuelve la cantidad total de euros que vale la cesta o null si el array esta vacio
             $primerElemento = array_key_first($cesta); //obtiene la key del primer indice del array o devuelve null si esta vacio
 
             if (is_null($primerElemento)) { //si primer elemento es nulo no pinta nada y devuelve null
@@ -148,7 +154,7 @@ and open the template in the editor.
             print "</table>";
             print "<br>";
 
-            return true;
+            return $totalEuros;
         }
         ?>
 

@@ -1,7 +1,7 @@
 
 <?php
 //INCLUDES & REQUIRES
-require_once("./utils/Session.php");
+require_once("../utils/Session.php");
 
 /* SESION */
 Session::crearSesion($_GET['userSession']);
@@ -31,7 +31,7 @@ and open the template in the editor.
                 if (isset($_POST['cerrarSesion'])) {//SI EL USUARIO pulsa el boton de cerrar sesion
                     /* eliminar sesion y cookie de sesion */
                     Session::eliminarSesion();
-                    header("Location: ./registro.php"); //redirigimos a la pg registro.php
+                    header("Location: ../registro.php"); //redirigimos a la pg registro.php
                 }
                 ?>
 

@@ -19,7 +19,7 @@ class UsuarioDAO implements InterfaceUsuarioDAO {
     public function insertarUsuario($usuario) {
 
         //incluimos el acceso a la BD
-        include './db_acceso.php';
+        include './utils/db_acceso.php';
 
         //guardamos en variables todas las propiedades del objeto para usarlas en la consulta
         $id = $usuario->getIdUsuario();
@@ -45,7 +45,7 @@ class UsuarioDAO implements InterfaceUsuarioDAO {
     public function obtenerUsuario($usuario) {
 
         //incluimos el acceso a la BD
-        include './db_acceso.php';
+        include './utils/db_acceso.php';
 
         $nick = $usuario->getNick(); //guardamos el nombre del usuario
 
@@ -61,7 +61,7 @@ class UsuarioDAO implements InterfaceUsuarioDAO {
     public function passwordRehash($usuario) {
 
         //incluimos el acceso a la BD
-        include './db_acceso.php';
+        include './utils/db_acceso.php';
 
         $nick = $usuario->getNick();
         $pass = $usuario->getPass();

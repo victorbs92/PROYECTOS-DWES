@@ -18,7 +18,7 @@ class ProductoDAO implements InterfaceProductoDAO {
 
     public function obtenerTodosProductos() {
         //incluimos el acceso a la BD
-        include './db_acceso.php';
+        include './utils/db_acceso.php';
 
         //guardamos la consulta sql en una variable
         $sqlConsultaProductos = "SELECT * FROM productos";

@@ -1,7 +1,7 @@
 
 <?php
 //INCLUDES & REQUIRES
-require_once("./utils/Session.php");
+require_once("../utils/Session.php");
 
 /* SESION */
 Session::crearSesion($_GET['userSession']);
@@ -25,15 +25,16 @@ TAMBIÉN TENDRÁ LA LÓGICA DEL PROCESO DE PAGO Y LA CONSIGUIENTE ACTUALIZACIÓN
         if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
             ?>
             <form action = "" method = "post">
-                <input type = "submit" name="cerrarSesion" value="Cerrar Sesión">
+
 
                 <?php
                 $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
 
                 if (isset($_SESSION['cesta']) && isset($_SESSION['unidades'])) {//si las variables de sesion existen es que el usuario todavia no ha pagado, entonces muestra los botones de pagar y volver y todo el codigo correspondiente
+                    print "<h1> TOTAL A PAGAR: " . $_SESSION['factura'] . "€";
                     ?>
 
-                    <br><br>
+                    <br>
                     <input type = "submit" name = "pagar" value = "Pagar">
                     &nbsp;
                     <input type = "submit" name = "volver" value = "Volver">
@@ -46,15 +47,13 @@ TAMBIÉN TENDRÁ LA LÓGICA DEL PROCESO DE PAGO Y LA CONSIGUIENTE ACTUALIZACIÓN
                 ?>
 
                 <?php
-                if (isset($_POST['cerrarSesion'])) {
-                    header("Location: ./logoff.php?userSession=$sessionName"); //redirigimos a la pg logoff.php
-                }
-
                 if (isset($_POST['volver'])) {
-                    header("Location: ./cesta.php?userSession=$sessionName"); //redirigimos a la pg pagar.php
+                    header("Location: ../cesta.php?userSession=$sessionName"); //redirigimos a la pg pagar.php
                 }
 
                 if (isset($_POST['pagar'])) {
+                    //VACIAR DE LA SESION: CESTA - UNIDADES - FACTURA - PRODUCTOS
+                    //ACTUALIZAR LOS DATOS EN LA BD
                     // header("Location: ./pagar.php?userSession=$sessionName"); //redirigimos a la pg pagar.php
                 }
 
