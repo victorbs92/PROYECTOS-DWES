@@ -11,7 +11,16 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        // put your code here
+
+//Incluyo los archivos necesarios
+require("./modelo/coche.php");
+require("./controlador/CocheControlador.php");
+
+//Instancio el controlador
+$controller = new CocheController;
+
+//Ejecuto el método
+$controller->index();
         ?>
     </body>
 </html>
