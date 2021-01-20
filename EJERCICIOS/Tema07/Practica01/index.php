@@ -6,6 +6,8 @@
  * and open the template in the editor.
  */
 
-/* Entrada al programa */
+
+
+/* ENTRADA AL PROGRAMA */
 /* Redirige a la vista inicial del programa donde podremos registrarnos o loguearnos */
 header("Location: ./View/prueba.php");
