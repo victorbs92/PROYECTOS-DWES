@@ -9,5 +9,5 @@
 
 
 /* ENTRADA AL PROGRAMA */
-/* Redirige a la vista inicial del programa donde podremos registrarnos o loguearnos */
-header("Location: ./View/prueba.php");
+/* Redirige al controlador encargado de mostrar la vista registroLogin */
+header("Location: ./Controller/registroLoginController.php");
