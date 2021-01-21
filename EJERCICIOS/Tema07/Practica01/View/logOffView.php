@@ -7,17 +7,11 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>ERROR</title>
+        <title></title>
     </head>
     <body>
-
-        <h1>ERROR.</h1>
-
-        <form id="formulario" action="../Controller/errorController.php" method="POST">
-            <input type="submit" name="salir" value="Salir">
-        </form>
-
         <?php
+        // put your code here
         ?>
     </body>
 </html>
