@@ -12,7 +12,7 @@
 
 /**
  * Description of ArticuloDAO
- *
+ * Articulo Data Acces Object
  * @author admin
  */
 class ArticuloDAO implements InterfaceArticuloDAO{

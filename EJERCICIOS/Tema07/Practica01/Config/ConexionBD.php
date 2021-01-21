@@ -49,23 +49,4 @@ class ConexionBD {
         }
     }
 
-    public function disconnect($conexion) {
-
-        $conexion->close();
-    }
-
-    public function getError($conexion) {
-
-        $error = $conexion->connect_errno;
-
-        return $error;
-    }
-
-    public function getInfoServer($conexion) {
-
-        $info = $conexion->server_info;
-
-        return $info;
-    }
-
 }

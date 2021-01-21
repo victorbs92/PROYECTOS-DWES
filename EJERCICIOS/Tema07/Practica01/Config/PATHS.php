@@ -9,7 +9,7 @@
 /**
  * Description of PATHS
  *
- * @author victo
+ * @author victor
  */
 class PATHS {
     /*
@@ -19,10 +19,10 @@ class PATHS {
      */
 
     public const PATHS_ARRAY = [
-        "pathConfig" => './Config/',
-        "pathModel" => './Model/',
-        "pathView" => './View/',
-        "pathController" => './Controller/'
+        "pathConfig" => '../Config/',
+        "pathModel" => '../Model/',
+        "pathView" => '../View/',
+        "pathController" => '../Controller/'
     ];
 
 }

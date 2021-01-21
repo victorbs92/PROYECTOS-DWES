@@ -6,19 +6,21 @@
  * and open the template in the editor.
  */
 
-/* REQUIRES O AUTOLOAD */
+/* INCLUDES Y REQUIRES */
+require_once("../Config/Autoload.php");
 
 /**
  * Description of UsuarioDAO
- *
+ * Usuario Data Acces Object
  * @author admin
  */
 class UsuarioDAO implements InterfaceUsuarioDAO {
 
     public function insertarUsuario($usuario) {
 
-        //incluimos el acceso a la BD
-        include './utils/db_acceso.php';
+        /* Accedemos a la BD */
+        $conexionBD = ConexionBD::getInstance();
+        $conexionMYSQLI = $conexionBD->connectMYSQLI();
 
         //guardamos en variables todas las propiedades del objeto para usarlas en la consulta
         $id = $usuario->getIdUsuario();
@@ -27,56 +29,58 @@ class UsuarioDAO implements InterfaceUsuarioDAO {
 
         $sqlInsertarUsuario = "INSERT INTO usuario VALUES ('$id','$nick','$pass')"; //consulta para insertar un nuevo usuario en la BD
 
-        if (!$conexion->query($sqlInsertarUsuario)) {//si la consulta devuelve false
-            $errorCode = mysqli_errno($conexion); //guardamos en una variable el codigo del error
+        if (!$conexionMYSQLI->query($sqlInsertarUsuario)) {//si la consulta devuelve false
+            $errorCode = mysqli_errno($conexionMYSQLI); //guardamos en una variable el codigo del error
 
-            $conexion->rollback(); //hacemos rollbacak
-            $conexion->close(); //cerramos la conexion
+            $conexionMYSQLI->rollback(); //hacemos rollbacak
+            $conexionMYSQLI->close(); //cerramos la conexion
 
             return $errorCode; //Devolvemos el código de error para comprobarlo desde donde se ha llamado a este método
         } else {//si la consulta salió bien
-            $conexion->commit(); //hacemos commit
-            $conexion->close(); //cerramos la conexion
+            $conexionMYSQLI->commit(); //hacemos commit
+            $conexionMYSQLI->close(); //cerramos la conexion
             return true;
         }
     }
 
     public function obtenerUsuario($usuario) {
 
-        //incluimos el acceso a la BD
-        include './utils/db_acceso.php';
+        /* Accedemos a la BD */
+        $conexionBD = ConexionBD::getInstance();
+        $conexionMYSQLI = $conexionBD->connectMYSQLI();
 
         $nick = $usuario->getNickUsuario(); //guardamos el nombre del usuario
 
-        $sqlComprobarUsuario = "SELECT pass FROM usuario WHERE nickUsuario = '$nick'"; //consulta para comprobar que el usuario existe en la BD
+        $sqlComprobarUsuario = "SELECT passwordUsuario FROM usuario WHERE nickUsuario = '$nick'"; //consulta para comprobar que el usuario existe en la BD
 
-        $resultado = $conexion->query($sqlComprobarUsuario); //ejecutamos la consulta y guardamos el resultado que devuelve (el nº de filas afectadas)
+        $resultado = $conexionMYSQLI->query($sqlComprobarUsuario); //ejecutamos la consulta y guardamos el resultado que devuelve (el nº de filas afectadas)
 
-        $conexion->close(); //cerramos la conexion
+        $conexionMYSQLI->close(); //cerramos la conexion
 
         return $resultado;
     }
 
     public function passwordRehash($usuario) {
 
-        //incluimos el acceso a la BD
-        include './utils/db_acceso.php';
+        /* Accedemos a la BD */
+        $conexionBD = ConexionBD::getInstance();
+        $conexionMYSQLI = $conexionBD->connectMYSQLI();
 
         $nick = $usuario->getNickUsuario();
         $pass = $usuario->getPasswordUsuario();
 
         $sqlPasswordRehash = "UPDATE usuario SET passwordUsuario = '$pass' WHERE nickUsuario = '$nick'"; //consulta para cambiar el hash de la bd por el nuevo generado con la misma contraseña
 
-        if (!$conexion->query($sqlPasswordRehash)) {//si la consulta devuelve false
-            $errorCode = mysqli_errno($conexion); //guardamos en una variable el codigo del error
+        if (!$conexionMYSQLI->query($sqlPasswordRehash)) {//si la consulta devuelve false
+            $errorCode = mysqli_errno($conexionMYSQLI); //guardamos en una variable el codigo del error
 
-            $conexion->rollback(); //hacemos rollbacak
-            $conexion->close(); //cerramos la conexion
+            $conexionMYSQLI->rollback(); //hacemos rollbacak
+            $conexionMYSQLI->close(); //cerramos la conexion
 
             return $errorCode; //Devolvemos el código de error para comprobarlo desde donde se ha llamado a este método
         } else {//si la consulta salió bien
-            $conexion->commit(); //hacemos commit
-            $conexion->close(); //cerramos la conexion
+            $conexionMYSQLI->commit(); //hacemos commit
+            $conexionMYSQLI->close(); //cerramos la conexion
 
             return true;
         }

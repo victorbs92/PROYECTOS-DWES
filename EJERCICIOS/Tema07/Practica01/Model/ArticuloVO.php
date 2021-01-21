@@ -7,8 +7,8 @@
  */
 
 /**
- * Description of Articulo
- *
+ * Description of ArticuloVO
+ * Articulo Value Object
  * @author admin
  */
 class ArticuloVO {

@@ -9,7 +9,7 @@
 /**
  * Description of Session
  *
- * @author victo
+ * @author victor
  */
 class Session {
 

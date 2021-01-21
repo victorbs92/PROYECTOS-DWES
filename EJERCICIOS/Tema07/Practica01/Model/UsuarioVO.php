@@ -8,7 +8,7 @@
 
 /**
  * Description of UsuarioVO
- *
+ * Usuario Value Object
  * @author victor
  */
 class UsuarioVO {
@@ -22,8 +22,8 @@ class UsuarioVO {
 
     function __construct($idUsuario, $nickUsuario, $passwordUsuario) {
         $this->idUsuario = $idUsuario;
-        $this->$nickUsuario = $nickUsuario;
-        $this->$passwordUsuario = password_hash($passwordUsuario, self::HASH, ['cost' => self::COST]); //la pass se "hashea" al crear el usuario
+        $this->nickUsuario = $nickUsuario;
+        $this->passwordUsuario = password_hash($passwordUsuario, self::HASH, ['cost' => self::COST]); //la pass se "hashea" al crear el usuario
     }
 
     function getIdUsuario() {

@@ -1,11 +1,3 @@
-<?php
-//INCLUDES & REQUIRES
-require_once("../Config/ConexionBD.php");
-
-
-/* SESION */
-?>
-
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -19,10 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        $conexionBD = ConexionBD::getInstance();
-        $conexionMYSQLI = $conexionBD->connectMYSQLI();
-        $conexionBD->disconnect($conexionMYSQLI);
-      print("AAA");
+            print ("ÑÑÑÑÑÑÑÑÑÑÑ");
         ?>
     </body>
 </html>
