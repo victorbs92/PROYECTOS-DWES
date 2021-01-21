@@ -7,11 +7,16 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>LogOff</title>
     </head>
     <body>
+
+        <form id="formulario" action="../Controller/logOffController.php?userSession=<?php print(session_name()) ?>" method="POST">
+            <input type=submit name='cerrarSesion' value='Cerrar Sesión' >
+        </form>
+
         <?php
-        // put your code here
         ?>
+
     </body>
 </html>

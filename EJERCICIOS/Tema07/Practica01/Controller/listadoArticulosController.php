@@ -18,28 +18,20 @@ if (isset($_GET['userSession'])) { //si en el get existe userSession crea/carga 
 }
 
 
-/* VARIABLES */
-
-
-
 if (isset($_SESSION['nombreUsuario'])) {//si en la sesion existe la variable nombreUsuario (creada en el login)
     print("AAAAAAA");
     if (isset($_POST['cerrarSesion'])) {//si se ha pulsado el boton cerrarSesion
-        print("BBBBBB");
+        header("Location: ../Controller/logOffController.php?userSession=" . session_name()); //redirige al controlador que maneja el logOff
     } else if (isset($_POST['verArticulo'])) {//si se ha pulsado alguno de los botones verArticulo
         print ("CCCCCCCCC");
     } else {//si no se ha pulsado nada es que es la primera carga de la vista, asi que la mostramos
-        print ("DDDDDDDD");
         include_once '../View/listadoArticulosView.php'; //incluye la vista para mostrarla en pantalla
     }
 } else { //si en la sesion no existe la variable nombreUsuario (creada en el login) significa que se ha intentado acceder sin haber pasado por el login
     if (isset($_SESSION)) { //si existe una sesion significa que se ha intentado acceder escribiendo la url con un parametro en el get, asi que se borra esa sesion por temas de seguridad
         Session::eliminarSesion();
     }
-    header("Location: ../Controller/errorController.php");//redirige al controlador que maneja los errores
+    header("Location: ../Controller/errorController.php"); //redirige al controlador que maneja los errores
 }
-
-
-//include_once '../View/listadoArticulosView.php'; //incluye la vista para mostrarla en pantalla
 
 
