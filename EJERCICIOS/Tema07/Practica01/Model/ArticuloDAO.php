@@ -7,16 +7,16 @@
  */
 
 
-/*INCLUDES O AUTOLOAD*/
-
+/* INCLUDES Y REQUIRES */
+require_once("../Config/Autoload.php");
 
 /**
  * Description of ArticuloDAO
  * Articulo Data Acces Object
  * @author admin
  */
-class ArticuloDAO implements InterfaceArticuloDAO{
-    
+class ArticuloDAO implements InterfaceArticuloDAO {
+
     public function obtenerTodosArticulos() {
         //incluimos el acceso a la BD
         include './utils/db_acceso.php';
@@ -28,5 +28,5 @@ class ArticuloDAO implements InterfaceArticuloDAO{
 
         return $resultado;
     }
-    
+
 }

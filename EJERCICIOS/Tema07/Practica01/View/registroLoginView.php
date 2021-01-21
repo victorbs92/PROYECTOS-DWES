@@ -7,7 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Registro</title>
+        <title>Registro - Login</title>
     </head>
     <body>
         <form id="accesoUsuario" action="../Controller/registroLoginController.php" method="post">

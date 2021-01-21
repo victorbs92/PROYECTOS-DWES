@@ -35,7 +35,7 @@ if (isset($_POST['login'])) {//código que se ejecuta al pulsar el boton login
 
     switch (UsuarioLDN::loginUsuario($user, $pass)) {//se llama a la funcion loginUsuario de UsuarioLDN y se comprueba su return
         case 1:
-            header("Location: ../View/listadoArticulosView.php?userSession=" . session_name()); //redirigimos a la pg listadoArticulos.php pasandole por el metodo GET el nombre de la sesion
+            header("Location: ../Controller/listadoArticulosController.php?userSession=" . session_name()); //redirigimos a la pg listadoArticulos.php pasandole por el metodo GET el nombre de la sesion
             break;
 
         case 2:
