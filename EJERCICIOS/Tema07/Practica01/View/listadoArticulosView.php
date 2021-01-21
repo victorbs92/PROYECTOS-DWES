@@ -14,14 +14,13 @@ and open the template in the editor.
 
         <input type = "submit" name="cerrarSesion" value="Cerrar Sesión" form="articulos">
 
-        <form id = "articulos" action = "../Controller/listadoArticulosController.php" method = "post">
+        <form id = "articulos" action = "../Controller/listadoArticulosController.php?userSession=<?php print(session_name()) ?>" method = "POST">
             <fieldset>
                 <legend>
                     <h1>ARTÍCULOS</h1>
                 </legend>
 
-                <?php
-                ?>
+
 
             </fieldset>
         </form>
