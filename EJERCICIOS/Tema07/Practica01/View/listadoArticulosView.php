@@ -12,7 +12,7 @@ and open the template in the editor.
     </head>
     <body>
 
-        <input type = "submit" name="cerrarSesion" value="Cerrar Sesión" form="productos">
+        <input type = "submit" name="cerrarSesion" value="Cerrar Sesión" form="articulos">
 
         <form id = "articulos" action = "../Controller/listadoArticulosController.php" method = "post">
             <fieldset>

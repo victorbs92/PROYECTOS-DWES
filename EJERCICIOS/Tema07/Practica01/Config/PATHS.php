@@ -22,8 +22,7 @@ class PATHS {
         "pathConfig" => '../Config/',
         "pathModel" => '../Model/',
         "pathView" => '../View/',
-        "pathController" => '../Controller/',
-        "pathUtils" => '../Utils/'
+        "pathController" => '../Controller/'
     ];
 
 }
