@@ -1,4 +1,5 @@
 <?php
+
 /*
  * AL ACCEDER A LA PG SE COMPRUEBA SI EXISTE EL PARÁMETRO "userSession" EN EL GET PARA CARGAR LA SESIÓN CUYO NOMBRE SERÁ EL VALOR DE ESE PARÁMETRO.
  * SE HA PROGRAMADO DE ESTA MANERA PARA QUE SI ALGUIEN INTENTA ACCEDER ESCRIBIENDO LA URL DE ESTA PG DIRECTAMENTE EN EL NAVEGADOR,
@@ -10,17 +11,22 @@
 /* INCLUDES Y REQUIRES */
 require_once("../Config/Autoload.php");
 
-var_dump($_GET);
-//var_dump($_POST);
 
 /* SESION */
-if (isset($_GET['userSession'])) {
+if (isset($_GET['userSession'])) { //si en el get existe userSession crea una sesion
     Session::crearSesion($_GET['userSession']);
 }
 
 
 /* VARIABLES */
 
+
+if (isset($_POST['cerrarSesion'])) {
+    print("<br>");
+    print("AAAAA");
+} else if (isset($_POST['verArticulo'])) {
+    
+}
 
 
 if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
@@ -34,12 +40,15 @@ if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO C
         include_once '../View/listadoArticulosView.php'; //incluye la vista para mostrarla en pantalla
     }
 } else { //SI EL USUARIO NO SE HA LOGUEADO EN LA PESTAÑA DE REGISTROLOGIN Y 
-    print("EEEEEEEEEE");
     if (isset($_SESSION)) {
-        print("FFFFFFFF");
+        print("FFFFFFFFFFF");
         Session::eliminarSesion();
     }
-
-    //header("Location: ../Controller/errorController.php");
+    print("EEEEEEEEEE");
+    include_once '../View/listadoArticulosView.php'; //incluye la vista para mostrarla en pantalla
 }
+
+
+
+//header("Location: ../Controller/errorController.php");
 
