@@ -21,13 +21,6 @@ if (isset($_GET['userSession'])) { //si en el get existe userSession crea una se
 /* VARIABLES */
 
 
-if (isset($_POST['cerrarSesion'])) {
-    print("<br>");
-    print("AAAAA");
-} else if (isset($_POST['verArticulo'])) {
-    
-}
-
 
 if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO CARGA LA PAGINA Y SU CONTENIDO
     print("AAAAAAA");
@@ -40,15 +33,14 @@ if (isset($_SESSION['nombreUsuario'])) {//SI EL USUARIO SI SE HA AUTENTIFICADO C
         include_once '../View/listadoArticulosView.php'; //incluye la vista para mostrarla en pantalla
     }
 } else { //SI EL USUARIO NO SE HA LOGUEADO EN LA PESTAÑA DE REGISTROLOGIN Y 
+    print("EEEEEEEEEE");
     if (isset($_SESSION)) {
         print("FFFFFFFFFFF");
         Session::eliminarSesion();
     }
-    print("EEEEEEEEEE");
-    include_once '../View/listadoArticulosView.php'; //incluye la vista para mostrarla en pantalla
 }
 
 
-
+//include_once '../View/listadoArticulosView.php'; //incluye la vista para mostrarla en pantalla
 //header("Location: ../Controller/errorController.php");
 
