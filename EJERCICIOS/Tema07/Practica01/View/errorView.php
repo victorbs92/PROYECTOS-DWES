@@ -13,7 +13,7 @@ and open the template in the editor.
 
         <h1>ERROR.</h1>
 
-        <form id="formulario" action="../Controller/errorController.php" method="POST">
+        <form id="error" action="../Controller/errorController.php" method="POST">
             <input type="submit" name="salir" value="Salir">
         </form>
 

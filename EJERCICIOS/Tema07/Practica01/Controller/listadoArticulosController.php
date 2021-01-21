@@ -19,11 +19,11 @@ if (isset($_GET['userSession'])) { //si en el get existe userSession crea/carga 
 
 
 if (isset($_SESSION['nombreUsuario'])) {//si en la sesion existe la variable nombreUsuario (creada en el login)
-    print("AAAAAAA");
     if (isset($_POST['cerrarSesion'])) {//si se ha pulsado el boton cerrarSesion
         header("Location: ../Controller/logOffController.php?userSession=" . session_name()); //redirige al controlador que maneja el logOff
     } else if (isset($_POST['verArticulo'])) {//si se ha pulsado alguno de los botones verArticulo
         print ("CCCCCCCCC");
+        include_once '../View/articuloView.php'; //incluye la vista para mostrarla en pantalla
     } else {//si no se ha pulsado nada es que es la primera carga de la vista, asi que la mostramos
         include_once '../View/listadoArticulosView.php'; //incluye la vista para mostrarla en pantalla
     }

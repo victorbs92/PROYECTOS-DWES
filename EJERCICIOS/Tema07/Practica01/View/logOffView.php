@@ -11,12 +11,9 @@ and open the template in the editor.
     </head>
     <body>
 
-        <form id="formulario" action="../Controller/logOffController.php?userSession=<?php print(session_name()) ?>" method="POST">
+        <form id="logOff" action="../Controller/logOffController.php?userSession=<?php print(session_name()) ?>" method="POST">
             <input type=submit name='cerrarSesion' value='Cerrar Sesión' >
         </form>
-
-        <?php
-        ?>
 
     </body>
 </html>
