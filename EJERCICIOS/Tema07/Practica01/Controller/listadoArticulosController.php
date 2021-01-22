@@ -22,9 +22,11 @@ if (isset($_SESSION['nombreUsuario'])) {//si en la sesion existe la variable nom
     if (isset($_POST['cerrarSesion'])) {//si se ha pulsado el boton cerrarSesion
         header("Location: ../Controller/logOffController.php?userSession=" . session_name()); //redirige al controlador que maneja el logOff
     } else if (isset($_POST['verArticulo'])) {//si se ha pulsado alguno de los botones verArticulo
+        $_SESSION['idArticulo'] = array_key_first($_POST['verArticulo']); //guardamos en una variable de sesion el id del boton pulsado
         header("Location: ../Controller/articuloController.php?userSession=" . session_name()); //redirige al controlador que llama a la vista articuloView
     } else {//si no se ha pulsado nada es que es la primera carga de la vista, asi que cargamos los datos y los mostramos en la vista
         $arrayArticulos = ArticuloLDN::obtenerArticulos(); //se llama a la funcion obtenerArticulos de ArticuloLDN y se comprueba su return, devuelve un array de Articulos o false si hubo algun error en el proceso de consultar a la BD
+        $_SESSION['arrayArticulos'] = $arrayArticulos; //guardamos en una variable de sesion el array de articulos
         include_once '../View/listadoArticulosView.php'; //incluye la vista para mostrarla en pantalla
     }
 } else { //si en la sesion no existe la variable nombreUsuario (creada en el login) significa que se ha intentado acceder sin haber pasado por el login
