@@ -16,11 +16,10 @@ and open the template in the editor.
         <form id = "articulo" action = "../Controller/listadoArticulosController.php?userSession=<?php print(session_name()) ?>" method = "POST">
             <fieldset>
                 <legend>
-                    <h1>ARTÍCULO</h1>
+                    <h1><?php print($tituloArticulo) ?></h1>
                 </legend>
-
-
-
+                <p><?php print($fechaArticulo) ?></p>
+                <p><?php print($descripcionArticulo) ?></p>
             </fieldset>
         </form>
         <?php
