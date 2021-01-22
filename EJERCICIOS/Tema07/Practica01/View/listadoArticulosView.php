@@ -20,6 +20,16 @@ and open the template in the editor.
                     <h1>ARTÍCULOS</h1>
                 </legend>
 
+                <?php
+                if ($articulos !== null) {
+                    //crear la tabla con los articulos
+                    print("ASDASDASDASDASD");
+                } else {
+                    ?>
+                    <p>Aún no hay nada por aquí...</p>
+                    <?php
+                }
+                ?>
 
 
             </fieldset>

@@ -18,13 +18,15 @@ require_once("../Config/Autoload.php");
 class ArticuloDAO implements InterfaceArticuloDAO {
 
     public function obtenerTodosArticulos() {
-        //incluimos el acceso a la BD
-        include './utils/db_acceso.php';
+        /* Accedemos a la BD */
+        $conexionBD = ConexionBD::getInstance();
+        $conexionMYSQLI = $conexionBD->connectMYSQLI();
 
         $sqlConsultaProductos = "SELECT * FROM articulo"; //guardamos la consulta sql en una variable
 
-        $resultado = $conexion->query($sqlConsultaProductos); //realizamos la consulta y guardamos el resultado en una variable para retornarlo mas adelante
-        $conexion->close(); //cerramos la conexion
+        $resultado = $conexionMYSQLI->query($sqlConsultaProductos); //realizamos la consulta y guardamos el resultado en una variable para retornarlo mas adelante
+
+        $conexionMYSQLI->close(); //cerramos la conexion
 
         return $resultado;
     }
