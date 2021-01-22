@@ -16,5 +16,9 @@ require_once("../Config/Autoload.php");
  * @author victor
  */
 class ArticuloLDN {
-    //put your code here
+    
+    function obtenerArticulos(){
+        print ("AAAAAA");
+    }
+    
 }
