@@ -6,11 +6,4 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author admin
- */
-interface InterfaceArticuloDAO {
-
-    public function obtenerTodosArticulos();
-}
+print("ESTAS EN EL articuloController");
