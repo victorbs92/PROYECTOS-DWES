@@ -42,7 +42,7 @@ class ArticuloLDN {
             $articulo = new ArticuloVO($arrayResultado[$i][0], $arrayResultado[$i][1], $arrayResultado[$i][2], $arrayResultado[$i][3]); //creamos un articulo con los datos obtenidos de la consulta a la bd
             $arrayArticulos[$articulo->getIdArticulo()] = $articulo; //guardamos en el arrayArticulos el articulo siendo el id del articulo la posicion del array
         }
-        var_dump($arrayArticulos);
+
         return $arrayArticulos;
     }
 

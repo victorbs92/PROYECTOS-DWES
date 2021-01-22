@@ -21,9 +21,27 @@ and open the template in the editor.
                 </legend>
 
                 <?php
-                if ($articulos !== null) {
-                    //crear la tabla con los articulos
-                    print("ASDASDASDASDASD");
+                if ($arrayArticulos !== null) {
+                    ?>
+                    <table border = 1>
+                        <tr>
+                            <th>Título</th>
+                            <th>Fecha</th>
+                            <th>Ver artículo</th>
+                        </tr>
+                        <?php
+                        foreach ($arrayArticulos as $key => $value) {
+                            ?>
+                            <tr>
+                                <td><?php print($value->getTituloArticulo()) ?></td>
+                                <td><?php print($value->getFechaArticulo()) ?></td>
+                                <td><input type='submit' value='Ver artículo' name='verArticulo[<?php print($value->getIdArticulo()) ?>]'></td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </table>
+                    <?php
                 } else {
                     ?>
                     <p>Aún no hay nada por aquí...</p>
