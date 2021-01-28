@@ -16,7 +16,7 @@ class ConexionBD {
     public const URL = 'localhost';
     public const USER = 'root';
     public const PASSWORD = '';
-    public const BD = 'blog_db';
+    public const BD = 'tienda';
     public const DSN = 'mysql:host=localhost;dbname=blog_db';
 
     static private $instance = null;

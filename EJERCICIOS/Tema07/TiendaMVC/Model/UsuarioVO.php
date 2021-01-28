@@ -8,7 +8,7 @@
 
 /**
  * Description of UsuarioVO
- *
+ * Usuario Value Object
  * @author victor
  */
 class UsuarioVO {
@@ -17,37 +17,37 @@ class UsuarioVO {
     public const COST = 15;
 
     private $idUsuario;
-    private $nick;
-    private $pass;
+    private $nickUsuario;
+    private $passwordUsuario;
 
-    function __construct($idUsuario, $nick, $pass) {
+    function __construct($idUsuario, $nickUsuario, $passwordUsuario) {
         $this->idUsuario = $idUsuario;
-        $this->nick = $nick;
-        $this->pass = password_hash($pass, self::HASH, ['cost' => self::COST]); //la pass se "hashea" al crear el usuario
+        $this->nickUsuario = $nickUsuario;
+        $this->passwordUsuario = password_hash($passwordUsuario, self::HASH, ['cost' => self::COST]); //la pass se "hashea" al crear el usuario
     }
 
     function getIdUsuario() {
         return $this->idUsuario;
     }
 
-    function getNick() {
-        return $this->nick;
+    function getNickUsuario() {
+        return $this->nickUsuario;
     }
 
-    function getPass() { //al obtener la pass, se obtiene cifrada
-        return $this->pass;
+    function getPasswordUsuario() { //al obtener la pass, se obtiene cifrada
+        return $this->passwordUsuario;
     }
 
     function setIdUsuario($idUsuario): void {
         $this->idUsuario = $idUsuario;
     }
 
-    function setNick($nick): void {
-        $this->nick = $nick;
+    function setNickUsuario($nickUsuario): void {
+        $this->nick = $nickUsuario;
     }
 
-    function setPass($pass): void { //al modificar la pass se vuelve a encriptar
-        $this->pass = password_hash($pass, self::HASH, ['cost' => self::COST]);
+    function setPasswordUsuario($passwordUsuario): void { //al modificar la pass se vuelve a encriptar
+        $this->passwordUsuario = password_hash($passwordUsuario, self::HASH, ['cost' => self::COST]);
     }
 
     public function getAllPropierties($objectClass) {

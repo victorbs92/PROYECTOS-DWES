@@ -8,7 +8,7 @@
 
 /**
  *
- * @author victor
+ * @author admin
  */
 interface InterfaceUsuarioDAO {
 
