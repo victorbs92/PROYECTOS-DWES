@@ -6,33 +6,36 @@
  * and open the template in the editor.
  */
 
-require_once("InterfaceProductoDAO.php");
-require_once("ProductoVO.php");
+/* INCLUDES Y REQUIRES */
+require_once("../Config/Autoload.php");
 
-/**
+/*
  * Description of ProductoDAO
  *
  * @author victor
  */
+
 class ProductoDAO implements InterfaceProductoDAO {
 
     public function obtenerTodosProductos() {
-        //incluimos el acceso a la BD
-        include './utils/db_acceso.php';
+        /* Accedemos a la BD */
+        $conexionBD = ConexionBD::getInstance();
+        $conexionMYSQLI = $conexionBD->connectMYSQLI();
 
         $sqlConsultaProductos = "SELECT * FROM productos"; //guardamos la consulta sql en una variable
 
-        $resultado = $conexion->query($sqlConsultaProductos); //realizamos la consulta y guardamos el resultado en una variable para retornarlo mas adelante
-        $conexion->close(); //cerramos la conexion
+        $resultado = $conexionMYSQLI->query($sqlConsultaProductos); //realizamos la consulta y guardamos el resultado en una variable para retornarlo mas adelante
+        $conexionMYSQLI->close(); //cerramos la conexion
 
         return $resultado;
     }
 
     public function actualizarStockTrasPago($arrayCantidades) {//recibe un array de cantidades de productos, los indices serán los id de los productos y los values serán la cantidad que hay que restar al stock actual
-        //incluimos el acceso a la BD
-        include '../utils/db_acceso.php';
+        /* Accedemos a la BD */
+        $conexionBD = ConexionBD::getInstance();
+        $conexionMYSQLI = $conexionBD->connectMYSQLI();
 
-        $consulta = $conexion->prepare("UPDATE productos SET stock=stock-? WHERE idProducto=?"); //preparamos la consulta
+        $consulta = $conexionMYSQLI->prepare("UPDATE productos SET stock=stock-? WHERE idProducto=?"); //preparamos la consulta
 
         foreach ($arrayCantidades as $key => $value) {//recorremos el array
             $consulta->bind_param("ii", $value, $key); //bindeamos los parametros en cada iteracion del array
@@ -40,7 +43,7 @@ class ProductoDAO implements InterfaceProductoDAO {
         }
 
         $consulta->close(); //cerramos la consulta
-        $conexion->close();
+        $conexionMYSQLI->close();
     }
 
 }
