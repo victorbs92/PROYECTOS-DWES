@@ -17,7 +17,6 @@ and open the template in the editor.
             <input type="submit" name="salir" value="Salir">
         </form>
 
-        <?php
-        ?>
+        
     </body>
 </html>

@@ -76,13 +76,7 @@ and open the template in the editor.
 
                     $sessionName = session_name(); //guardamos en una variable el nombre de la sesion para poder pasarlo por el GET
 
-                    $factura = pintarCesta($cesta); //llama al metodo pintarCesta y guarda el resultado en una variable
-                    if (is_null($factura)) { //se llama a pintarCesta pasandole cesta como parametro y si devuelve null porque la cesta esta vacia (por haber eliminado todos los productos) redirige directamente a la pestaña productos
-                        unset($_SESSION['factura']); //se borra de la sesion el total de la cesta
-                        header("Location: ./productos.php?userSession=$sessionName"); //redirigimos a la pg productos.php
-                    } else {
-                        $_SESSION['factura'] = $factura; //se guarda el total de la cesta en la sesion
-                    }
+                    
 
                     if (isset($_POST['cerrarSesion'])) {
                         header("Location: ./confirms/logoff.php?userSession=$sessionName"); //redirigimos a la pg logoff.php
@@ -93,8 +87,17 @@ and open the template in the editor.
                     }
 
                     if (isset($_POST['volver'])) {
-                        header("Location: ./productos.php?userSession=$sessionName"); //redirigimos a la pg pagar.php
+                        header("Location: ./productos.php?userSession=$sessionName"); //redirigimos a la pg productos.php
                     }
+                    
+                    $factura = pintarCesta($cesta); //llama al metodo pintarCesta y guarda el resultado en una variable
+                    if (is_null($factura)) { //se llama a pintarCesta pasandole cesta como parametro y si devuelve null porque la cesta esta vacia (por haber eliminado todos los productos) redirige directamente a la pestaña productos
+                        unset($_SESSION['factura']); //se borra de la sesion el total de la cesta
+                        header("Location: ./productos.php?userSession=$sessionName"); //redirigimos a la pg productos.php
+                    } else {
+                        $_SESSION['factura'] = $factura; //se guarda el total de la cesta en la sesion
+                    }
+                    
                     ?>
 
                 </fieldset>
@@ -150,8 +153,8 @@ and open the template in the editor.
             /* PIE DE LA TABLA */
             print ("<tfoot>");
             print ("<tr>");
-            print ("<td>TOTAL PRODUCTOS: " . count($cesta) . "uds</tf>");
-            print ("<td> IMPORTE TOTAL: " . $totalEuros . "€</tf>");
+            print ("<td>TOTAL PRODUCTOS: " . count($cesta) . "uds</td>");
+            print ("<td> IMPORTE TOTAL: " . $totalEuros . "€</td>");
             print ("</tr>");
             print ("</tfoot>");
             print "</table>";

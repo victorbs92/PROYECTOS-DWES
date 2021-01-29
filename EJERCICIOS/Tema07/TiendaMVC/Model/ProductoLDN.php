@@ -46,4 +46,9 @@ class ProductoLDN {
         return $arrayProductos;
     }
 
+    function actualizarStockProductos() {
+        $productoDAO = new ProductoDAO();
+        $productoDAO->actualizarStockTrasPago($_SESSION['unidades']);
+    }
+
 }
