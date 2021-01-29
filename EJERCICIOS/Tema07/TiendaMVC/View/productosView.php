@@ -43,7 +43,7 @@ and open the template in the editor.
                             /* Para acceder a las propiedades del objeto, al ser private nos dara error, pero con el metodo getAllPropierties implementado en la clase
                               que recibe un objeto de su misma clase y con la funcion get_object_vars obtenemos un array asociativo con todas las propiedades y sus valores... */
                             $propiedadesProducto = $arrayProductos[$key]->getAllPropierties($arrayProductos[$key]);
-                            var_dump($propiedadesProducto);
+
                             foreach ($propiedadesProducto as $key2 => $value2) {//recorremos las propiedades del objeto para imprimirlas en la tabla
                                 if ($key2 == 'imagen') {
                                     ?>
@@ -74,8 +74,8 @@ and open the template in the editor.
                     <?php
                     /* RESUMEN CESTA */
                     foreach ($unidadesProductoCesta as $key => $value) {
-                        ?>
                         $costeTodasUdsMismoProducto = $arrayProductos[$key]->getPrecio() * $value;
+                        ?>
                         <li>
                             <span> <?php print ($arrayProductos[$key]->getNombreProducto() . "  X  " . $value . "  =  " . $costeTodasUdsMismoProducto . " €") ?></span>
                         </li>
@@ -93,7 +93,7 @@ and open the template in the editor.
                 } else {
                     ?>
                     <p>TOTAL PRODUCTOS EN LA CESTA:  <?php print ($totalProductos) ?> uds</p>
-                    <p>IMPORTE TOTAL: " <?php print ($totalEuros) ?> €</p>
+                    <p>IMPORTE TOTAL:  <?php print ($totalEuros) ?> €</p>
                     <?php
                 }
                 ?>
