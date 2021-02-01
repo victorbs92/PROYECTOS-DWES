@@ -20,9 +20,9 @@ class PATHS {
 
     public const PATHS_ARRAY = [
         "pathConfig" => '../Config/',
-        "pathConfirms" => '../Confirms',
+        "pathConfirms" => '../Confirms/',
         "pathController" => '../Controller/',
-        "pathImg" => '../Img',
+        "pathImg" => '../Img/',
         "pathModel" => '../Model/',
         "pathView" => '../View/'
     ];
