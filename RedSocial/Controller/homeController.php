@@ -14,7 +14,7 @@ if (isset($_SESSION['nombreUsuario'])) {//si en la sesion existe la variable nom
         header("Location: ../Controller/miPerfilController.php?userSession=" . session_name()); //redirigimos a la pg cesta.php
     }
     
-    if (isset($_POST['miPerfil'])) { //si se ha pulsado el boton MIPERFIL
+    if (isset($_POST['amigos'])) { //si se ha pulsado el boton MIPERFIL
         header("Location: ../Controller/amigosController.php?userSession=" . session_name()); //redirigimos a la pg cesta.php
     }
     
