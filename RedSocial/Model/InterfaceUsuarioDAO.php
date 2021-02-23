@@ -15,6 +15,8 @@ interface InterfaceUsuarioDAO {
     public function insertarUsuario($usuario);
 
     public function obtenerUsuario($usuario);
+    
+    public function obtenerIdUsuarioPorNick($nick);
 
     public function passwordRehash($usuario);
 }

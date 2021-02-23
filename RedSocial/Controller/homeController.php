@@ -8,7 +8,7 @@ if (isset($_GET['userSession'])) { //si en el get existe userSession crea/carga 
     Session::crearSesion($_GET['userSession']);
 }
 
-if (isset($_SESSION['nombreUsuario'])) {//si en la sesion existe la variable nombreUsuario (creada en el login)
+if (isset($_SESSION['nickUsuario'])) {//si en la sesion existe la variable nombreUsuario (creada en el login)
 
     if (isset($_POST['miPerfil'])) { //si se ha pulsado el boton MIPERFIL
         header("Location: ../Controller/miPerfilController.php?userSession=" . session_name()); //redirigimos a la pg cesta.php

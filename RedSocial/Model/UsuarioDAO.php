@@ -59,7 +59,22 @@ class UsuarioDAO implements InterfaceUsuarioDAO {
 
         return $resultado;
     }
+    
+    public function obtenerIdUsuarioPorNick($nick) {
 
+        /* Accedemos a la BD */
+        $conexionBD = ConexionBD::getInstance();
+        $conexionMYSQLI = $conexionBD->connectMYSQLI();
+
+        $sqlComprobarUsuario = "SELECT idUsuario FROM usuarios WHERE nick = '$nick'"; //consulta para comprobar que el usuario existe en la BD
+
+        $resultado = $conexionMYSQLI->query($sqlComprobarUsuario); //ejecutamos la consulta y guardamos el resultado que devuelve (el nº de filas afectadas)
+
+        $conexionMYSQLI->close(); //cerramos la conexion
+
+        return $resultado;
+    }
+    
     public function passwordRehash($usuario) {
 
         /* Accedemos a la BD */

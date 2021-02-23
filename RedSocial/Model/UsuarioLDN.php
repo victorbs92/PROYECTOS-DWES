@@ -51,7 +51,7 @@ class UsuarioLDN {
 
                 /* SESION */
                 Session::crearSesion($user); //llamamos al metodo estatico de la clase Session que recibe un argumento para dar nombre a la sesion y luego la crea
-                $_SESSION['nombreUsuario'] = $user; //guardamos en una variable de sesion el nombre del usuario
+                $_SESSION['nickUsuario'] = $user; //guardamos en una variable de sesion el nick del usuario
 
                 return 1;
             } else {

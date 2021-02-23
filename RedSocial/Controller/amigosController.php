@@ -8,7 +8,7 @@ if (isset($_GET['userSession'])) { //si en el get existe userSession crea/carga 
     Session::crearSesion($_GET['userSession']);
 }
 
-if (isset($_SESSION['nombreUsuario'])) {//si en la sesion existe la variable nombreUsuario (creada en el login)
+if (isset($_SESSION['nickUsuario'])) {//si en la sesion existe la variable nombreUsuario (creada en el login)
     
     if (isset($_POST['cerrarSesion'])) {//si se ha pulsado el boton cerrarSesion
         header("Location: ../Controller/logOffController.php?userSession=" . session_name()); //redirige al controlador que maneja el logOff
@@ -21,6 +21,8 @@ if (isset($_SESSION['nombreUsuario'])) {//si en la sesion existe la variable nom
     if (isset($_POST['guardar'])) {//si se ha pulsado el boton cerrarSesion
        
     }
+    
+    
 /*
      * 
      * 

@@ -19,7 +19,7 @@ if (isset($_GET['userSession'])) { //si en el get existe userSession crea/carga 
 }
 
 
-if (isset($_SESSION['nombreUsuario'])) {//si en la sesion existe la variable nombreUsuario (creada en el login)
+if (isset($_SESSION['nickUsuario'])) {//si en la sesion existe la variable nombreUsuario (creada en el login)
     if (isset($_POST['cerrarSesion'])) {//si el usuario pulsa el boton de cerrar sesion
         if (isset($_SESSION)) { //si existe una sesion
             Session::eliminarSesion(); //eliminar sesion y cookie de sesion

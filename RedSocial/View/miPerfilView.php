@@ -21,23 +21,19 @@ and open the template in the editor.
                 </legend>
 
                 <label for="nombre">Nombre: </label>
-                <input type="text"  id="nombre" maxlength="30" name="nombre" value=<?php print(session_name()) ?> >
+                <input type="text"  id="nombre" maxlength="30" name="nombre" value=<?php print($miPerfil->getNombreUsuario()) ?> >
                 <br><br>
                 <label for="edad">Edad: </label>
-                <input type="number" id="edad" min="1" name="edad" value=<?php print(session_name()) ?> >
+                <input type="number" id="edad" min="0" name="edad" value=<?php print($miPerfil->getEdadUsuario()) ?> >
                 <br><br>
                 <label for="descripcion">Descripción: </label>
                 <br>
-                <textarea id="descripcion" name="descripcion" rows="10" cols="40" maxlength="2000">
-                    <?php print(session_name()) ?>
-                </textarea>
+                <textarea id="descripcion" name="descripcion" rows="10" cols="40" maxlength="2000"><?php print($miPerfil->getDescripcionUsuario()) ?></textarea>
                 <br><br>
                 <input type = "submit" name="guardar" value="Guardar">
 
             </fieldset>
         </form>
-        <?php
-        // put your code here
-        ?>
+
     </body>
 </html>
