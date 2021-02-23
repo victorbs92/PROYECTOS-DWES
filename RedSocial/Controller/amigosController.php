@@ -10,6 +10,7 @@ if (isset($_GET['userSession'])) { //si en el get existe userSession crea/carga 
 
 if (isset($_SESSION['nickUsuario'])) {//si en la sesion existe la variable nombreUsuario (creada en el login)
     $mensaje = ""; //variable para pintar mensajes en la vista
+    $nickUsuarioActual = $_SESSION['nickUsuario']; //se guarda en una variable el nick del usuario actual
 
     if (isset($_POST['cerrarSesion'])) {//si se ha pulsado el boton cerrarSesion
         header("Location: ../Controller/logOffController.php?userSession=" . session_name()); //redirige al controlador que maneja el logOff
@@ -27,89 +28,29 @@ if (isset($_SESSION['nickUsuario'])) {//si en la sesion existe la variable nombr
             $mensaje = "Usuario no encontrado";
         } else {
             $mensaje = "Usuario encontrado!";
-            //COMPROBAR SI YA ES AMIGO O NO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            $resultado = AmigosLDN::comprobarSiEsAmigo($nickUsuarioActual, $textoBuscarNombre); //comprobamos si el usuarioEncontrado es amigo o no
+            var_dump($resultado);
+           
         }
     }
 
     if (isset($_POST['verPerfil'])) {//si se ha pulsado el boton verPerfil
-        $botonPulsado = array_key_first($_POST['verPerfil']); //guardamos en una variable la key del array del boton verPerfil que hemos pulsado
-        $_SESSION['usuarioEncontrado'] = $botonPulsado; //guardamos en la session el valor del botonPulsado que es el mismo valor que el nick del usuario encontrado
+        $botonPulsado_nickUsuarioEncontrado = array_key_first($_POST['verPerfil']); //guardamos en una variable la key del array del boton verPerfil que hemos pulsado
+        $_SESSION['nickUsuarioEncontrado'] = $botonPulsado_nickUsuarioEncontrado; //guardamos en la session el valor del botonPulsado que es el mismo valor que el nick del usuario encontrado
         header("Location: ../Controller/verPerfilController.php?userSession=" . session_name()); //redirige al controlador que maneja el verPerfil
-
     }
 
-    /*
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     */
+    if (isset($_POST['añadir'])) {//si se ha pulsado el boton añadir
+        $botonPulsado_nickUsuarioEncontrado = array_key_first($_POST['añadir']); //guardamos en una variable la key del array del boton añadir que hemos pulsado que es igual al nick del usuario encontrado
 
-    /*
-      $arrayProductos = array(); //creamos un array numérico donde ir guardando todos los productos
-      $cestaCompra = array(); //creamos un array donde ir guardando los productos añadidos a la cesta
-      $unidadesProductoCesta = array(); //creamos un array donde los indices serán las claves de los productos y el valor sera la cantidad de ese mismo producto que se ha añadido a la cesta
-      $totalEuros = 0;
-      $totalProductos = 0;
-      $costeTodasUdsMismoProducto = null;
-      $botonAñadirPulsado = null;
+        $resultado = AmigosLDN::añadirAmigo($nickUsuarioActual, $botonPulsado_nickUsuarioEncontrado); //guardamos en una variable el resultado de llamar a añadirAmigo de la clase AmigoslLDN, que devolvera true si se añadio el amigo con exito o false si dio error
 
-
-
-      if (isset($_POST['vaciar'])) { //si se ha pulsado el boton vaciar cesta
-      unset($_SESSION['cesta']); //destruimos cestaSession
-      unset($_SESSION['unidades']); //destruimos unidadesSession
-      unset($_SESSION['productos']); //destruimos productosSession
-      }
-
-      if (!isset($_SESSION['productos'])) {//si no existe en la sesion el array productos significa que es la primera vez que accedemos a la pg y obtenemos los datos de consultas a la BD
-      $arrayProductos = ProductoLDN::obtenerProductos();
-      $_SESSION['productos'] = $arrayProductos; //guardamos el array de productos en la sesion
-      } else {//si el array productos si que existe en la sesion significa que no es la primera vez que accedemos a la pg y podemos ahorrarnos la consulta a la bd, seteando el valor del array con el guardado en la sesion
-      $arrayProductos = $_SESSION['productos'];
-      }
-
-      if (isset($_POST['añadir'])) {//comprobamos si se ha enviado el formulario habiendo pulsado el boton de añadir
-      $botonAñadirPulsado = array_key_first($_POST['añadir']); //guardamos en una variable la key del array del boton añadir que hemos pulsado
-
-      if (isset($_SESSION['cesta'])) { //si se ha cargado la página y la sesionCesta existe, pinta la cesta, esto se ha hecho por si se ha vuelto a la pg desde la pg Cesta o desde la de iniciar sesion sin haber borrado la sesion previamente.
-      $cestaCompra = $_SESSION['cesta']; //igualamos el valor del array cestaCompra con el que hay guardado en la sesion
-      $unidadesProductoCesta = $_SESSION['unidades']; //igualamos el valor del array unidades con el que hay guardado en la sesion
-
-      if ($arrayProductos[$botonAñadirPulsado]->getStock() > 0) { //si el stock del producto es superior a 0 antes de restarle 1 y añadirle a la cesta
-      $arrayProductos[$botonAñadirPulsado]->setStock($arrayProductos[$botonAñadirPulsado]->getStock() - 1); //reducimos en 1 el stock
-      $_SESSION['productos'] = $arrayProductos; //guardamos el array de productos en la sesion
-      @$unidadesProductoCesta[$botonAñadirPulsado]++; //incrementamos el valor del array en la posicion del id del producto, se añade el operador de errores para que no marque error al incrementar cuando todavia no habia valor en ese indice
-      $_SESSION['unidades'] = $unidadesProductoCesta; //guardamos en la sesion el valor del array
-      array_push($cestaCompra, $arrayProductos[$botonAñadirPulsado]); //guardamos en el array cestaCompra el producto del arrayProductos que tenga el mismo id que el boton de añadir que se haya pulsado, como no interesa el indice en este array, simplemente lo pusheamos
-      $_SESSION['cesta'] = $cestaCompra; //igualamos la cestaSession con el array cestaCompra al que se le acaba de añadir un nuevo producto
-      }
-      } else { //si cesta no existe en la sesion
-      if ($arrayProductos[$botonAñadirPulsado]->getStock() > 0) { //si el stock del producto es superior a 0 antes de restarle 1 y añadirle a la cesta
-      $arrayProductos[$botonAñadirPulsado]->setStock($arrayProductos[$botonAñadirPulsado]->getStock() - 1); //reducimos en 1 el stock
-      $_SESSION['productos'] = $arrayProductos; //guardamos el array de productos en la sesion
-      array_push($cestaCompra, $arrayProductos[$botonAñadirPulsado]); //guardamos en el array cestaCompra el producto del arrayProductos que tenga el mismo id que el boton de añadir que se haya pulsado, como no interesa el indice en este array, simplemente lo pusheamos
-      @$unidadesProductoCesta[$botonAñadirPulsado]++; //incrementamos el valor del array en la posicion del id del producto, se añade el operador de errores para que no marque error al incrementar cuando todavia no habia valor en ese indice
-      }
-      $_SESSION['cesta'] = $cestaCompra; //creamos cestaSession y guardamos en ella el array anterior
-      $_SESSION['unidades'] = $unidadesProductoCesta; //guardamos en la sesion el valor del array
-      }
-      } else if (!isset($_POST['añadir']) && isset($_SESSION['cesta'])) { //si se ha cargado la página sin haber pulsado un boton de añadir y la sesionCesta existe pinta la cesta, esto se ha hecho por si se ha vuelto a la pg desde la pg Cesta o desde la de iniciar sesion sin haber borrado la sesion previamente.
-      $cestaCompra = $_SESSION['cesta']; //igualamos el valor del array cestaCompra con el que hay guardado en la sesion
-      $unidadesProductoCesta = $_SESSION['unidades']; //igualamos el valor del array unidades con el que hay guardado en la sesion
-      }
-
-
-      if (isset($_POST['cesta'])) { //si se ha pulsado el boton ver cesta
-      if (!empty($_SESSION['cesta'])) { //si cestaSession  no esta vacia permite redirigir a cestaController
-      header("Location: ../Controller/cestaController.php?userSession=" . session_name()); //redirigimos a la pg cesta.php
-      }
-      } */
-
-
+        if ($resultado == true) {//si el resultado es true
+            $mensaje = "Usuario añadido a amigos!";
+        } else {//si el resultado es false
+            $mensaje = "Error, no se ha podido añadir el usuario a la lista de amigos.";
+        }
+    }
 
     include_once '../View/amigosView.php'; //incluye la vista para mostrarla en pantalla
 } else { //si en la sesion no existe la variable nombreUsuario (creada en el login) significa que se ha intentado acceder sin haber pasado por el login

@@ -26,9 +26,6 @@ and open the template in the editor.
                 <br>
                 <br>
                 <?php
-                //SI NO SE HA BUSCADO NADA DEJAR EN BLANCO
-                //SI SE HA BUSCADO ALGO MOSTRAR EN UNA TABLA
-
                 print ($mensaje);
                 if ($mensaje == "Usuario encontrado!") {
                     ?>
@@ -36,8 +33,16 @@ and open the template in the editor.
                     <br>
                     <label>Nick: <?php print($usuarioBuscado) ?> </label>
                     <input type="submit" value='Ver Perfil' name='verPerfil[<?php print($usuarioBuscado) ?>]'>
-                    <input type="submit" value='Añadir a AMIGOS' name='añadir[<?php print($usuarioBuscado) ?>]'>
                     <?php
+                    if ($resultado == true) {
+                        ?>
+                        <input type="submit" value='Elminar de AMIGOS' name='eliminar[<?php print($usuarioBuscado) ?>]'>
+                        <?php
+                    } else {
+                        ?>
+                        <input type="submit" value='Añadir a AMIGOS' name='añadir[<?php print($usuarioBuscado) ?>]'>
+                        <?php
+                    }
                 }
                 ?>
             </fieldset>

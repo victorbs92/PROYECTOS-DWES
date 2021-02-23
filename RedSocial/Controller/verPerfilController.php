@@ -22,10 +22,10 @@ if (isset($_SESSION['nickUsuario'])) {//si en la sesion existe la variable nickU
         header("Location: ../Controller/amigosController.php?userSession=" . session_name()); //redirige al controlador que maneja el home
     }
 
-    $usuarioEncontrado = $_SESSION['usuarioEncontrado']; //se iguala la variable usuarioEncontrado con su variable de session
-    unset($_SESSION['usuarioEncontrado']); //destruimos usuarioEncontradoSession despues de haber guardado la variable
+    $nickUsuarioEncontrado = $_SESSION['nickUsuarioEncontrado']; //se iguala la variable usuarioEncontrado con su variable de session
+    unset($_SESSION['nickUsuarioEncontrado']); //destruimos usuarioEncontradoSession despues de haber guardado la variable
 
-    $miPerfil = PerfilLDN::obtenerPerfil($usuarioEncontrado); //guardamos en una variable el resultado de llamar a obtenerPerfil de la clase PerfilLDN, que devolvera un perfil con datos o un perfil vacio si no existen 
+    $miPerfil = PerfilLDN::obtenerPerfil($nickUsuarioEncontrado); //guardamos en una variable el resultado de llamar a obtenerPerfil de la clase PerfilLDN, que devolvera un perfil con datos o un perfil vacio si no existen 
 
 
 

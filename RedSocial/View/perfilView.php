@@ -17,7 +17,7 @@ and open the template in the editor.
         <form id = "miPerfil" action = "../Controller/verPerfilController.php?userSession=<?php print(session_name()) ?>" method = "POST">
             <fieldset>
                 <legend>
-                    <h1>PERFIL DE <?php print($usuarioEncontrado) ?></h1>
+                    <h1>PERFIL DE <?php print($nickUsuarioEncontrado) ?></h1>
                 </legend>
 
                 <label for="nombre">Nombre: </label>
