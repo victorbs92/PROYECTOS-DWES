@@ -60,4 +60,18 @@ class UsuarioLDN {
         }
     }
 
+    function obtenerUsuarios($nick) {
+        $usuarioDAO = new UsuarioDAO(); //creamos un objeto de la clase UsuarioDAO
+        //buscamos el idUsuario en la bd por su nick
+        $obtenerUsuarioPorNick = $usuarioDAO->obtenerUsuarioPorNick($nick); //pasamos a la funcion obtenerUsuarioPorNick el nick del buscador para saber si existe en la BD y guardamos el resultado en la variable $resultado
+
+        $row = $obtenerUsuarioPorNick->fetch_array(); //guardamos las filas afectadas en un array, si no hay filas afectas devuelve null
+
+        if ($row == null) {//si el array es nulo significa que el usuario no existe en la bd
+            return false;
+        } else {//si el array es distinto de null es que el usuario si que existe y devolvemos su nick
+            return $nick;
+        }
+    }
+
 }
