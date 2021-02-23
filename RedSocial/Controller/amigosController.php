@@ -10,6 +10,7 @@ if (isset($_GET['userSession'])) { //si en el get existe userSession crea/carga 
 
 if (isset($_SESSION['nickUsuario'])) {//si en la sesion existe la variable nombreUsuario (creada en el login)
     $mensaje = ""; //variable para pintar mensajes en la vista
+    $mensajeSinAmigos = "No tienes amigos, TRISTE!"; //mensaje que se imprime si no tienes amigos
     $nickUsuarioActual = $_SESSION['nickUsuario']; //se guarda en una variable el nick del usuario actual
 
     if (isset($_POST['cerrarSesion'])) {//si se ha pulsado el boton cerrarSesion
@@ -61,6 +62,8 @@ if (isset($_SESSION['nickUsuario'])) {//si en la sesion existe la variable nombr
             $mensaje = "Error, no se ha podido eliminar el usuario a la lista de amigos.";
         }
     }
+
+    $arrayAmigos = AmigosLDN::obtenerNickAmigos($nickUsuarioActual);
 
     include_once '../View/amigosView.php'; //incluye la vista para mostrarla en pantalla
 } else { //si en la sesion no existe la variable nombreUsuario (creada en el login) significa que se ha intentado acceder sin haber pasado por el login

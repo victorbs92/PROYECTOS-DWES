@@ -50,11 +50,51 @@ and open the template in the editor.
             <fieldset>
 
                 <?php
-                //SI NO HAY AMIGOS MOSTRAR UN MENSAJE
-                //SI HAY AMIGOS MOSTRAR EN UNA TABLA
-                print("BBBBBBBBBBBBBB");
-                ?>
+                if ($arrayAmigos == null) {
+                    print ($mensajeSinAmigos);
+                } else {
+                    ?>
+                    <table border = 1 id="tablaAmigos">
+                        <tr>
+                            <th>Amigo</th>
+                            <th>Perfil</th>
+                            <th>Eliminar</th>
+                        </tr>
+                        <?php
+                        /* CUERPO DE LA TABLA */
+                        foreach ($arrayProductos as $key => $value) {
+                            ?>
+                            <tr>
+                                <?php
+                                /* Para acceder a las propiedades del objeto, al ser private nos dara error, pero con el metodo getAllPropierties implementado en la clase
+                                  que recibe un objeto de su misma clase y con la funcion get_object_vars obtenemos un array asociativo con todas las propiedades y sus valores... */
+                                $propiedadesProducto = $arrayProductos[$key]->getAllPropierties($arrayProductos[$key]);
 
+                                foreach ($propiedadesProducto as $key2 => $value2) {//recorremos las propiedades del objeto para imprimirlas en la tabla
+                                    if ($key2 == 'imagen') {
+                                        ?>
+                                        <th><img border='0' width='100' height='100' src='../img/<?php print($value2) ?>.jpg' ></th>
+                                        <?php
+                                    } else if ($key2 != 'idProducto') {
+                                        ?>
+                                        <th><?php print ($value2) ?></th>
+                                        <?php
+                                    }
+                                }
+
+                                $idValue = $arrayProductos[$key]->getIdProducto(); //guardamos en una variable el valor del idProducto
+                                ?>
+
+                                <th><input type='submit' value='Añadir' name='añadir[<?php print($idValue) ?>]'></th>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </table>
+
+                    <?php
+                }
+                ?>
 
             </fieldset>
 

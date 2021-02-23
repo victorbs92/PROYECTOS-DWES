@@ -39,7 +39,7 @@ class AmigosDAO {
         }
     }
 
-    public function obtenerAmigos($idUsuarioActual) {
+    public function obtenerIdAmigos($idUsuarioActual) {
 
         /* Accedemos a la BD */
         $conexionBD = ConexionBD::getInstance();
@@ -70,6 +70,20 @@ class AmigosDAO {
 
         $resultado = $conexionMYSQLI->query($comprobarAmigos); //ejecutamos la consulta y guardamos el resultado que devuelve (el nº de filas afectadas)
 
+        $conexionMYSQLI->close(); //cerramos la conexion
+
+        return $resultado;
+    }
+
+    public function obtenerNickAmigoPorSuId($idUSuario) {
+        /* Accedemos a la BD */
+        $conexionBD = ConexionBD::getInstance();
+        $conexionMYSQLI = $conexionBD->connectMYSQLI();
+
+        $obtenerNickAmigos = "SELECT nick FROM usuarios WHERE idUsuario = '$idUSuario'"; //consulta para obtener el nick del usuario de la BD
+
+        $resultado = $conexionMYSQLI->query($obtenerNickAmigos); //ejecutamos la consulta y guardamos el resultado que devuelve (el nº de filas afectadas)
+        
         $conexionMYSQLI->close(); //cerramos la conexion
 
         return $resultado;
