@@ -29,8 +29,6 @@ if (isset($_SESSION['nickUsuario'])) {//si en la sesion existe la variable nombr
         } else {
             $mensaje = "Usuario encontrado!";
             $resultado = AmigosLDN::comprobarSiEsAmigo($nickUsuarioActual, $textoBuscarNombre); //comprobamos si el usuarioEncontrado es amigo o no
-            var_dump($resultado);
-           
         }
     }
 
@@ -49,6 +47,18 @@ if (isset($_SESSION['nickUsuario'])) {//si en la sesion existe la variable nombr
             $mensaje = "Usuario añadido a amigos!";
         } else {//si el resultado es false
             $mensaje = "Error, no se ha podido añadir el usuario a la lista de amigos.";
+        }
+    }
+
+    if (isset($_POST['eliminar'])) {//si se ha pulsado el boton añadir
+        $botonPulsado_nickUsuarioEncontrado = array_key_first($_POST['eliminar']); //guardamos en una variable la key del array del boton añadir que hemos pulsado que es igual al nick del usuario encontrado
+
+        $resultado = AmigosLDN::eliminarAmigo($nickUsuarioActual, $botonPulsado_nickUsuarioEncontrado); //guardamos en una variable el resultado de llamar a añadirAmigo de la clase AmigoslLDN, que devolvera true si se añadio el amigo con exito o false si dio error
+
+        if ($resultado == true) {//si el resultado es true
+            $mensaje = "Usuario eliminado de amigos!";
+        } else {//si el resultado es false
+            $mensaje = "Error, no se ha podido eliminar el usuario a la lista de amigos.";
         }
     }
 
