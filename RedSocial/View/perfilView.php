@@ -14,7 +14,7 @@ and open the template in the editor.
         <input type = "submit" name="cerrarSesion" value="Cerrar Sesión" form="miPerfil">
         <input type = "submit" name="home" value="HOME" form="miPerfil">
 
-        <form id = "miPerfil" action = "../Controller/miPerfilController.php?userSession=<?php print(session_name()) ?>" method = "POST">
+        <form id = "miPerfil" action = "../Controller/verPerfilController.php?userSession=<?php print(session_name()) ?>" method = "POST">
             <fieldset>
                 <legend>
                     <h1>PERFIL DE <?php print($usuarioEncontrado) ?></h1>
