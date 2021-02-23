@@ -18,92 +18,50 @@ and open the template in the editor.
                 <legend>
                     <h1>HOME</h1>
                 </legend>
-                
+
                 <input type = "submit" name="miPerfil" value="MI PERFIL">
                 <input type = "submit" name="amigos" value="AMIGOS">
-
-                <table border = 1 id="tablaProductos">
-                    <tr>
-
-                        <?php
-                        /* CABECERA DE LA TABLA */
-                        foreach ($propiedadesProducto as $key => $value) {
-                            if ($key != "idProducto") {
-                                ?>
-                                <th><?php print($key) ?></th>
-                                <?php
-                            }
-                        }
-                        ?>
-                        <th>Añadir al carrito</th>
-                    </tr>
-                    <?php
-                    /* CUERPO DE LA TABLA */
-                    foreach ($arrayProductos as $key => $value) {
-                        ?>
-                        <tr>
-                            <?php
-                            /* Para acceder a las propiedades del objeto, al ser private nos dara error, pero con el metodo getAllPropierties implementado en la clase
-                              que recibe un objeto de su misma clase y con la funcion get_object_vars obtenemos un array asociativo con todas las propiedades y sus valores... */
-                            $propiedadesProducto = $arrayProductos[$key]->getAllPropierties($arrayProductos[$key]);
-
-                            foreach ($propiedadesProducto as $key2 => $value2) {//recorremos las propiedades del objeto para imprimirlas en la tabla
-                                if ($key2 == 'imagen') {
-                                    ?>
-                                    <th><img border='0' width='100' height='100' src='../img/<?php print($value2) ?>.jpg' ></th>
-                                    <?php
-                                } else if ($key2 != 'idProducto') {
-                                    ?>
-                                    <th><?php print ($value2) ?></th>
-                                    <?php
-                                }
-                            }
-
-                            $idValue = $arrayProductos[$key]->getIdProducto(); //guardamos en una variable el valor del idProducto
-                            ?>
-
-                            <th><input type='submit' value='Añadir' name='añadir[<?php print($idValue) ?>]'></th>
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                </table>
-            </fieldset>
-
-            <fieldset>
-                <h1>CESTA</h1>
-
-                <ul>
-                    <?php
-                    /* RESUMEN CESTA */
-                    foreach ($unidadesProductoCesta as $key => $value) {
-                        $costeTodasUdsMismoProducto = $arrayProductos[$key]->getPrecio() * $value;
-                        ?>
-                        <li>
-                            <span> <?php print ($arrayProductos[$key]->getNombreProducto() . "  X  " . $value . "  =  " . $costeTodasUdsMismoProducto . " €") ?></span>
-                        </li>
-                        <?php
-                        $totalEuros = $totalEuros + $arrayProductos[$key]->getPrecio() * $value;
-                        $totalProductos = $totalProductos + $value;
-                    }
-                    ?>
-                </ul>
-                <?php
-                if ($totalProductos == 0) {
-                    ?>
-                    <p>Aún no hay nada por aquí</p>
-                    <?php
-                } else {
-                    ?>
-                    <p>TOTAL PRODUCTOS EN LA CESTA:  <?php print ($totalProductos) ?> uds</p>
-                    <p>IMPORTE TOTAL:  <?php print ($totalEuros) ?> €</p>
-                    <?php
-                }
-                ?>
-
                 <br><br>
-                <input type = "submit" name = "cesta" value = "Ver cesta">
-                <input type = "submit" name = "vaciar" value = "Vaciar cesta">
+
+                <fieldset>
+                    <legend>
+                        <h2>PUBLICAR</h2>
+                    </legend>
+                    <textarea id="mensaje" name="mensaje" rows="5" cols="60" maxlength="255" placeholder="Escribe aquí lo que quieras publicar en el tablón para que tus amigos puedan verlo."></textarea>
+                    <br>
+                    <input type = "submit" name="publicar" value="Publicar">
+                    <br>
+                    <br>
+                    <?php
+                    print ($mensajePublicacion);
+                    ?>
+
+                </fieldset>
+
+                <fieldset>
+                    <legend>
+                        <h2>TABLÓN</h2>
+                    </legend>
+
+
+                    <?php
+                    if (count($arrayPosts) == 0) {
+                        print ("Aún no hay nada por aquí...");
+                    } else {
+                        //var_dump($arrayPosts);
+                        for ($i = 0; $i < count($arrayPosts); $i++) { //Recorremos el array idsAmigos       
+                            ?>
+                            <textarea name="descripcion" rows="5" cols="60" disabled="true"><?php print($arrayPosts[$i]['mensaje']) ?></textarea>
+                            <br>
+                            <label>Publicado el <?php print($arrayPosts[$i]['fechaPost']) ?></label>
+                            <hr>
+
+                            <?php
+                        }
+                    }
+                    ?>
+
+                </fieldset>
             </fieldset>
         </form>
 
