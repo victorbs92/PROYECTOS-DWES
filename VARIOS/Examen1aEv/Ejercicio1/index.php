@@ -10,6 +10,7 @@
             Ingrese clave:
             <input type="password" name="campoclave"><br>
             <input type="submit" value="confirmar">
+            <br>
         </form>
     </body>
 </html> 
