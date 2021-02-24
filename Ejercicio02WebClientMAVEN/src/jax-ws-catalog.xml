@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/admin/Desktop/Víctor%20Bartolomé%20-%20Examen%20DWES%20-%20%20tema8/Ejercicio02/Ejercicio02WebService.wsdl" uri="wsdl/Ejercicio02WebService.wsdl"/>
+    <system systemId="http://localhost:8080/Ejercicio02WebServer/Ejercicio02WebService?xsd=1" uri="wsdl/localhost_8080/Ejercicio02WebServer/Ejercicio02WebService.xsd_1.xsd"/>
+</catalog>
